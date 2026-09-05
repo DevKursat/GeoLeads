@@ -365,6 +365,42 @@
       </div>
     </div>
 
+    <!-- Laser-Targeting Filter Pills -->
+    <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2 mb-5">
+      <span class="text-[11px] font-bold text-slate-400 whitespace-nowrap flex items-center gap-1.5 mr-1">
+        <i data-lucide="filter" class="w-3.5 h-3.5 text-brand-400"></i> Hızlı Filtrele:
+      </span>
+      <button onclick="setFilterPill('all')" id="pill_all" class="filter-pill active px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-brand-600 text-white shadow-sm flex items-center gap-1.5">
+        <span>Tümü</span>
+        <span id="pillCount_all" class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">0</span>
+      </button>
+      <button onclick="setFilterPill('has_email')" id="pill_has_email" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5">
+        <i data-lucide="mail" class="w-3 h-3 text-brand-400"></i>
+        <span>Sadece E-postası Olanlar</span>
+        <span id="pillCount_has_email" class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded-full">0</span>
+      </button>
+      <button onclick="setFilterPill('has_whatsapp')" id="pill_has_whatsapp" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5">
+        <i data-lucide="message-circle" class="w-3 h-3 text-emerald-400"></i>
+        <span>Sadece WhatsApp Olanlar</span>
+        <span id="pillCount_has_whatsapp" class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded-full">0</span>
+      </button>
+      <button onclick="setFilterPill('high_score')" id="pill_high_score" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5">
+        <i data-lucide="zap" class="w-3 h-3 text-amber-400"></i>
+        <span>Yüksek Fırsat Skoru (70+)</span>
+        <span id="pillCount_high_score" class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded-full">0</span>
+      </button>
+      <button onclick="setFilterPill('no_website')" id="pill_no_website" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5">
+        <i data-lucide="globe" class="w-3 h-3 text-rose-400"></i>
+        <span>Web Sitesi Olmayanlar</span>
+        <span id="pillCount_no_website" class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded-full">0</span>
+      </button>
+      <button onclick="setFilterPill('no_ssl')" id="pill_no_ssl" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5">
+        <i data-lucide="shield-alert" class="w-3 h-3 text-rose-400"></i>
+        <span>SSL Açığı Olanlar</span>
+        <span id="pillCount_no_ssl" class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded-full">0</span>
+      </button>
+    </div>
+
     <!-- VIEW 1: DATA TABLE -->
     <div id="tableView" class="glass-card rounded-2xl border border-slate-800 shadow-xl overflow-hidden mb-8">
       <div class="overflow-x-auto custom-scrollbar">
@@ -569,7 +605,7 @@
       </button>
 
       <!-- Modal Header -->
-      <div class="mb-6">
+      <div class="mb-4">
         <div class="flex items-center gap-2 mb-1">
           <span id="modalCategory" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30">Kategori</span>
           <span id="modalScoreBadge" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">Fırsat Skoru: 85</span>
@@ -580,6 +616,62 @@
         </p>
       </div>
 
+      <!-- Fast 1-Click Outreach Action Bar -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
+        <a id="modalCallBtn" href="#" class="py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-bold text-white transition flex items-center justify-center gap-1.5 shadow-md shadow-blue-600/20">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+          <span>Hemen Ara</span>
+        </a>
+        <button id="modalWhatsAppTopBtn" onclick="sendWhatsAppWithPitch()" class="py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition flex items-center justify-center gap-1.5 shadow-md shadow-emerald-600/20">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+          <span>WhatsApp ile Ulaş</span>
+        </button>
+        <button id="modalEmailTopBtn" onclick="sendEmailWithPitch()" class="py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white transition flex items-center justify-center gap-1.5 shadow-md shadow-indigo-600/20">
+          <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+          <span>E-Posta Gönder</span>
+        </button>
+        <a id="modalMapsLink" href="#" target="_blank" class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition flex items-center justify-center gap-1.5 border border-slate-700">
+          <i data-lucide="map" class="w-3.5 h-3.5"></i>
+          <span>Haritada Aç</span>
+        </a>
+      </div>
+
+      <!-- Comprehensive Digital Audit Report Grid -->
+      <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-4 mb-5">
+        <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center justify-between">
+          <span class="flex items-center gap-1.5">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-400"></i> Kapsamlı Dijital Varlık & Açık Denetim Raporu
+          </span>
+          <span id="modalAuditScore" class="text-[11px] font-bold text-amber-400">Fırsat Skoru: 0/100</span>
+        </h4>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
+            <span class="text-[10px] text-slate-400 block mb-0.5">🌐 Web Sitesi Varlığı:</span>
+            <div id="auditWebStatus" class="font-bold text-slate-200">-</div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
+            <span class="text-[10px] text-slate-400 block mb-0.5">🔒 SSL Güvenlik:</span>
+            <div id="auditSSLStatus" class="font-bold text-slate-200">-</div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
+            <span class="text-[10px] text-slate-400 block mb-0.5">📱 Mobil Uyumluluk:</span>
+            <div id="auditMobileStatus" class="font-bold text-slate-200">-</div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
+            <span class="text-[10px] text-slate-400 block mb-0.5">⭐ Harita & Yorum İtibarı:</span>
+            <div id="auditReputationStatus" class="font-bold text-amber-400">-</div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
+            <span class="text-[10px] text-slate-400 block mb-0.5">💬 Doğrudan WhatsApp:</span>
+            <div id="auditWhatsAppStatus" class="font-bold text-slate-200">-</div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
+            <span class="text-[10px] text-slate-400 block mb-0.5">📧 Doğrulanmış E-Posta:</span>
+            <div id="auditEmailStatus" class="font-bold text-slate-200">-</div>
+          </div>
+        </div>
+      </div>
+
       <!-- Two Columns: Audit Gaps & Contact Hub -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
         <!-- Audit Gaps -->
@@ -587,12 +679,12 @@
           <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
             <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-400"></i> Tespit Edilen Açıklar & Satış Kancaları
           </h4>
-          <div id="modalGapsList" class="space-y-2 text-xs">
+          <div id="modalGapsList" class="space-y-2 text-xs custom-scrollbar max-h-48 overflow-y-auto pr-1">
             <!-- Dynamic Gaps -->
           </div>
         </div>
 
-        <!-- Contact Points & Map Link -->
+        <!-- Contact Points & Direct Actions -->
         <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
           <div>
             <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
@@ -605,24 +697,24 @@
               </div>
               <div class="flex items-center justify-between">
                 <span class="text-slate-400">E-Posta:</span>
-                <span id="modalEmails" class="font-bold text-brand-300 select-all">-</span>
+                <span id="modalEmails" class="font-bold text-brand-300 select-all truncate max-w-[180px]">-</span>
               </div>
               <div class="flex items-center justify-between">
                 <span class="text-slate-400">Web Sitesi:</span>
                 <span id="modalWebsite" class="font-bold text-blue-400 truncate max-w-[180px]">-</span>
               </div>
               <div class="flex items-center justify-between">
-                <span class="text-slate-400">Google Değerlendirme:</span>
+                <span class="text-slate-400">Google Puanı:</span>
                 <span id="modalRating" class="font-bold text-amber-400">-</span>
               </div>
             </div>
           </div>
           <div class="mt-4 pt-3 border-t border-slate-800 flex gap-2">
-            <a id="modalMapsLink" href="#" target="_blank" class="flex-1 py-2 text-center rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition">
-              Haritada Aç
-            </a>
-            <button id="modalWhatsAppBtn" onclick="openWhatsAppChat()" class="flex-1 py-2 text-center rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition flex items-center justify-center gap-1">
-              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> WhatsApp
+            <button id="modalWhatsAppBtn" onclick="sendWhatsAppWithPitch()" class="flex-1 py-2 text-center rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition flex items-center justify-center gap-1">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> WhatsApp ile Ulaş
+            </button>
+            <button id="modalEmailBtn" onclick="sendEmailWithPitch()" class="flex-1 py-2 text-center rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white transition flex items-center justify-center gap-1">
+              <i data-lucide="mail" class="w-3.5 h-3.5"></i> E-Posta Gönder
             </button>
           </div>
         </div>
@@ -658,6 +750,9 @@
             <div class="flex items-center gap-2">
               <button onclick="copyPitchText()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white transition flex items-center gap-1">
                 <i data-lucide="copy" class="w-3 h-3"></i> Kopyala
+              </button>
+              <button onclick="sendEmailWithPitch()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white transition flex items-center gap-1 shadow-lg shadow-indigo-600/20">
+                <i data-lucide="mail" class="w-3 h-3"></i> E-Posta Gönder
               </button>
               <button onclick="sendWhatsAppWithPitch()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition flex items-center gap-1 shadow-lg shadow-emerald-600/20">
                 <i data-lucide="send" class="w-3 h-3"></i> WhatsApp Web'de Gönder
@@ -1021,8 +1116,8 @@
         const json = await res.json();
         if (json.success) {
           leadsState = json.data;
-          renderTable(leadsState);
-          renderKanban(leadsState);
+          updatePillCounts();
+          applyFilters();
           document.getElementById("kanbanCountBadge").textContent = leadsState.length;
         }
       } catch (e) {
@@ -1208,13 +1303,25 @@
             </select>
           </td>
           <td class="py-3 px-4 text-right">
-            <div class="flex items-center justify-end gap-1.5">
-              ${l.whatsapp ? `
-                <a href="${l.whatsapp}" target="_blank" class="p-1.5 rounded-lg bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 border border-emerald-500/30 transition" title="WhatsApp Aç">
+            <div class="flex items-center justify-end gap-1.5 flex-wrap sm:flex-nowrap">
+              ${(l.whatsapp || l.phone) ? `
+                <button onclick="quickWhatsAppOutreach(${l.id})" class="px-2 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold transition flex items-center gap-1 shadow-sm" title="1-Tıkla Hazır Teklif ile WhatsApp Aç & İletişim Kuruldu Yap">
                   <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                  <span class="hidden md:inline">WhatsApp</span>
+                </button>
+              ` : ''}
+              ${(l.emails && l.emails.length > 0) ? `
+                <button onclick="quickEmailOutreach(${l.id})" class="px-2 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 text-[11px] font-semibold transition flex items-center gap-1 shadow-sm" title="1-Tıkla Hazır Teklif ile E-Posta Aç & İletişim Kuruldu Yap">
+                  <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+                  <span class="hidden md:inline">E-Posta</span>
+                </button>
+              ` : ''}
+              ${l.phone ? `
+                <a href="tel:${l.phone.replace(/\s+/g, '')}" onclick="markLeadContactedDirect(${l.id})" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition" title="Hemen Ara">
+                  <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
                 </a>
               ` : ''}
-              <button onclick="openLeadModal(${l.id})" class="px-2.5 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-bold transition flex items-center gap-1">
+              <button onclick="openLeadModal(${l.id})" class="px-2.5 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-bold transition flex items-center gap-1 shadow-sm" title="Kapsamlı Denetim Raporu & Pitch Stüdyosu">
                 <i data-lucide="wand-2" class="w-3 h-3"></i> Detay & Pitch
               </button>
             </div>
@@ -1308,6 +1415,84 @@
       document.getElementById("modalRating").textContent = lead.rating ? `★ ${lead.rating} (${lead.review_count} yorum)` : "Değerlendirme yok";
       document.getElementById("modalStageSelect").value = lead.crm_stage || "NEW";
       document.getElementById("modalMapsLink").href = lead.google_maps_url || "#";
+
+      // Setup Direct Call Button
+      const callBtn = document.getElementById("modalCallBtn");
+      if (lead.phone) {
+        callBtn.href = `tel:${lead.phone.replace(/\s+/g, '')}`;
+        callBtn.onclick = () => { markAsContacted(); };
+        callBtn.classList.remove("opacity-50", "pointer-events-none");
+      } else {
+        callBtn.href = "#";
+        callBtn.onclick = (e) => { e.preventDefault(); showToast("Telefon numarası bulunamadı", "error"); };
+        callBtn.classList.add("opacity-50");
+      }
+
+      // Setup Email Buttons
+      const emailTopBtn = document.getElementById("modalEmailTopBtn");
+      const emailBtn = document.getElementById("modalEmailBtn");
+      if (lead.emails && lead.emails.length > 0) {
+        if (emailTopBtn) emailTopBtn.classList.remove("opacity-50");
+        if (emailBtn) emailBtn.classList.remove("opacity-50");
+      } else {
+        if (emailTopBtn) emailTopBtn.classList.add("opacity-50");
+        if (emailBtn) emailBtn.classList.add("opacity-50");
+      }
+
+      // Populate Digital Audit Report Grid
+      document.getElementById("modalAuditScore").textContent = `Fırsat Skoru: ${lead.opportunity_score}/100`;
+
+      // 1. Web Varlığı
+      const webStatusEl = document.getElementById("auditWebStatus");
+      if (lead.has_website) {
+        webStatusEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Aktif Web Sitesi</span>`;
+      } else {
+        webStatusEl.innerHTML = `<span class="text-rose-400 font-semibold flex items-center gap-1"><i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Web Sitesi Yok (Büyük Satış Açığı!)</span>`;
+      }
+
+      // 2. SSL Güvenlik
+      const sslStatusEl = document.getElementById("auditSSLStatus");
+      if (lead.has_ssl) {
+        sslStatusEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Güvenli SSL (HTTPS)</span>`;
+      } else if (lead.has_website) {
+        sslStatusEl.innerHTML = `<span class="text-rose-400 font-semibold flex items-center gap-1"><i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Güvensiz HTTP ('Güvenli Değil')</span>`;
+      } else {
+        sslStatusEl.innerHTML = `<span class="text-slate-500">Site Yok</span>`;
+      }
+
+      // 3. Mobil Uyumluluk
+      const mobileStatusEl = document.getElementById("auditMobileStatus");
+      if (lead.is_mobile_friendly) {
+        mobileStatusEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="smartphone" class="w-3.5 h-3.5"></i> Mobil Uyumlu</span>`;
+      } else if (lead.has_website) {
+        mobileStatusEl.innerHTML = `<span class="text-amber-400 font-semibold flex items-center gap-1"><i data-lucide="smartphone" class="w-3.5 h-3.5"></i> Mobil Uyumluluk Açığı</span>`;
+      } else {
+        mobileStatusEl.innerHTML = `<span class="text-slate-500">-</span>`;
+      }
+
+      // 4. Google İtibarı
+      const repStatusEl = document.getElementById("auditReputationStatus");
+      if (lead.rating) {
+        repStatusEl.innerHTML = `★ ${lead.rating} (${lead.review_count} yorum)`;
+      } else {
+        repStatusEl.innerHTML = `<span class="text-slate-400">Yorum Yok</span>`;
+      }
+
+      // 5. WhatsApp Hattı
+      const waStatusEl = document.getElementById("auditWhatsAppStatus");
+      if (lead.whatsapp) {
+        waStatusEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Doğrudan Hat Aktif</span>`;
+      } else {
+        waStatusEl.innerHTML = `<span class="text-amber-400 font-semibold flex items-center gap-1"><i data-lucide="minus-circle" class="w-3.5 h-3.5"></i> WhatsApp Hattı Yok</span>`;
+      }
+
+      // 6. E-Posta Varlığı
+      const emailStatusEl = document.getElementById("auditEmailStatus");
+      if (lead.emails && lead.emails.length > 0) {
+        emailStatusEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="mail" class="w-3.5 h-3.5"></i> ${lead.emails.length} Doğrulanmış E-posta</span>`;
+      } else {
+        emailStatusEl.innerHTML = `<span class="text-slate-400">E-posta Bulunamadı</span>`;
+      }
 
       // Render Gaps
       const gapsBox = document.getElementById("modalGapsList");
@@ -1420,25 +1605,141 @@
       safeCopy(text, "Satış metni panoya kopyalandı!");
     }
 
+    function normalizePhoneForWhatsApp(phoneStr, waLink) {
+      if (waLink && waLink.includes("wa.me/")) {
+        const parts = waLink.split("wa.me/")[1].split("?")[0].replace(/\D/g, '');
+        if (parts.length >= 10) return parts;
+      }
+      if (!phoneStr) return "";
+      let digits = phoneStr.replace(/\D/g, '');
+      if (digits.length === 10 && digits.startsWith("5")) {
+        return "90" + digits;
+      } else if (digits.length === 11 && digits.startsWith("05")) {
+        return "9" + digits;
+      } else if (digits.length === 12 && digits.startsWith("905")) {
+        return digits;
+      } else if (digits.length >= 10) {
+        return digits;
+      }
+      return "";
+    }
+
+    function generateQuickPitch(lead, channel = 'whatsapp') {
+      const biz = lead.name || "Yetkili";
+      const city = lead.city || "";
+      const cat = lead.category || "işletme";
+      const gap = lead.primary_gap || "";
+
+      if (channel === 'whatsapp') {
+        if (gap === 'MISSING_WEBSITE' || !lead.has_website) {
+          return `Merhaba ${biz} ekibi, ${city} bölgesinde ${cat} hizmetinizi Google'da inceledim. Konumunuz harika ancak arayan müşterilerin doğrudan bilgi ve randevu alabileceği mobil bir web siteniz eksik olduğu için müşteriler rakiplere kayabiliyor. Sizin için hazırladığımız hızlı taslak çalışmasını WhatsApp'tan iletmemi ister misiniz?`;
+        } else if (gap === 'NO_SSL_INSECURE' || !lead.has_ssl) {
+          return `Merhaba ${biz} ekibi, web sitenizde Chrome 'Güvenli Değil' uyarısı çıktığını fark ettim. Bu durum ziyaretçilerin %80'ini kaçırıyor. SSL ve güvenlik kurulumunu 1 gün içinde tamamlayabiliriz. Detaylı analiz raporunu paylaşabilir miyim?`;
+        } else if (lead.rating && lead.rating < 4.5) {
+          return `Merhaba ${biz} ekibi, ${city} bölgesinde Google puanınızı (${lead.rating}★) inceledik. Otomatik memnuniyet sistemiyle mutlu müşterilerinizden 5 yıldızlı yorum toplayarak puanınızı 4.8+'ya çıkarabiliriz. Örnek sonuçları ileteyim mi?`;
+        } else {
+          return `Merhaba ${biz} ekibi, ${city} bölgesindeki ${cat} profilinizi inceledim. Google Haritalar'da daha fazla müşteri çekmeniz ve dijital büyümeniz için hazırladığımız özel fırsat analizini paylaşmak isterim. İncelemek ister misiniz?`;
+        }
+      } else {
+        const subject = `${biz} İçin Dijital Fırsat Analizi & Müşteri Artırma (${city})`;
+        const body = `Merhaba ${biz} Yetkilisi,\n\n${city} bölgesinde ${cat} sektöründeki profilinizi inceledik.\n\nİşletmeniz için tespit ettiğimiz dijital fırsatları ve müşteri kazanımınızı artıracak adımları içeren kısa bir rapor hazırladık.\n\nDetaylı analizi incelemek isterseniz bu e-postayı yanıtlamanız yeterlidir.\n\nSaygılarımızla.`;
+        return { subject, body };
+      }
+    }
+
+    async function quickWhatsAppOutreach(leadId) {
+      const lead = leadsState.find(x => x.id === leadId);
+      if (!lead) return;
+
+      const targetPhone = normalizePhoneForWhatsApp(lead.phone, lead.whatsapp);
+      if (!targetPhone) {
+        showToast("İşletmenin telefon veya WhatsApp numarası bulunamadı.", "error");
+        return;
+      }
+
+      const pitchText = generateQuickPitch(lead, 'whatsapp');
+      const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(pitchText)}`;
+      window.open(waUrl, "_blank");
+
+      await markLeadContactedDirect(leadId);
+      showToast(`${lead.name} için WhatsApp açıldı ve CRM aşaması 'İletişim Kuruldu' yapıldı! 🎉`, "success");
+    }
+
+    async function quickEmailOutreach(leadId) {
+      const lead = leadsState.find(x => x.id === leadId);
+      if (!lead || !lead.emails || lead.emails.length === 0) {
+        showToast("İşletmenin kayıtlı e-posta adresi bulunamadı.", "error");
+        return;
+      }
+
+      const pitch = generateQuickPitch(lead, 'email');
+      const targetEmail = lead.emails[0];
+      const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(pitch.subject)}&body=${encodeURIComponent(pitch.body)}`;
+      window.open(mailtoUrl, "_blank");
+
+      await markLeadContactedDirect(leadId);
+      showToast(`${lead.name} için e-posta hazırlandı ve CRM aşaması 'İletişim Kuruldu' yapıldı!`, "success");
+    }
+
+    async function markLeadContactedDirect(leadId) {
+      try {
+        await fetch(`/api/leads/${leadId}/contact`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ channel: "direct" })
+        });
+        const l = leadsState.find(x => x.id === leadId);
+        if (l) l.crm_stage = "CONTACTED";
+        if (activeLead && activeLead.id === leadId) {
+          activeLead.crm_stage = "CONTACTED";
+          const sel = document.getElementById("modalStageSelect");
+          if (sel) sel.value = "CONTACTED";
+        }
+        renderTable(leadsState);
+        renderKanban(leadsState);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
     function sendWhatsAppWithPitch() {
       if (!activeLead) return;
       const text = document.getElementById("modalPitchText").value;
-      const phoneDigits = activeLead.phone ? activeLead.phone.replace(/\D/g, '') : "";
-      if (!phoneDigits) {
-        showToast("Bu işletmenin telefon numarası bulunmuyor.", "error");
+      const targetPhone = normalizePhoneForWhatsApp(activeLead.phone, activeLead.whatsapp);
+      if (!targetPhone) {
+        showToast("Bu işletmenin telefon veya WhatsApp numarası bulunmuyor.", "error");
         return;
       }
-      let url = `https://wa.me/${phoneDigits}?text=${encodeURIComponent(text)}`;
+      let url = `https://wa.me/${targetPhone}?text=${encodeURIComponent(text)}`;
       window.open(url, "_blank");
       markAsContacted();
     }
 
+    function sendEmailWithPitch() {
+      if (!activeLead) return;
+      if (!activeLead.emails || activeLead.emails.length === 0) {
+        showToast("Bu işletmenin kayıtlı e-posta adresi bulunmuyor.", "error");
+        return;
+      }
+      const text = document.getElementById("modalPitchText").value;
+      const targetEmail = activeLead.emails[0];
+      const subject = activeLead.generatedPitch && activeLead.generatedPitch.subject 
+        ? activeLead.generatedPitch.subject 
+        : `${activeLead.name} İçin Dijital Fırsat Analizi (${activeLead.city || ''})`;
+      
+      const mailto = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
+      window.open(mailto, "_blank");
+      markAsContacted();
+    }
+
     function openWhatsAppChat() {
-      if (!activeLead || !activeLead.whatsapp) {
+      if (!activeLead) return;
+      const targetPhone = normalizePhoneForWhatsApp(activeLead.phone, activeLead.whatsapp);
+      if (!targetPhone) {
         showToast("WhatsApp bağlantısı bulunamadı.", "error");
         return;
       }
-      window.open(activeLead.whatsapp, "_blank");
+      window.open(`https://wa.me/${targetPhone}`, "_blank");
       markAsContacted();
     }
 
@@ -1447,7 +1748,8 @@
       try {
         await fetch(`/api/leads/${activeLead.id}/contact`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ channel: "whatsapp" })
         });
         activeLead.crm_stage = "CONTACTED";
         document.getElementById("modalStageSelect").value = "CONTACTED";
@@ -1477,16 +1779,48 @@
       await updateLeadStage(activeLead.id, stage);
     }
 
+    // Laser-Targeting Filter Pills Logic
+    let activeFilterPill = 'all';
+
+    function setFilterPill(pillKey) {
+      activeFilterPill = pillKey;
+      document.querySelectorAll('.filter-pill').forEach(btn => {
+        btn.className = "filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5";
+      });
+      const activeBtn = document.getElementById("pill_" + pillKey);
+      if (activeBtn) {
+        activeBtn.className = "filter-pill active px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-brand-600 text-white shadow-sm flex items-center gap-1.5";
+      }
+      applyFilters();
+    }
+
+    function updatePillCounts() {
+      const allCount = leadsState.length;
+      const emailCount = leadsState.filter(l => l.emails && l.emails.length > 0).length;
+      const waCount = leadsState.filter(l => Boolean(l.whatsapp) || (l.phone && l.phone.includes("5"))).length;
+      const highScoreCount = leadsState.filter(l => l.opportunity_score >= 70).length;
+      const noWebCount = leadsState.filter(l => !l.has_website).length;
+      const noSslCount = leadsState.filter(l => l.has_website && !l.has_ssl).length;
+
+      const setT = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+      setT("pillCount_all", allCount);
+      setT("pillCount_has_email", emailCount);
+      setT("pillCount_has_whatsapp", waCount);
+      setT("pillCount_high_score", highScoreCount);
+      setT("pillCount_no_website", noWebCount);
+      setT("pillCount_no_ssl", noSslCount);
+    }
+
     // Filter Logic
     function applyFilters() {
-      const search = document.getElementById("tableSearchFilter").value.toLowerCase();
+      const search = (document.getElementById("tableSearchFilter").value || "").toLowerCase();
       const opp = document.getElementById("opportunityFilter").value;
 
       const filtered = leadsState.filter(l => {
         const matchesSearch = !search || 
-          l.name.toLowerCase().includes(search) || 
-          l.category.toLowerCase().includes(search) ||
-          l.city.toLowerCase().includes(search);
+          (l.name && l.name.toLowerCase().includes(search)) || 
+          (l.category && l.category.toLowerCase().includes(search)) ||
+          (l.city && l.city.toLowerCase().includes(search));
 
         let matchesOpp = true;
         if (opp === "high") matchesOpp = l.opportunity_score >= 70;
@@ -1494,10 +1828,18 @@
         else if (opp === "no_ssl") matchesOpp = l.has_website && !l.has_ssl;
         else if (opp === "low_rating") matchesOpp = l.rating && l.rating < 4.2;
 
-        return matchesSearch && matchesOpp;
+        let matchesPill = true;
+        if (activeFilterPill === "has_email") matchesPill = l.emails && l.emails.length > 0;
+        else if (activeFilterPill === "has_whatsapp") matchesPill = Boolean(l.whatsapp) || (l.phone && l.phone.includes("5"));
+        else if (activeFilterPill === "high_score") matchesPill = l.opportunity_score >= 70;
+        else if (activeFilterPill === "no_website") matchesPill = !l.has_website;
+        else if (activeFilterPill === "no_ssl") matchesPill = l.has_website && !l.has_ssl;
+
+        return matchesSearch && matchesOpp && matchesPill;
       });
 
       renderTable(filtered);
+      renderKanban(filtered);
     }
 
     // About Modal

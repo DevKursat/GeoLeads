@@ -7,19 +7,47 @@ import os
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from app.services.scraper_engine import scraper_engine, OSM_CATEGORY_MAPPINGS
+from app.services.scraper_engine import scraper_engine, OSM_CATEGORY_MAPPINGS, normalize_text
 from app.models import Lead, CRMStage
 
 
 class TestScraperEngine(unittest.TestCase):
+    def test_normalize_text_turkish_characters(self):
+        self.assertEqual(normalize_text("DİŞ KLİNİĞİ"), "dis klinigi")
+        self.assertEqual(normalize_text("Hukuk Bürosu"), "hukuk burosu")
+        self.assertEqual(normalize_text("Güzellik Merkezi"), "guzellik merkezi")
+        self.assertEqual(normalize_text("Çankaya / Kadıköy"), "cankaya / kadikoy")
+
     def test_osm_category_mappings_comprehensive(self):
         # Must include healthcare, legal, food, trade, beauty, it, architecture, accounting
         categories_to_check = [
-            "diş", "avukat", "doktor", "restoran", "otel", "spor", "kuaför",
-            "güzellik", "veteriner", "oto", "emlak", "yazılım", "mimar", "muhasebe"
+            "diş kliniği", "diş", "hukuk bürosu", "avukat", "doktor", "restoran", "otel", "spor", "kuaför",
+            "güzellik merkezi", "güzellik", "oto servis", "oto", "mimarlık", "mimar",
+            "yazılım ajansı", "yazılım", "veteriner", "emlak", "muhasebe"
         ]
         for cat in categories_to_check:
             self.assertIn(cat, OSM_CATEGORY_MAPPINGS, f"Missing OSM category mapping: {cat}")
+
+    def test_complex_query_tag_resolution(self):
+        complex_queries = {
+            "Diş Kliniği": '["amenity"="dentist"]',
+            "Hukuk Bürosu": '["office"="lawyer"]',
+            "Yazılım Ajansı": '["office"="it"]',
+            "Güzellik Merkezi": '["shop"="beauty"]',
+            "Oto Servis": '["shop"="car_repair"]',
+            "Mimarlık": '["office"="architect"]',
+            "Restoran": '["amenity"="restaurant"]',
+        }
+        sorted_keys = sorted(OSM_CATEGORY_MAPPINGS.keys(), key=lambda k: len(k), reverse=True)
+        for query, expected_tag in complex_queries.items():
+            q_norm = normalize_text(query)
+            matched_tag = None
+            for k in sorted_keys:
+                k_norm = normalize_text(k)
+                if k_norm in q_norm or q_norm in k_norm:
+                    matched_tag = OSM_CATEGORY_MAPPINGS[k]
+                    break
+            self.assertEqual(matched_tag, expected_tag, f"Failed resolving tag for {query}")
 
     def test_generate_sector_leads_properties(self):
         leads = scraper_engine._generate_sector_leads(query="Yazılım Ajansı", city="İstanbul", count=5)
