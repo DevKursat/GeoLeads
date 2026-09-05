@@ -197,6 +197,12 @@
 
       <!-- Action Buttons -->
       <div class="flex items-center space-x-2 sm:space-x-3">
+        <!-- About Button -->
+        <button onclick="openAboutModal()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-indigo-600/15 hover:bg-indigo-600/25 border border-indigo-500/30 text-indigo-200 hover:text-white transition active:scale-95 shadow-sm" title="Hakkında & GEO Bilgisi">
+          <i data-lucide="info" class="w-3.5 h-3.5 text-indigo-400"></i>
+          <span class="hidden sm:inline">Hakkında</span>
+        </button>
+
         <!-- Install Desktop PWA App -->
         <button id="btnInstallPwa" onclick="installPwa()" class="hidden inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white shadow-md shadow-brand-500/20 transition active:scale-95" title="Masaüstü Uygulaması Olarak Yükle">
           <i data-lucide="laptop" class="w-3.5 h-3.5 text-brand-200"></i>
@@ -463,6 +469,97 @@
     </div>
   </main>
 
+  <!-- Site Footer -->
+  <footer class="border-t border-slate-800/80 bg-slate-950/60 backdrop-blur-md mt-16 py-10 transition-colors">
+    <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- Brand / Value Proposition -->
+        <div class="md:col-span-2 space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center text-white font-black text-base shadow-md shadow-brand-500/20">
+              <i data-lucide="crosshair" class="w-5 h-5"></i>
+            </div>
+            <span class="text-lg font-extrabold tracking-tight text-white">Geo<span class="text-brand-400">Leads</span></span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">100% Açık Kaynak</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed max-w-md">
+            Sıfır maliyetli Google Maps & Açık Harita B2B müşteri arama motoru. Şehir ve sektör bazlı küresel GEO tarama, derin web avcısıyla e-posta & doğrudan WhatsApp filtreleme ve 1-tıkla AI soğuk satış kancası üretimi.
+          </p>
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()" class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition">
+              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
+              <span>GitHub'da Yıldızla</span>
+              <span id="footerStarCountBadge" class="bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded text-[10px] font-bold">⭐ Star</span>
+            </a>
+            <span class="text-slate-700">•</span>
+            <a href="https://opensource.org/licenses/MIT" target="_blank" class="text-xs text-slate-400 hover:text-slate-200 transition flex items-center gap-1">
+              <i data-lucide="shield" class="w-3 h-3 text-slate-500"></i> MIT Lisansı
+            </a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Hızlı Bağlantılar</h4>
+          <ul class="space-y-2 text-xs text-slate-400">
+            <li>
+              <button onclick="openAboutModal()" class="hover:text-brand-400 transition flex items-center gap-1.5 text-left">
+                <i data-lucide="info" class="w-3.5 h-3.5 text-brand-400"></i> Hakkında & GEO Motoru
+              </button>
+            </li>
+            <li>
+              <a href="https://github.com/DevKursat/GeoLeads#readme" target="_blank" class="hover:text-brand-400 transition flex items-center gap-1.5">
+                <i data-lucide="book-open" class="w-3.5 h-3.5 text-indigo-400"></i> Dokümantasyon & Kurulum
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/DevKursat/GeoLeads/issues" target="_blank" class="hover:text-brand-400 transition flex items-center gap-1.5">
+                <i data-lucide="bug" class="w-3.5 h-3.5 text-rose-400"></i> Hata / Özellik Bildir
+              </a>
+            </li>
+            <li>
+              <button onclick="openStarGateModal()" class="hover:text-amber-300 transition flex items-center gap-1.5 text-amber-400">
+                <i data-lucide="award" class="w-3.5 h-3.5"></i> Pro Sürümü Aç
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Viral Share & Community -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Topluluk & Paylaş</h4>
+          <p class="text-[11px] text-slate-400 leading-snug">
+            GeoLeads'i çevrenizle paylaşarak açık kaynak projemize yıldız ve organik destek kazandırın:
+          </p>
+          <div class="flex items-center gap-2 pt-1">
+            <button onclick="shareOnTwitter()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-sky-500/20 hover:text-sky-400 text-slate-300 border border-slate-700/80 transition" title="X / Twitter'da Paylaş">
+              <i data-lucide="twitter" class="w-4 h-4"></i>
+            </button>
+            <button onclick="shareOnLinkedIn()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-blue-600/20 hover:text-blue-400 text-slate-300 border border-slate-700/80 transition" title="LinkedIn'de Paylaş">
+              <i data-lucide="linkedin" class="w-4 h-4"></i>
+            </button>
+            <button onclick="shareOnWhatsApp()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-emerald-600/20 hover:text-emerald-400 text-slate-300 border border-slate-700/80 transition" title="WhatsApp'ta Paylaş">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+            </button>
+            <button onclick="copyRepoUrl()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-brand-600/20 hover:text-brand-300 text-slate-300 border border-slate-700/80 transition" title="Depo Bağlantısını Kopyala">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-2">
+        <p>© 2026 GeoLeads Pro. Açık Kaynak Topluluk Projesi — Geliştirici: <a href="https://github.com/DevKursat" target="_blank" class="text-slate-400 hover:text-white underline decoration-slate-700">DevKursat</a>.</p>
+        <div class="flex items-center gap-4">
+          <span>Küresel Yerel SEO & GEO Hedefli Arama</span>
+          <span class="text-slate-700">•</span>
+          <button onclick="openAboutModal()" class="hover:text-slate-300 transition">Hakkında / About</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <!-- MODAL 1: LEAD DETAIL & AI PITCH STUDIO -->
   <div id="leadModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
     <div class="glass-card bg-slate-900 border border-slate-700 rounded-2xl max-w-3xl w-full p-6 my-8 shadow-2xl relative">
@@ -640,6 +737,149 @@
     </div>
   </div>
 
+  <!-- MODAL 3: ABOUT GEOLEADS & SEO/GEO GROWTH ENGINE (UI/UX PRO MAX) -->
+  <div id="aboutModal" onclick="if(event.target === this) closeAboutModal()" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-card bg-slate-900/95 border border-indigo-500/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 text-left shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+      
+      <!-- Close Button -->
+      <button onclick="closeAboutModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 transition" title="Kapat">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <!-- Modal Hero Header -->
+      <div class="flex items-start gap-4 mb-6">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-amber-400 flex-shrink-0 flex items-center justify-center shadow-lg shadow-brand-500/25 text-white">
+          <i data-lucide="crosshair" class="w-7 h-7"></i>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-1">
+            <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">Geo<span class="text-brand-400">Leads</span> Pro</h2>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-wider">v2.0 Turbo GEO</span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30 uppercase tracking-wider">%100 Açık Kaynak</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 leading-snug">
+            Sıfır Maliyetli B2B Müşteri Bulma, Canlı Harita Kazıyıcı & AI Satış Kancası Motoru
+          </p>
+        </div>
+      </div>
+
+      <!-- Section 1: Value Proposition -->
+      <div class="space-y-4 mb-6 text-xs text-slate-300">
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
+          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i>
+            <span>Neden GeoLeads? (Sıfır Maliyet & Doğrulanmış Canlı Veri)</span>
+          </h3>
+          <p class="leading-relaxed text-slate-300">
+            Geleneksel Google Maps ve B2B müşteri listesi servisleri, sorgu başına yüksek faturalar çıkarır veya yalnızca genel santral numarası sunar. 
+            <strong class="text-white">GeoLeads</strong>, sıfır API maliyetiyle doğrudan canlı harita verisi ve arama motoru dizinlerinden <strong class="text-emerald-300">%100 gerçek işletmeleri</strong> bularak ajanslar, serbest çalışanlar ve satış ekipleri için uçtan uca müşteri hattı kurar.
+          </p>
+        </div>
+
+        <!-- Section 2: GEO & Global Search Explanation -->
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
+          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+            <i data-lucide="globe" class="w-4 h-4 text-blue-400"></i>
+            <span>GEO & Yerel Arama Algoritması Nasıl Çalışır?</span>
+          </h3>
+          <p class="leading-relaxed text-slate-300 mb-3">
+            GeoLeads, dünya çapındaki coğrafi sınırları (bounding box, enlem, boylam) ve yerel dizinleri akıllı algoritmalarla harmanlar:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
+              <div class="font-bold text-white flex items-center gap-1.5 mb-1">
+                <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-400"></i> Küresel Coğrafi Kapsama
+              </div>
+              <p class="text-[11px] text-slate-400">
+                İstanbul, Berlin, Londra veya New York; dünyanın her ülkesinde ve semtinde anında yerel B2B arama yapabilirsiniz.
+              </p>
+            </div>
+            <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
+              <div class="font-bold text-white flex items-center gap-1.5 mb-1">
+                <i data-lucide="layers" class="w-3.5 h-3.5 text-indigo-400"></i> 5 Döner Ayna (Overpass)
+              </div>
+              <p class="text-[11px] text-slate-400">
+                5 yedekli OpenStreetMap Overpass aynası ile kesintisiz, limitsiz ve sıfır gecikmeli harita verisi.
+              </p>
+            </div>
+            <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
+              <div class="font-bold text-white flex items-center gap-1.5 mb-1">
+                <i data-lucide="radar" class="w-3.5 h-3.5 text-emerald-400"></i> Derin Web & WhatsApp Avcısı
+              </div>
+              <p class="text-[11px] text-slate-400">
+                İşletmenin web sitesine gidip iletişim ve hakkında sayfalarından net e-posta ve doğrudan WhatsApp hatlarını filtreler.
+              </p>
+            </div>
+            <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
+              <div class="font-bold text-white flex items-center gap-1.5 mb-1">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i> Dijital Açık & Fırsat Skoru
+              </div>
+              <p class="text-[11px] text-slate-400">
+                SSL eksikliği, düşük Google puanı, web sitesi yokluğu gibi satış açıklarını saptar ve 1-tıkla AI soğuk teklif üretir.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Prominent Star on GitHub CTA Card -->
+        <div class="bg-gradient-to-br from-amber-500/15 via-indigo-600/15 to-purple-600/15 border-2 border-amber-400/40 rounded-2xl p-5 relative overflow-hidden shadow-xl">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="space-y-1 text-center sm:text-left">
+              <div class="flex items-center justify-center sm:justify-start gap-2">
+                <span class="text-amber-400 animate-bounce">⭐</span>
+                <h4 class="text-base font-extrabold text-white">GitHub'da Projeye Yıldız Verin</h4>
+                <span id="aboutStarCountBadge" class="bg-amber-400/30 text-amber-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-amber-400/40">⭐ Star</span>
+              </div>
+              <p class="text-xs text-slate-300 max-w-sm">
+                Açık kaynak topluluğumuzu destekleyin, GitHub arama sıralamasında zirveye çıkmamıza yardımcı olun ve tüm Pro yetenekleri anında açın!
+              </p>
+            </div>
+            <a href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClickFromAbout()" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/30 transition transform active:scale-95 flex-shrink-0">
+              <i data-lucide="star" class="w-4 h-4 fill-slate-950 text-slate-950"></i>
+              <span>Yıldız Ver & Kutla 🎉</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Section 4: 1-Click Viral Sharing -->
+        <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="share-2" class="w-3.5 h-3.5 text-indigo-400"></i> 1-Tıkla Topluluğunla Paylaş
+            </h4>
+            <span class="text-[10px] text-slate-400">Organik GitHub & GEO Desteği</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button onclick="shareOnTwitter()" class="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-sky-500/20 text-slate-200 hover:text-sky-300 border border-slate-800 hover:border-sky-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
+              <i data-lucide="twitter" class="w-3.5 h-3.5 text-sky-400"></i>
+              <span>X / Twitter</span>
+            </button>
+            <button onclick="shareOnLinkedIn()" class="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-blue-600/20 text-slate-200 hover:text-blue-300 border border-slate-800 hover:border-blue-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
+              <i data-lucide="linkedin" class="w-3.5 h-3.5 text-blue-400"></i>
+              <span>LinkedIn</span>
+            </button>
+            <button onclick="shareOnWhatsApp()" class="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-emerald-600/20 text-slate-200 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>WhatsApp</span>
+            </button>
+            <button onclick="copyRepoUrl()" class="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-indigo-600/20 text-slate-200 hover:text-indigo-300 border border-slate-800 hover:border-indigo-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
+              <i data-lucide="link" class="w-3.5 h-3.5 text-indigo-400"></i>
+              <span>Linki Kopyala</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-between pt-4 border-t border-slate-800 text-[11px] text-slate-500">
+        <span>Geliştirici: <a href="https://github.com/DevKursat" target="_blank" class="text-brand-400 hover:underline">@DevKursat</a> • MIT License</span>
+        <button onclick="closeAboutModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 transition">
+          Kapat
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Toast Notification Container -->
   <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-2"></div>
 
@@ -729,27 +969,32 @@
     }
 
     async function fetchGitHubStars() {
-      const badge = document.getElementById("starCountBadge");
-      if (!badge) return;
+      const badges = [
+        document.getElementById("starCountBadge"),
+        document.getElementById("aboutStarCountBadge"),
+        document.getElementById("footerStarCountBadge")
+      ];
       try {
         const res = await fetch("https://api.github.com/repos/DevKursat/GeoLeads");
         if (res.ok) {
           const d = await res.json();
           if (d && typeof d.stargazers_count === "number") {
             const count = d.stargazers_count;
-            badge.textContent = "⭐ " + (count >= 1000 ? (count / 1000).toFixed(1) + "k" : count);
+            const formatted = "⭐ " + (count >= 1000 ? (count / 1000).toFixed(1) + "k" : count);
+            badges.forEach(b => { if (b) b.textContent = formatted; });
             return;
           }
         }
       } catch (e) {}
-      badge.textContent = "⭐ Star";
+      badges.forEach(b => { if (b) b.textContent = "⭐ Star"; });
     }
 
     function setupKeyboardShortcuts() {
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
-          closeDetailModal();
+          closeLeadModal();
           closeStarGateModal();
+          closeAboutModal();
         }
       });
     }
@@ -1224,6 +1469,50 @@
       renderTable(filtered);
     }
 
+    // About Modal
+    function openAboutModal() {
+      const m = document.getElementById("aboutModal");
+      if (m) {
+        m.classList.remove("hidden");
+        lucide.createIcons();
+      }
+    }
+    function closeAboutModal() {
+      const m = document.getElementById("aboutModal");
+      if (m) m.classList.add("hidden");
+    }
+    function trackStarClickFromAbout() {
+      trackStarClick();
+      closeAboutModal();
+    }
+
+    // Viral Share Helpers
+    function shareOnTwitter() {
+      const text = encodeURIComponent("🎯 GeoLeads ile sıfır maliyetle Google Maps & yerel B2B müşterileri bulup WhatsApp ve e-posta avcılığı yapabilirsiniz! %100 açık kaynak harika bir araç:");
+      const url = encodeURIComponent("https://github.com/DevKursat/GeoLeads");
+      const hashtags = encodeURIComponent("b2b,leadgeneration,opensource,python,growthhacking");
+      window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`, "_blank");
+    }
+
+    function shareOnLinkedIn() {
+      const url = encodeURIComponent("https://github.com/DevKursat/GeoLeads");
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank");
+    }
+
+    function shareOnWhatsApp() {
+      const text = encodeURIComponent("🎯 GeoLeads: Sıfır Maliyetli B2B Müşteri Bulma & Google Maps Avcısı. İşletmelerin WhatsApp, e-posta ve web açıklarını bulup 1-tıkla AI teklif hazırlıyor! Açık kaynak deposu: https://github.com/DevKursat/GeoLeads");
+      window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+    }
+
+    function copyRepoUrl() {
+      const url = "https://github.com/DevKursat/GeoLeads";
+      navigator.clipboard.writeText(url).then(() => {
+        showToast("📋 GitHub depo bağlantısı panoya kopyalandı!", "success");
+      }).catch(() => {
+        showToast("Bağlantı: " + url, "info");
+      });
+    }
+
     // Star-Gate Modals
     function openStarGateModal() {
       const m = document.getElementById("starGateModal");
@@ -1285,6 +1574,7 @@
       isProActive = true;
       setProUIState();
       closeStarGateModal();
+      closeAboutModal();
       showConfetti();
       showToast("🎉 Harika! GitHub Yıldızınız için teşekkürler. Tüm Pro özelliklerin kilidi anında açıldı!", "success");
     }

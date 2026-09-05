@@ -12,7 +12,7 @@
 
 **Google Maps harita verilerini, OpenStreetMap Overpass aynalarını ve DuckDuckGo/Bing yerel dizinlerini 100% gerçek canlı veriyle tarayın; web sitelerinden doğrulanmış e-posta ve WhatsApp hatlarını avlayın; işletmelerin web sitesi açıklarını analiz edip 1-tıkla AI soğuk satış teklifleri üretin!**
 
-[🌟 Projeyi Yıldızla (Star)](https://github.com/DevKursat/GeoLeads) • [🚀 Hızlı Başlangıç](#-hızlı-başlangıç) • [🖥️ Masaüstü Uygulaması](#%EF%B8%8F-masaüstü-uygulaması-desktop) • [🔥 Özellikler](#-temel-özellikler) • [👑 Master Key](#-star-gate--master-key) • [🛠️ Mimari](#%EF%B8%8F-mimari-yapı)
+[🌟 Projeyi Yıldızla (Star)](https://github.com/DevKursat/GeoLeads) • [🚀 Hızlı Başlangıç](#-hızlı-başlangıç) • [🖥️ Masaüstü Uygulaması](#%EF%B8%8F-masaüstü-uygulaması-desktop) • [🔥 Özellikler](#-temel-özellikler) • [👑 Master Key](#-star-gate--master-key) • [🛠️ Mimari](#%EF%B8%8F-mimari-yapı) • [🌐 About & GEO SEO](#-about-geoleads-seo--geo-growth)
 
 ---
 
@@ -168,7 +168,57 @@ GeoLeads, kapsamlı bir test süitine sahiptir:
 python3 -m unittest discover -s backend/tests -p "test_*.py" -v
 ```
 
-Sonuç: **Tüm 31 test başarıyla geçmektedir.**
+Sonuç: **Tüm 38 test başarıyla geçmektedir.**
+
+---
+
+## 🌐 About GeoLeads, SEO & GEO Growth
+
+### 🎯 Hakkında & Sıfır Maliyetli Küresel GEO Mimarisi
+
+**GeoLeads**, geleneksel B2B müşteri bulma servislerinin ve Google Maps API'lerinin dayattığı sorgu başına fahiş maliyetlere ve kapalı veri modellerine karşı geliştirilmiş **%100 açık kaynaklı** bir lead motorudur.
+
+#### 🌍 GEO & Küresel Yerel Arama Nasıl Çalışır?
+- **Çoklu Arama Motoru Fallback Hibriti:** Hedef lokasyon için önce 5 döner aynalı **OpenStreetMap Overpass** ağı taranır. Ardından **Google Maps Canlı Web Ayrıştırıcısı**, **DuckDuckGo Local** ve **Bing Yerel İşletmeler** dizinleri eşzamanlı harmanlanır.
+- **Sınırsız Coğrafi Kapsama (GEO Targeting):** Şehir veya ilçe bazında (örn. *İstanbul Kadıköy Diş Klinikleri*, *Berlin Kreuzberg Cafes*, *London Westminster Accountants*, *New York Brooklyn Law Firms*) tam coğrafi sınır koordinatları ve yerel dizinler taranır.
+- **Derin Web E-Posta & WhatsApp Avcısı:** İşletmenin web sitesine otomatik gidilerek ana sayfa ve `/iletisim`, `/contact`, `/about` alt sayfalarından kurumsal e-postalar ve doğrudan WhatsApp hatları ayıklanır.
+- **Dijital Satış Açığı & Fırsat Skoru (0-100):** Web sitesi eksikliği, SSL sertifikası yokluğu, düşük Google değerlendirmesi gibi satış kancaları tespit edilerek tek tıkla AI soğuk satış teklifi üretilir.
+
+---
+
+### 📈 Star History (Yıldız Geçmişi)
+
+Projeye yıldız vererek açık kaynak geliştiricilere destek olun ve büyüme grafiğimizi takip edin:
+
+[![Star History Chart](https://api.star-history.com/svg?repos=DevKursat/GeoLeads&type=Date)](https://star-history.com/#DevKursat/GeoLeads&Date)
+
+---
+
+### 🏷️ Önerilen GitHub Depo "About" Ayarları (SEO & Organik Sıralama)
+
+GitHub arama motoru, explore sayfası ve Google SERP sıralamalarında zirveye yerleşmek için GitHub Depo Ayarları (`Settings -> About`) bölümüne aşağıdaki bilgileri doğrudan kopyalayıp yapıştırabilirsiniz:
+
+#### 1. Repository Description (Depo Açıklaması - 350 Karakter):
+```text
+🎯 Sıfır maliyetli Google Maps & Yerel İşletme B2B Müşteri Bulma Motoru. Haritalardan canlı işletmeleri tara, derin web avcısıyla e-posta & WhatsApp bul, AI ile kişiselleştirilmiş soğuk satış teklifi üret! Zero-cost Google Maps Scraper, Lead Generation, Web Audit & Cold Outreach CRM.
+```
+
+#### 2. Website / Homepage URL:
+```text
+https://github.com/DevKursat/GeoLeads
+```
+
+#### 3. 20 Yüksek Sıralamalı Konu Etiketi (GitHub Topics / Tags):
+> *GitHub repo ayarlarındaki "Topics" alanına virgülle veya tek tek yapıştırın:*
+
+```text
+google-maps-scraper, lead-generation, b2b-leads, cold-outreach, whatsapp-crm, email-scraper, local-seo, geo-targeting, openstreetmap, overpass-api, fastapi, python-scraper, business-intelligence, sales-automation, growth-hacking, web-scraping, marketing-tools, crm, b2b-sales, google-maps-api-alternative
+```
+
+#### 🔍 Neden Bu Etiketler?
+1. **GitHub Explore & Trending İndeksi:** `lead-generation`, `google-maps-scraper` ve `web-scraping` etiketleri dünya genelinde haftalık on binlerce yazılımcı ve ajans tarafından taranmaktadır.
+2. **Google SEO Backlink & Arama İndeksi:** Bu anahtar kelimeler, arama motorlarında "free google maps scraper without api key" ve "python b2b lead generator" sorgularında depomuzun 1. sayfada indekslenmesini sağlar.
+3. **GEO Hedefli Dönüşüm:** `geo-targeting`, `local-seo` ve `openstreetmap` etiketleri yerel pazarlama uzmanlarını doğrudan projeye çeker.
 
 ---
 
