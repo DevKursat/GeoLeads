@@ -134,5 +134,25 @@ class TestScraperEngine(unittest.TestCase):
             self.assertIsNotNone(lead.opportunity_score)
 
 
+    def test_textile_and_hair_salon_mappings(self):
+        # Verify textile, tailor, silter, and hair salon OSM mappings
+        required_mappings = [
+            "tekstil atölyesi", "tekstil", "terzi", "silter", "buharlı ütü",
+            "konfeksiyon", "kuru temizleme", "kuaför", "bayan kuaförü",
+            "saç boyası", "saç tasarım", "kobi"
+        ]
+        for mapping in required_mappings:
+            self.assertIn(mapping, OSM_CATEGORY_MAPPINGS, f"Missing OSM category mapping: {mapping}")
+
+    def test_verified_textile_and_salon_businesses(self):
+        salon_leads = scraper_engine._get_verified_real_businesses(query="Kuaför", city="Kadıköy", limit=5)
+        self.assertTrue(len(salon_leads) > 0)
+        self.assertTrue(any("Kuaför" in l.category or "Kuaför" in l.name for l in salon_leads))
+
+        textile_leads = scraper_engine._get_verified_real_businesses(query="Terzi", city="Kadıköy", limit=5)
+        self.assertTrue(len(textile_leads) > 0)
+        self.assertTrue(any("Terzi" in l.category or "Terzi" in l.name for l in textile_leads))
+
+
 if __name__ == "__main__":
     unittest.main()

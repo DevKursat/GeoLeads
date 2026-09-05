@@ -229,6 +229,8 @@ class GeoLeadsRequestHandler(BaseHTTPRequestHandler):
                 lang = body.get("lang", "tr")
                 sender = body.get("sender_name", "Kürşat")
                 agency = body.get("agency_name", "Dijital Büyüme Ajansı")
+                product_pitch_type = body.get("product_pitch_type", "general")
+                product_name = body.get("product_name", "")
 
                 pitch = pitch_generator.generate_pitch(
                     lead=lead,
@@ -236,7 +238,9 @@ class GeoLeadsRequestHandler(BaseHTTPRequestHandler):
                     tone=tone,
                     lang=lang,
                     custom_sender_name=sender,
-                    custom_agency_name=agency
+                    custom_agency_name=agency,
+                    product_pitch_type=product_pitch_type,
+                    product_name=product_name
                 )
                 if not has_full_access:
                     pitch["content"] += "\n\n[⭐ GeoLeads Topluluk Önizlemesi - Sınırsız AI ve Otomatik CRM için GitHub'da Yıldız Verin]"
@@ -480,7 +484,9 @@ def create_fastapi_app():
             tone=payload.get("tone", "consultative"),
             lang=payload.get("lang", "tr"),
             custom_sender_name=payload.get("sender_name", "Kürşat"),
-            custom_agency_name=payload.get("agency_name", "Dijital Büyüme Ajansı")
+            custom_agency_name=payload.get("agency_name", "Dijital Büyüme Ajansı"),
+            product_pitch_type=payload.get("product_pitch_type", "general"),
+            product_name=payload.get("product_name", "")
         )
         if not has_full_access:
             pitch["content"] += "\n\n[⭐ GeoLeads Topluluk Önizlemesi - Sınırsız AI ve Otomatik CRM için GitHub'da Yıldız Verin]"

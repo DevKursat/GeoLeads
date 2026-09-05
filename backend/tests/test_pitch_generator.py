@@ -69,6 +69,107 @@ class TestPitchGenerator(unittest.TestCase):
         res2 = self.generator.generate_pitch(self.lead)
         self.assertIsNotNone(res2["content"])
 
+    def test_hair_dye_wholesale_pitch_turkish_and_english(self):
+        # Hair Dye pitch for hair salons: checks wholesale hair dye, salon supplies, and sample trial
+        res_tr = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="whatsapp",
+            tone="friendly",
+            lang="tr",
+            product_pitch_type="hair_dye"
+        )
+        self.assertIn("saç boyası", res_tr["content"].lower())
+        self.assertIn("numune", res_tr["content"].lower())
+        self.assertEqual(res_tr["product_pitch_type"], "hair_dye")
+
+        res_en = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="email",
+            tone="consultative",
+            lang="en",
+            product_pitch_type="hair_dye"
+        )
+        self.assertIn("hair dye", res_en["content"].lower())
+        self.assertIn("wholesale", res_en["content"].lower())
+        self.assertIn("sample", res_en["content"].lower())
+
+    def test_steam_iron_silter_pitch_turkish_and_english(self):
+        # Industrial steam iron & Silter boiler installation pitch for textile workshops
+        textile_lead = Lead(
+            name="Merter Dikim ve Tekstil Atölyesi",
+            category="Tekstil",
+            city="Güngören",
+            phone="+90 533 111 22 33",
+            whatsapp="https://wa.me/905331112233"
+        )
+        res_tr = self.generator.generate_pitch(
+            lead=textile_lead,
+            channel="whatsapp",
+            tone="consultative",
+            lang="tr",
+            product_pitch_type="steam_iron"
+        )
+        self.assertIn("silter", res_tr["content"].lower())
+        self.assertIn("ütü", res_tr["content"].lower())
+        self.assertIn("tesisat", res_tr["content"].lower())
+
+        res_en = self.generator.generate_pitch(
+            lead=textile_lead,
+            channel="email",
+            tone="urgency",
+            lang="en",
+            product_pitch_type="steam_iron"
+        )
+        self.assertIn("steam iron", res_en["content"].lower())
+        self.assertIn("boiler", res_en["content"].lower())
+
+    def test_software_pitch_turkish_and_english(self):
+        # Software & web solution pitch for businesses
+        res_tr = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="whatsapp",
+            tone="direct",
+            lang="tr",
+            product_pitch_type="software"
+        )
+        self.assertIn("yazılım", res_tr["content"].lower())
+        self.assertIn("otomasyon", res_tr["content"].lower())
+
+        res_en = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="email",
+            tone="friendly",
+            lang="en",
+            product_pitch_type="software"
+        )
+        self.assertIn("software", res_en["content"].lower())
+        self.assertIn("demo", res_en["content"].lower())
+
+    def test_custom_product_pitch_turkish_and_english(self):
+        # Custom product input: embeds custom product accurately
+        res_tr = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="whatsapp",
+            tone="consultative",
+            lang="tr",
+            product_pitch_type="custom",
+            product_name="Güneş Paneli Sistemleri"
+        )
+        self.assertIn("Güneş Paneli Sistemleri", res_tr["content"])
+        self.assertIn("Güneş Paneli Sistemleri", res_tr["subject"])
+        self.assertEqual(res_tr["product_name"], "Güneş Paneli Sistemleri")
+
+        res_en = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="email",
+            tone="consultative",
+            lang="en",
+            product_pitch_type="custom",
+            product_name="Organic Olive Oil"
+        )
+        self.assertIn("Organic Olive Oil", res_en["content"])
+        self.assertIn("Organic Olive Oil", res_en["subject"])
+
 
 if __name__ == "__main__":
     unittest.main()

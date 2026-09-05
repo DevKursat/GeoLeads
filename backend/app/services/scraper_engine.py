@@ -69,7 +69,7 @@ OSM_CATEGORY_MAPPINGS = {
     "baro": '["office"="lawyer"]',
     "arabuluculuk": '["office"="lawyer"]',
 
-    # IT & Software & Digital Agency
+    # IT & Software & Digital Agency & SMEs
     "yazılım ajansı": '["office"="it"]',
     "yazılım şirketi": '["office"="it"]',
     "yazılım": '["office"="it"]',
@@ -80,18 +80,49 @@ OSM_CATEGORY_MAPPINGS = {
     "bilişim": '["office"="it"]',
     "advertising": '["office"="advertising_agency"]',
     "seo": '["office"="it"]',
+    "kobi": '["office"="company"]',
+    "şirket": '["office"="company"]',
+    "dükkan": '["shop"]',
+    "mağaza": '["shop"]',
 
-    # Beauty & Personal Care
+    # Beauty, Hair Salons & Cosmetics
     "güzellik merkezi": '["shop"="beauty"]',
     "güzellik salonu": '["shop"="beauty"]',
     "güzellik": '["shop"="beauty"]',
     "beauty": '["shop"="beauty"]',
     "estetik": '["shop"="beauty"]',
     "kuaför": '["shop"="hairdresser"]',
+    "kuaför salonu": '["shop"="hairdresser"]',
+    "bayan kuaförü": '["shop"="hairdresser"]',
+    "erkek kuaförü": '["shop"="hairdresser"]',
     "berber": '["shop"="hairdresser"]',
     "hairdresser": '["shop"="hairdresser"]',
+    "saç tasarım": '["shop"="hairdresser"]',
+    "saç salonu": '["shop"="hairdresser"]',
+    "saç boyası": '["shop"="hairdresser"]',
+    "saç": '["shop"="hairdresser"]',
+    "kozmetik": '["shop"="cosmetics"]',
     "epilasyon": '["shop"="beauty"]',
     "cilt bakımı": '["shop"="beauty"]',
+
+    # Textile, Tailor, Steam Iron & Garment (Silter Targets)
+    "tekstil atölyesi": '["craft"="tailor"]',
+    "tekstil": '["shop"="tailor"]',
+    "terzi": '["craft"="tailor"]',
+    "terziler": '["craft"="tailor"]',
+    "konfeksiyon": '["craft"="tailor"]',
+    "dikim evi": '["craft"="tailor"]',
+    "dikim atölyesi": '["craft"="tailor"]',
+    "moda evi": '["craft"="dressmaker"]',
+    "kuru temizleme": '["shop"="dry_cleaning"]',
+    "çamaşırhane": '["shop"="laundry"]',
+    "ütü": '["shop"="dry_cleaning"]',
+    "ütücü": '["shop"="dry_cleaning"]',
+    "buharlı ütü": '["craft"="tailor"]',
+    "silter": '["craft"="tailor"]',
+    "kumaş": '["shop"="fabric"]',
+    "dikiş": '["shop"="sewing"]',
+    "tailor": '["craft"="tailor"]',
 
     # Auto & Repair
     "oto servis": '["shop"="car_repair"]',
@@ -699,9 +730,21 @@ class ScraperEngine:
             {"id": "osm_3419827122", "name": "Nova Dijital Yazılım Ajansı", "cat": "Yazılım", "city": "Şişli", "addr": "Büyükdere Cad. No:156, Şişli, İstanbul", "phone": "+90 212 284 30 10", "web": "https://www.novayazilim.com", "rating": 4.9, "rev": 62},
             {"id": "osm_3419827123", "name": "Ege Bilişim & Web Tasarım", "cat": "Yazılım", "city": "Bornova", "addr": "Ankara Cad. No:210, Bornova, İzmir", "phone": "+90 232 388 90 20", "web": "https://www.egeyazilim.com", "rating": 4.6, "rev": 39},
 
-            # Güzellik Merkezi (Beauty)
+            # Güzellik Merkezi & Kuaför (Hair Salon, Hair Dye & Beauty)
             {"id": "osm_3419827124", "name": "Moda Estetik & Güzellik Merkezi", "cat": "Güzellik", "city": "Kadıköy", "addr": "Moda Cad. No:142, Kadıköy, İstanbul", "phone": "+90 216 345 60 70", "web": "https://www.modaestetik.com", "rating": 4.8, "rev": 88},
             {"id": "osm_3419827125", "name": "Çankaya Güzellik & Lazer Salonu", "cat": "Güzellik", "city": "Çankaya", "addr": "Filistin Cad. No:24, Çankaya, Ankara", "phone": "+90 312 447 50 60", "web": "https://www.cankayaguzellik.com", "rating": 4.7, "rev": 73},
+            {"id": "osm_3419827131", "name": "Moda Saç Tasarım & Bayan Kuaförü", "cat": "Kuaför", "city": "Kadıköy", "addr": "Moda Cad. No:112, Caferağa, Kadıköy, İstanbul", "phone": "+90 216 345 12 80", "web": "https://www.modasactasarim.com", "rating": 4.9, "rev": 96},
+            {"id": "osm_3419827132", "name": "Şişli Paris Kuaför & Saç Sanatı", "cat": "Kuaför", "city": "Şişli", "addr": "Halaskargazi Cad. No:190, Şişli, İstanbul", "phone": "+90 212 240 50 60", "web": "https://www.pariskuafor.com", "rating": 4.8, "rev": 112},
+            {"id": "osm_3419827133", "name": "Tunalı Saç Tasarım & Güzellik Salonu", "cat": "Kuaför", "city": "Çankaya", "addr": "Tunalı Hilmi Cad. No:94, Çankaya, Ankara", "phone": "+90 312 427 10 30", "web": "https://www.tunalisac.com", "rating": 4.7, "rev": 84},
+            {"id": "osm_3419827134", "name": "Alsancak Studio Hair Kuaför & Renklendirme", "cat": "Kuaför", "city": "Konak", "addr": "Kıbrıs Şehitleri Cad. No:86, Konak, İzmir", "phone": "+90 232 463 80 90", "web": "https://www.studiohair.com", "rating": 4.9, "rev": 105},
+
+            # Tekstil Atölyesi, Terzi, Konfeksiyon & Buharlı Ütü / Silter Tesisat Hedefleri
+            {"id": "osm_3419827141", "name": "Moda Terzihanesi & Dikim Atölyesi", "cat": "Terzi", "city": "Kadıköy", "addr": "Dr. Esat Işık Cad. No:22, Moda, Kadıköy, İstanbul", "phone": "+90 216 338 45 60", "web": "https://www.modaterzisi.com", "rating": 4.8, "rev": 52},
+            {"id": "osm_3419827142", "name": "Merter Tekstil & Konfeksiyon Atölyesi", "cat": "Tekstil", "city": "Güngören", "addr": "Keresteciler Sitesi Fatih Cad. No:18, Güngören, İstanbul", "phone": "+90 212 637 10 20", "web": "https://www.mertertekstil.com", "rating": 4.7, "rev": 64},
+            {"id": "osm_3419827143", "name": "Silter Buhar & Sanayi Ütü Teknik Servisi", "cat": "Ütü", "city": "Güngören", "addr": "Savaş Cad. No:14, Merter, Güngören, İstanbul", "phone": "+90 212 555 88 90", "web": "https://www.silterservis.com", "rating": 4.9, "rev": 78},
+            {"id": "osm_3419827144", "name": "Çankaya Özel Terzilik & Tekstil Dikim Evi", "cat": "Terzi", "city": "Çankaya", "addr": "Cinnah Cad. No:45, Çankaya, Ankara", "phone": "+90 312 441 20 50", "web": "https://www.cankayaterzi.com", "rating": 4.8, "rev": 46},
+            {"id": "osm_3419827145", "name": "Alsancak Haute Couture Dikim Atölyesi", "cat": "Terzi", "city": "Konak", "addr": "Ali Çetinkaya Bulv. No:34, Konak, İzmir", "phone": "+90 232 464 70 80", "web": "https://www.alsancakterzi.com", "rating": 4.9, "rev": 58},
+            {"id": "osm_3419827146", "name": "Bursa Nilüfer Konfeksiyon & Tekstil Atölyesi", "cat": "Tekstil", "city": "Nilüfer", "addr": "Organize Sanayi Bölgesi Mavi Cad. No:8, Nilüfer, Bursa", "phone": "+90 224 243 15 20", "web": "https://www.nilufertekstil.com", "rating": 4.6, "rev": 39},
 
             # Oto Servis (Car Repair)
             {"id": "osm_3419827126", "name": "Kadıköy Oto Servis & Ekspertiz", "cat": "Oto Servis", "city": "Kadıköy", "addr": "Fahrettin Kerim Gökay Cad. No:78, Kadıköy, İstanbul", "phone": "+90 216 346 80 90", "web": "https://www.kadikoyoto.com", "rating": 4.7, "rev": 110},

@@ -339,14 +339,97 @@
           <span>Sıfır Maliyetli Google Maps & Web Derin Tarayıcı</span>
         </div>
         <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-          Hangi sektörde yeni müşteri bulmak istiyorsunuz?
+          Ne Satıyorsunuz? Yeni Müşterilerinizi Anında Bulun
         </h1>
         <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
-          Konum ve sektörü girin; işletmelerin telefonlarını, onaylı e-postalarını, WhatsApp hatlarını ve web sitesi açıklarını otomatik tespit edelim.
+          Yazılım, saç boyası, sanayi tipi buharlı ütü veya özel ürününüzü seçin; gerçek hedef işletmeleri bulun ve 1-tıkla kişiselleştirilmiş WhatsApp/E-Posta teklifleriyle iletişime geçin.
         </p>
       </div>
 
       <form id="searchForm" onsubmit="handleSearch(event)" class="space-y-4">
+        <!-- KAMPANYA & SATIŞ AMACI (NE SATIYORSUNUZ?) -->
+        <div class="p-4 rounded-2xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/90 shadow-sm">
+          <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+            <div class="flex items-center gap-2">
+              <span class="p-1.5 rounded-lg bg-brand-500/10 text-brand-500 dark:text-brand-400 border border-brand-500/20">
+                <i data-lucide="target" class="w-4 h-4"></i>
+              </span>
+              <div>
+                <span class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider block">
+                  Kampanya & Satış Amacı • Ne Satıyorsunuz?
+                </span>
+                <span class="text-[11px] text-slate-500 dark:text-slate-400">
+                  Ürününüzü seçin; hedef sektörü ve hazır satış teklifi kancalarını otomatik uyarlayalım.
+                </span>
+              </div>
+            </div>
+            <span id="activeCampaignBadge" class="inline-flex items-center gap-1.5 text-[11px] font-extrabold px-3 py-1 rounded-full bg-brand-600/15 text-brand-500 dark:text-brand-400 border border-brand-500/30">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span id="activeCampaignBadgeText">💻 Yazılım & Web Satışı</span>
+            </span>
+          </div>
+
+          <!-- Campaign Presets Grid: Software, Hair Dye, Steam Iron & Silter, Custom -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5" id="campaignPresetButtons">
+            <!-- 1. Yazılım & Web Satışı -->
+            <button type="button" onclick="selectCampaignPreset('software', this)" id="preset_software"
+              class="campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-brand-600 text-white border-brand-400 shadow-md shadow-brand-500/20 ring-2 ring-brand-400/40">
+              <div class="flex items-center gap-2 font-black text-xs">
+                <span class="text-base">💻</span>
+                <span>Yazılım Satışı</span>
+              </div>
+              <p class="text-[11px] opacity-90 mt-1 leading-snug">Hedef: KOBİ'ler, Klinikler, Ajanslar, Dükkanlar</p>
+            </button>
+
+            <!-- 2. Saç Boyası & Kozmetik -->
+            <button type="button" onclick="selectCampaignPreset('hair_dye', this)" id="preset_hair_dye"
+              class="campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
+              <div class="flex items-center gap-2 font-black text-xs">
+                <span class="text-base">💇‍♀️</span>
+                <span>Saç Boyası / Kuaför</span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">Hedef: Kuaförler, Güzellik Merkezleri, Berberler</p>
+            </button>
+
+            <!-- 3. Buharlı Ütü & Silter / Tekstil -->
+            <button type="button" onclick="selectCampaignPreset('steam_iron', this)" id="preset_steam_iron"
+              class="campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
+              <div class="flex items-center gap-2 font-black text-xs">
+                <span class="text-base">👔</span>
+                <span>Buharlı Ütü & Silter / Tekstil</span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">Hedef: Tekstil Atölyeleri, Terziler, Konfeksiyon</p>
+            </button>
+
+            <!-- 4. Özel Ürün / Hizmet -->
+            <button type="button" onclick="selectCampaignPreset('custom', this)" id="preset_custom"
+              class="campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
+              <div class="flex items-center gap-2 font-black text-xs">
+                <span class="text-base">✨</span>
+                <span>Özel Ürün / Hizmet</span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">Serbest Giriş: İstediğiniz ürün & sektörü arayın</p>
+            </button>
+          </div>
+
+          <!-- Dynamic Custom Product Input (Reveals only when 'custom' selected) -->
+          <div id="customProductInputWrapper" class="hidden mt-3 pt-3 border-t border-slate-200 dark:border-slate-800/80">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              <label for="customProductNameInput" class="text-xs font-bold text-slate-700 dark:text-slate-300 whitespace-nowrap flex items-center gap-1.5">
+                <i data-lucide="package" class="w-3.5 h-3.5 text-amber-400"></i> Ne Satıyorsunuz?:
+              </label>
+              <input type="text" id="customProductNameInput" placeholder="Örn: Güneş Paneli, Organik Zeytinyağı, Endüstriyel Ambalaj..."
+                oninput="onCustomProductChanged(this.value)"
+                class="touch-target flex-1 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500">
+            </div>
+          </div>
+
+          <!-- Dynamic Campaign Sub-chips -->
+          <div class="mt-3 pt-2.5 border-t border-slate-200 dark:border-slate-800/80 flex items-center gap-2 overflow-x-auto custom-scrollbar pb-1 text-xs" id="campaignSubChipsRow">
+            <!-- Populated dynamically by JS -->
+          </div>
+        </div>
+
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <!-- Sektör / Anahtar Kelime -->
           <div class="sm:col-span-5 relative">
@@ -962,6 +1045,27 @@
             </div>
           </div>
 
+          <!-- Campaign / Product Pitch Type in Modal -->
+          <div class="mb-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+            <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+              <label class="block text-xs font-extrabold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <i data-lucide="target" class="w-3.5 h-3.5 text-brand-400"></i> Satış Kampanyası / Ürün Teklifi:
+              </label>
+              <select id="modalPitchProductType" onchange="onModalProductTypeChanged(); generateModalPitch();" class="touch-target bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white rounded-xl px-3 py-1.5 font-bold focus:outline-none focus:border-brand-500">
+                <option value="software">💻 Yazılım & Web Satışı</option>
+                <option value="hair_dye">💇‍♀️ Saç Boyası / Kuaför</option>
+                <option value="steam_iron">👔 Buharlı Ütü & Silter / Tekstil</option>
+                <option value="custom">✨ Özel Ürün / Hizmet</option>
+                <option value="general">🔍 Genel Web Açık Analizi</option>
+              </select>
+            </div>
+            <div id="modalCustomProductWrapper" class="hidden mt-2">
+              <input type="text" id="modalCustomProductName" placeholder="Satılan Ürün/Hizmet (Örn: Güneş Paneli, Organik Zeytinyağı...)"
+                onchange="generateModalPitch()"
+                class="touch-target w-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-white rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500">
+            </div>
+          </div>
+
           <!-- Channel & Language Selectors -->
           <div class="flex items-center justify-between flex-wrap gap-3 pt-3 border-t border-slate-200 dark:border-slate-800">
             <div class="flex items-center gap-3">
@@ -1264,6 +1368,167 @@
     let currentSortField = 'score';
     let currentSortDir = 'desc';
 
+    // Sales Campaign & Product Engine State
+    let currentCampaign = 'software';
+    let customProductName = '';
+
+    const CAMPAIGN_PRESETS = {
+      software: {
+        id: 'software',
+        title: 'Yazılım & Web Satışı',
+        badge: '💻 Yazılım & Web Satışı',
+        pitchType: 'software',
+        defaultQuery: 'KOBİ',
+        subChips: [
+          { label: '🏢 KOBİ İşletmeleri', query: 'KOBİ' },
+          { label: '🦷 Diş Klinikleri', query: 'Diş Kliniği' },
+          { label: '⚖️ Hukuk Büroları', query: 'Hukuk Bürosu' },
+          { label: '🍽️ Restoran & Kafe', query: 'Restoran' },
+          { label: '🏗️ Mimarlık Ofisi', query: 'Mimarlık' }
+        ]
+      },
+      hair_dye: {
+        id: 'hair_dye',
+        title: 'Saç Boyası / Kuaför',
+        badge: '💇‍♀️ Saç Boyası & Salon Tedariği',
+        pitchType: 'hair_dye',
+        defaultQuery: 'Bayan Kuaförü',
+        subChips: [
+          { label: '💇‍♀️ Bayan Kuaförleri', query: 'Bayan Kuaförü' },
+          { label: '✨ Güzellik Salonları', query: 'Güzellik Salonu' },
+          { label: '💈 Berberler & Kuaförler', query: 'Berber' },
+          { label: '💅 Güzellik Merkezleri', query: 'Güzellik Merkezi' },
+          { label: '🎨 Saç Tasarım', query: 'Saç Tasarım' }
+        ]
+      },
+      steam_iron: {
+        id: 'steam_iron',
+        title: 'Buharlı Ütü & Silter / Tekstil',
+        badge: '👔 Buharlı Ütü & Silter Tesisatı',
+        pitchType: 'steam_iron',
+        defaultQuery: 'Tekstil Atölyesi',
+        subChips: [
+          { label: '🧵 Tekstil Atölyeleri', query: 'Tekstil Atölyesi' },
+          { label: '✂️ Terziler & Dikim Evleri', query: 'Terzi' },
+          { label: '👕 Konfeksiyon İmalatı', query: 'Konfeksiyon' },
+          { label: '🧺 Kuru Temizleme & Ütü', query: 'Kuru Temizleme' },
+          { label: '⚙️ Buharlı Ütü & Tesisat', query: 'Buharlı Ütü' }
+        ]
+      },
+      custom: {
+        id: 'custom',
+        title: 'Özel Ürün / Hizmet',
+        badge: '✨ Özel Ürün / Hizmet',
+        pitchType: 'custom',
+        defaultQuery: 'İşletmeler',
+        subChips: [
+          { label: '🏢 Şirket & KOBİ', query: 'KOBİ' },
+          { label: '🏬 Dükkan & Mağaza', query: 'Mağaza' },
+          { label: '🏭 Fabrika & İmalathane', query: 'Fabrika' },
+          { label: '🏨 Otel & Konaklama', query: 'Otel' }
+        ]
+      }
+    };
+
+    function selectCampaignPreset(campaignKey, btnEl) {
+      if (!CAMPAIGN_PRESETS[campaignKey]) return;
+      currentCampaign = campaignKey;
+      const conf = CAMPAIGN_PRESETS[campaignKey];
+
+      // Update preset buttons styling
+      document.querySelectorAll(".campaign-preset-chip").forEach(b => {
+        b.className = "campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200";
+      });
+      const targetBtn = btnEl || document.getElementById(`preset_${campaignKey}`);
+      if (targetBtn) {
+        targetBtn.className = "campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-brand-600 text-white border-brand-400 shadow-md shadow-brand-500/20 ring-2 ring-brand-400/40";
+      }
+
+      // Update badge
+      const badgeTextEl = document.getElementById("activeCampaignBadgeText");
+      if (badgeTextEl) badgeTextEl.textContent = conf.badge;
+
+      // Toggle custom product input
+      const customWrapper = document.getElementById("customProductInputWrapper");
+      if (customWrapper) {
+        customWrapper.classList.toggle("hidden", campaignKey !== "custom");
+        if (campaignKey === "custom") {
+          const inp = document.getElementById("customProductNameInput");
+          if (inp) inp.focus();
+        }
+      }
+
+      // Update query input
+      const queryInput = document.getElementById("queryInput");
+      if (queryInput) {
+        queryInput.value = conf.defaultQuery;
+      }
+
+      // Update modal preset dropdown if it exists
+      const modalPitchType = document.getElementById("modalPitchProductType");
+      if (modalPitchType) {
+        modalPitchType.value = conf.pitchType;
+        onModalProductTypeChanged();
+      }
+
+      // Render dynamic sub chips
+      renderCampaignSubChips(conf.subChips);
+
+      showToast(`🎯 Kampanya ayarlandı: ${conf.badge}`, "info");
+    }
+
+    function renderCampaignSubChips(subChips) {
+      const container = document.getElementById("campaignSubChipsRow");
+      if (!container) return;
+      container.innerHTML = `
+        <span class="text-xs font-extrabold text-slate-600 dark:text-slate-400 whitespace-nowrap flex items-center gap-1 mr-1">
+          <i data-lucide="compass" class="w-3.5 h-3.5 text-brand-400"></i> Hedef Sektör:
+        </span>
+      `;
+      (subChips || []).forEach(sc => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "touch-target inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 bg-white dark:bg-slate-950 hover:bg-brand-50 dark:hover:bg-brand-600/20 text-slate-800 dark:text-slate-300 border border-slate-300 dark:border-slate-800 active:scale-95 shadow-sm";
+        btn.innerHTML = `<span>${escapeHtml(sc.label)}</span>`;
+        btn.onclick = () => {
+          const qInput = document.getElementById("queryInput");
+          if (qInput) qInput.value = sc.query;
+          const cityInput = document.getElementById("cityInput");
+          if (cityInput && !cityInput.value.trim()) {
+            cityInput.focus();
+          }
+        };
+        container.appendChild(btn);
+      });
+      lucide.createIcons();
+    }
+
+    function onCustomProductChanged(val) {
+      customProductName = (val || "").trim();
+      const modalCustom = document.getElementById("modalCustomProductName");
+      if (modalCustom && modalCustom.value !== customProductName) {
+        modalCustom.value = customProductName;
+      }
+    }
+
+    function onModalProductTypeChanged() {
+      const select = document.getElementById("modalPitchProductType");
+      const wrapper = document.getElementById("modalCustomProductWrapper");
+      if (!select || !wrapper) return;
+      wrapper.classList.toggle("hidden", select.value !== "custom");
+    }
+
+    function initCampaignPresets() {
+      const conf = CAMPAIGN_PRESETS[currentCampaign] || CAMPAIGN_PRESETS.software;
+      renderCampaignSubChips(conf.subChips);
+      const badgeTextEl = document.getElementById("activeCampaignBadgeText");
+      if (badgeTextEl) badgeTextEl.textContent = conf.badge;
+      const qInput = document.getElementById("queryInput");
+      if (qInput && !qInput.value.trim()) {
+        qInput.value = conf.defaultQuery;
+      }
+    }
+
     // Theme Management with Persistent LocalStorage
     function initTheme() {
       const savedTheme = localStorage.getItem("geoleads_theme") || "dark";
@@ -1344,6 +1609,7 @@
     // Initialize Application
     document.addEventListener("DOMContentLoaded", () => {
       initTheme();
+      initCampaignPresets();
       lucide.createIcons();
       fetchStats();
       fetchLeads();
@@ -2032,6 +2298,17 @@
         gapsBox.innerHTML = `<p class="text-slate-400 text-xs py-4 text-center">Bu işletmede tespit edilmiş kritik bir dijital açık bulunmuyor.</p>`;
       }
 
+      // Sync Pitch Studio Campaign Selector
+      const modalPitchType = document.getElementById("modalPitchProductType");
+      if (modalPitchType) {
+        modalPitchType.value = currentCampaign;
+        onModalProductTypeChanged();
+      }
+      const modalCustom = document.getElementById("modalCustomProductName");
+      if (modalCustom && customProductName) {
+        modalCustom.value = customProductName;
+      }
+
       // Generate Pitch in Studio
       await generateModalPitch();
 
@@ -2052,6 +2329,9 @@
       if (!activeLead) return;
       const channel = document.getElementById("pitchChannel").value;
       const lang = document.getElementById("pitchLang").value;
+      const productType = document.getElementById("modalPitchProductType") ? document.getElementById("modalPitchProductType").value : currentCampaign;
+      const customProd = (document.getElementById("modalCustomProductName") && document.getElementById("modalCustomProductName").value) || customProductName;
+
       const pitchArea = document.getElementById("modalPitchText");
       pitchArea.value = "Kişiselleştirilmiş metin hazırlanıyor...";
       updatePitchMetrics();
@@ -2070,6 +2350,8 @@
             lang: lang,
             sender_name: "Kürşat",
             agency_name: "Dijital Büyüme Ajansı",
+            product_pitch_type: productType,
+            product_name: customProd,
             master_key: masterKeyStored,
             is_preview: !isProActive && !isStarred
           })
@@ -2195,14 +2477,25 @@
       return "";
     }
 
-    // Quick Pitch Templates
+    // Quick Pitch Templates (Supports active campaign: Software, Hair Dye, Steam Iron & Silter, Custom, or Gap-based)
     function generateQuickPitch(lead, channel = 'whatsapp') {
       const biz = lead.name || "Yetkili";
       const city = lead.city || "";
       const cat = lead.category || "işletme";
       const gap = lead.primary_gap || "";
+      const pType = currentCampaign || "software";
 
       if (channel === 'whatsapp') {
+        if (pType === 'hair_dye') {
+          return `Selamlar ${biz} ekibi! 👋 ${city} bölgesindeki kuaför salonunuzu inceledim. Kuaförlere özel toptan profesyonel saç boyası ve salon sarf malzemeleri tedariği sağlıyoruz. Salonunuza özel avantajlı toptan fiyat listemiz, hızlı sevkiyat ve salonunuzda bizzat denemeniz için ÜCRETSİZ NUMUNE DENEME KİTİ gönderebiliriz. Renk kartelamızı WhatsApp'tan iletmemi ister misiniz?`;
+        } else if (pType === 'steam_iron') {
+          return `Merhaba ${biz} yetkilisi, ${city} bölgesindeki işletmenizi inceledim. Tekstil atölyeleri ve terziler için Silter tipi sanayi tipi buharlı ütü sistemleri, merkezi buhar kazanı tesisat kurulumu ve orijinal yedek parça temini sağlıyoruz. Atölyenizin ütüleme hızını ve buhar verimini artıracak çözümlerimizi ve güncel kampanya fiyat listemizi paylaşabilir miyim?`;
+        } else if (pType === 'custom' && customProductName) {
+          return `Merhaba ${biz} yetkilisi, ${city} bölgesindeki işletmenizi inceledim. İşletmeniz için yüksek kalite ve avantajlı kurumsal fiyatlarla '${customProductName}' çözümleri sunuyoruz. ${biz} için hazırladığımız özel kurumsal teklif dosyamızı ve kataloğumuzu WhatsApp üzerinden iletmemi ister misiniz?`;
+        } else if (pType === 'software') {
+          return `Merhaba ${biz} ekibi, ${city} bölgesinde ${cat} profilinizi inceledim. İşletmenize özel kurumsal web sitesi, online randevu/sipariş yazılımı ve müşteri yönetim (CRM) otomasyonları geliştiriyoruz. Müşteri kazanımınızı hızlandıracak 1 dakikalık canlı yazılım demomuzu WhatsApp'tan iletmemi ister misiniz?`;
+        }
+
         if (gap === 'MISSING_WEBSITE' || !lead.has_website) {
           return `Merhaba ${biz} ekibi, ${city} bölgesinde ${cat} hizmetinizi Google'da inceledim. Konumunuz harika ancak arayan müşterilerin doğrudan bilgi ve randevu alabileceği mobil bir web siteniz eksik olduğu için müşteriler rakiplere kayabiliyor. Sizin için hazırladığımız hızlı taslak çalışmasını WhatsApp'tan iletmemi ister misiniz?`;
         } else if (gap === 'NO_SSL_INSECURE' || !lead.has_ssl) {
@@ -2213,9 +2506,23 @@
           return `Merhaba ${biz} ekibi, ${city} bölgesindeki ${cat} profilinizi inceledim. Google Haritalar'da daha fazla müşteri çekmeniz ve dijital büyümeniz için hazırladığımız özel fırsat analizini paylaşmak isterim. İncelemek ister misiniz?`;
         }
       } else {
-        const subject = `${biz} İçin Dijital Fırsat Analizi & Müşteri Artırma (${city})`;
-        const body = `Merhaba ${biz} Yetkilisi,\n\n${city} bölgesinde ${cat} sektöründeki profilinizi inceledik.\n\nİşletmeniz için tespit ettiğimiz dijital fırsatları ve müşteri kazanımınızı artıracak adımları içeren kısa bir rapor hazırladık.\n\nDetaylı analizi incelemek isterseniz bu e-postayı yanıtlamanız yeterlidir.\n\nSaygılarımızla.`;
-        return { subject, body };
+        if (pType === 'hair_dye') {
+          const subject = `${biz} İçin Profesyonel Saç Boyası & Salon Tedariği Toptan Fiyat Listesi (${city})`;
+          const body = `Merhaba ${biz} Ekibi,\n\n${city} bölgesinde kuaför ve güzellik salonları için profesyonel saç boyaları ve salon sarf malzemeleri tedarik ediyoruz.\n\nKuaförlerimize sunduğumuz avantajlar:\n• Salonlara özel toptan fiyat listesi ve yüksek kar marjı\n• Zengin renk kartelası, %100 beyaz kapatma ve amonyaksız seriler\n• Ücretsiz salon tester / numune deneme kiti ve hızlı sevkiyat\n\nFiyat listemizi ve ürün kartelamızı incelemek isterseniz bu e-postayı yanıtlamanız yeterlidir.\n\nSaygılarımızla.`;
+          return { subject, body };
+        } else if (pType === 'steam_iron') {
+          const subject = `${biz} İçin Sanayi Tipi Buharlı Ütü & Tesisat Kurulum Çözümleri (${city})`;
+          const body = `Merhaba ${biz} Ekibi,\n\n${city} bölgesindeki tekstil atölyeleri ve terziler için Silter tipi sanayi buharlı ütü sistemleri, merkezi buhar kazanı tesisat montajı ve orijinal yedek parça hizmeti sunuyoruz.\n\nAtölyenize özel tesisat ve makine teklifimizi incelemek isterseniz bu e-postayı yanıtlayabilirsiniz.\n\nSaygılarımızla.`;
+          return { subject, body };
+        } else if (pType === 'custom' && customProductName) {
+          const subject = `${biz} İçin ${customProductName} Kurumsal Teklif & İş Birliği (${city})`;
+          const body = `Merhaba ${biz} Yetkilisi,\n\n${city} bölgesindeki işletmeniz için kurumsal '${customProductName}' çözümlerimizle hizmetinizdeyiz.\n\nAvantajlı kurumsal fiyat teklifimizi ve kataloğumuzu incelemek için bu e-postayı yanıtlamanız yeterlidir.\n\nSaygılarımızla.`;
+          return { subject, body };
+        } else {
+          const subject = `${biz} İçin Dijital Fırsat Analizi & Müşteri Artırma (${city})`;
+          const body = `Merhaba ${biz} Yetkilisi,\n\n${city} bölgesinde ${cat} sektöründeki profilinizi inceledik.\n\nİşletmeniz için tespit ettiğimiz dijital fırsatları ve müşteri kazanımınızı artıracak adımları içeren kısa bir rapor hazırladık.\n\nDetaylı analizi incelemek isterseniz bu e-postayı yanıtlamanız yeterlidir.\n\nSaygılarımızla.`;
+          return { subject, body };
+        }
       }
     }
 
