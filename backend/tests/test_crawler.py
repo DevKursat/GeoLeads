@@ -32,7 +32,10 @@ class TestWebsiteCrawler(unittest.TestCase):
         self.assertIsNone(self.crawler._clean_email("sentry@sentry-next.wixpress.com"))
         self.assertIsNone(self.crawler._clean_email("logo.png@business.com"))
         self.assertIsNone(self.crawler._clean_email("photo.jpg@agency.com"))
+        self.assertIsNone(self.crawler._clean_email("banner.webp@agency.com"))
         self.assertIsNone(self.crawler._clean_email("test@domain.png"))
+        self.assertIsNone(self.crawler._clean_email("user@example.org"))
+        self.assertIsNone(self.crawler._clean_email("contact@sample.net"))
 
     def test_clean_phone_normalizes_turkish_mobile(self):
         self.assertEqual(self.crawler._clean_phone("0532 123 45 67"), "+90 532 123 45 67")
@@ -40,7 +43,13 @@ class TestWebsiteCrawler(unittest.TestCase):
         self.assertEqual(self.crawler._clean_phone("+905321234567"), "+90 532 123 45 67")
         self.assertEqual(self.crawler._clean_phone("(0532) 123 45 67"), "+90 532 123 45 67")
         self.assertEqual(self.crawler._clean_phone("542 987 65 43"), "+90 542 987 65 43")
+        self.assertEqual(self.crawler._clean_phone("00905321234567"), "+90 532 123 45 67")
         self.assertEqual(self.crawler._clean_phone("+1 555 123 4567"), "+15551234567")
+
+        # Turkish 0850 Toll-Free and Landlines
+        self.assertEqual(self.crawler._clean_phone("0850 123 45 67"), "+90 (850) 123 45 67")
+        self.assertEqual(self.crawler._clean_phone("0212 345 67 89"), "+90 (212) 345 67 89")
+        self.assertEqual(self.crawler._clean_phone("+90 216 414 44 20"), "+90 (216) 414 44 20")
 
     def test_detect_whatsapp(self):
         links = ["https://instagram.com/clinic", "https://wa.me/905321234567"]
@@ -52,9 +61,17 @@ class TestWebsiteCrawler(unittest.TestCase):
         wa_from_phone = self.crawler._detect_whatsapp([], {"+90 544 111 22 33"})
         self.assertEqual(wa_from_phone, "https://wa.me/905441112233")
 
+        # 00905 phone builds valid wa.me
+        wa_00905 = self.crawler._detect_whatsapp([], {"00905321234567"})
+        self.assertEqual(wa_00905, "https://wa.me/905321234567")
+
         # International mobile WhatsApp
         wa_intl = self.crawler._detect_whatsapp([], {"+447911123456"})
         self.assertEqual(wa_intl, "https://wa.me/447911123456")
+
+        # Landlines (0212, 0216, 0850) should NEVER be detected as WhatsApp
+        wa_landline = self.crawler._detect_whatsapp([], {"+90 (212) 345 67 89", "+90 (850) 123 45 67"})
+        self.assertEqual(wa_landline, "")
 
     def test_find_contact_urls_includes_all_required_slugs(self):
         links = [

@@ -280,6 +280,33 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertIn("X-Is-Pro: 1", headers)
 
+    def test_frontend_sales_outreach_and_filter_elements(self):
+        status, body, headers = simulate_request("GET", "/")
+        self.assertEqual(status, 200)
+        html = body.decode("utf-8")
+
+        # Laser-targeting filter pills
+        self.assertIn('id="pill_all"', html)
+        self.assertIn('id="pill_has_email"', html)
+        self.assertIn('id="pill_has_whatsapp"', html)
+        self.assertIn('id="pill_high_score"', html)
+        self.assertIn('id="pill_no_website"', html)
+        self.assertIn('id="pill_no_ssl"', html)
+
+        # 1-Click outreach & mobile detection functions
+        self.assertIn("quickWhatsAppOutreach", html)
+        self.assertIn("quickEmailOutreach", html)
+        self.assertIn("isMobileNumber", html)
+        self.assertIn("normalizePhoneForWhatsApp", html)
+
+        # Digital Audit Report Grid and Action Bar in modal
+        self.assertIn('id="modalCallBtn"', html)
+        self.assertIn('id="modalWhatsAppTopBtn"', html)
+        self.assertIn('id="modalEmailTopBtn"', html)
+        self.assertIn('id="auditWebStatus"', html)
+        self.assertIn('id="auditSSLStatus"', html)
+        self.assertIn('id="auditMobileStatus"', html)
+
 
 if __name__ == "__main__":
     unittest.main()

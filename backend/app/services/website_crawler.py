@@ -304,10 +304,10 @@ class WebsiteCrawler:
             return None
         local_part, domain = parts[0], parts[1]
 
-        # Check local part for image extensions (e.g. logo.png@..., pic.jpg@...)
-        if any(local_part.endswith(ext) for ext in EMAIL_BLACKLIST_EXTENSIONS):
+        # Check local part for image extensions anywhere (e.g. logo.png@..., pic.jpg@..., banner.webp@...)
+        if any(ext in local_part for ext in EMAIL_BLACKLIST_EXTENSIONS):
             return None
-        if re.search(r'\.(?:png|jpg|jpeg|gif|svg|webp|bmp|ico|css|js|pdf|mp4)$', local_part):
+        if re.search(r'\.(?:png|jpg|jpeg|gif|svg|webp|bmp|ico|css|js|pdf|mp4)', local_part):
             return None
 
         # Check placeholder local parts & common junk prefixes
@@ -324,12 +324,17 @@ class WebsiteCrawler:
         if domain.startswith("-") or domain.endswith("-") or domain.startswith("."):
             return None
 
-        # Check ignored domains or subdomains
+        # Check ignored domains or domain base names (e.g. example.org, domain.net, sample.co)
+        domain_parts = domain.split(".")
+        domain_base = domain_parts[0]
+        if domain_base in ("example", "domain", "sample", "test", "mysite", "yoursite", "sentry"):
+            return None
+
         if domain in IGNORED_EMAIL_DOMAINS or any(domain.endswith("." + d) for d in IGNORED_EMAIL_DOMAINS):
             return None
 
         # Reject invalid TLDs (e.g., test@domain.png, test@site.jpg)
-        tld = domain.split(".")[-1]
+        tld = domain_parts[-1]
         if f".{tld}" in EMAIL_BLACKLIST_EXTENSIONS or not re.match(r'^[a-z]{2,12}$', tld):
             return None
 
@@ -341,7 +346,7 @@ class WebsiteCrawler:
         clean_input = phone_str.strip()
         digits = re.sub(r'\D', '', clean_input)
 
-        # 1. Turkish Mobile numbers (05xx, +90 5xx, 5xx, (05xx), (5xx))
+        # 1. Turkish Mobile numbers (05xx, +90 5xx, 5xx, (05xx), (5xx), 00905)
         if len(digits) == 10 and digits.startswith("5"):
             return f"+90 {digits[0:3]} {digits[3:6]} {digits[6:8]} {digits[8:10]}"
         elif len(digits) == 11 and digits.startswith("05"):
@@ -351,18 +356,23 @@ class WebsiteCrawler:
         elif len(digits) == 14 and digits.startswith("00905"):
             return f"+90 {digits[4:7]} {digits[7:10]} {digits[10:12]} {digits[12:14]}"
 
-        # 2. Turkish Landlines (02xx, 03xx, 04xx)
-        if len(digits) == 10 and digits[0] in "234":
+        # 2. Turkish Landlines (02xx, 03xx, 04xx) & Toll-Free / Business (0850)
+        if len(digits) == 10 and digits[0] in "2348":
             return f"+90 ({digits[0:3]}) {digits[3:6]} {digits[6:8]} {digits[8:10]}"
-        elif len(digits) == 11 and digits.startswith("0") and digits[1] in "234":
+        elif len(digits) == 11 and digits.startswith("0") and digits[1] in "2348":
             return f"+90 ({digits[1:4]}) {digits[4:7]} {digits[7:9]} {digits[9:11]}"
-        elif len(digits) == 12 and digits.startswith("90") and digits[2] in "234":
+        elif len(digits) == 12 and digits.startswith("90") and digits[2] in "2348":
             return f"+90 ({digits[2:5]}) {digits[5:8]} {digits[8:10]} {digits[10:12]}"
+        elif len(digits) == 14 and digits.startswith("0090") and digits[4] in "2348":
+            return f"+90 ({digits[4:7]}) {digits[7:10]} {digits[10:12]} {digits[12:14]}"
 
         # 3. International Mobile / Phone formats
         if clean_input.startswith("+") and 10 <= len(digits) <= 15:
             return f"+{digits}"
-        elif len(digits) >= 10:
+        elif clean_input.startswith("00") and 12 <= len(digits) <= 16:
+            return f"+{digits[2:]}"
+        elif len(digits) == 10 and not digits.startswith("0"):
+            # Generic 10-digit number without country code
             return clean_input
 
         return None
@@ -382,8 +392,10 @@ class WebsiteCrawler:
                 return f"https://wa.me/9{digits}"
             elif digits.startswith("5") and len(digits) == 10:
                 return f"https://wa.me/90{digits}"
-            elif p.startswith("+") and not p.startswith("+90 (2") and not p.startswith("+90 (3") and not p.startswith("+90 (4"):
-                if 10 <= len(digits) <= 15 and not digits.startswith("902") and not digits.startswith("903") and not digits.startswith("904"):
+            elif digits.startswith("00905") and len(digits) == 14:
+                return f"https://wa.me/{digits[2:]}"
+            elif p.startswith("+") and not p.startswith("+90 (2") and not p.startswith("+90 (3") and not p.startswith("+90 (4") and not p.startswith("+90 (8"):
+                if 10 <= len(digits) <= 15 and not digits.startswith("902") and not digits.startswith("903") and not digits.startswith("904") and not digits.startswith("908"):
                     return f"https://wa.me/{digits}"
         return ""
 

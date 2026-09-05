@@ -98,6 +98,41 @@ class TestScraperEngine(unittest.TestCase):
             self.assertTrue(lead.website)
             self.assertGreaterEqual(lead.rating, 4.0)
 
+    def test_verified_real_osm_businesses_integrity(self):
+        # When searching for a sector not in verified OSM database for that city,
+        # it must NOT forge an architect or dentist into a software company
+        leads = scraper_engine._get_verified_real_businesses(query="Yazılım", city="Antalya", limit=5)
+        for lead in leads:
+            # All returned leads must genuinely be in software/IT, not forged dentists or architects
+            self.assertIn("Yazılım", lead.category)
+
+    def test_generate_sector_leads_accurate_city_codes(self):
+        # City area codes must accurately match the requested city
+        cities_to_test = {
+            "Bursa": "224",
+            "Antalya": "242",
+            "Ankara": "312",
+            "İzmir": "232"
+        }
+        for city, expected_code in cities_to_test.items():
+            leads = scraper_engine._generate_sector_leads(query="Klinik", city=city, count=10)
+            for lead in leads:
+                if "(" in lead.phone:  # landline
+                    self.assertIn(f"({expected_code})", lead.phone)
+
+    def test_search_and_enrich_fallback_completeness(self):
+        # Searching for any sector & city must always return the full requested quota of leads
+        leads = scraper_engine.search_and_enrich(
+            query="Oto Servis",
+            city="Bursa",
+            max_leads=6,
+            deep_crawl=False
+        )
+        self.assertEqual(len(leads), 6)
+        for lead in leads:
+            self.assertEqual(lead.city, "Bursa")
+            self.assertIsNotNone(lead.opportunity_score)
+
 
 if __name__ == "__main__":
     unittest.main()

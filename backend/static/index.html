@@ -1304,7 +1304,7 @@
           </td>
           <td class="py-3 px-4 text-right">
             <div class="flex items-center justify-end gap-1.5 flex-wrap sm:flex-nowrap">
-              ${(l.whatsapp || l.phone) ? `
+              ${(l.whatsapp || isMobileNumber(l.phone)) ? `
                 <button onclick="quickWhatsAppOutreach(${l.id})" class="px-2 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold transition flex items-center gap-1 shadow-sm" title="1-Tıkla Hazır Teklif ile WhatsApp Aç & İletişim Kuruldu Yap">
                   <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
                   <span class="hidden md:inline">WhatsApp</span>
@@ -1605,20 +1605,35 @@
       safeCopy(text, "Satış metni panoya kopyalandı!");
     }
 
+    function isMobileNumber(phoneStr) {
+      if (!phoneStr) return false;
+      const digits = phoneStr.replace(/\D/g, '');
+      if (digits.startsWith("905") && digits.length === 12) return true;
+      if (digits.startsWith("05") && digits.length === 11) return true;
+      if (digits.startsWith("5") && digits.length === 10) return true;
+      if (digits.startsWith("00905") && digits.length === 14) return true;
+      if (phoneStr.trim().startsWith("+") && !digits.startsWith("902") && !digits.startsWith("903") && !digits.startsWith("904") && !digits.startsWith("908") && digits.length >= 10 && digits.length <= 15) {
+        return true;
+      }
+      return false;
+    }
+
     function normalizePhoneForWhatsApp(phoneStr, waLink) {
       if (waLink && waLink.includes("wa.me/")) {
         const parts = waLink.split("wa.me/")[1].split("?")[0].replace(/\D/g, '');
         if (parts.length >= 10) return parts;
       }
       if (!phoneStr) return "";
-      let digits = phoneStr.replace(/\D/g, '');
-      if (digits.length === 10 && digits.startsWith("5")) {
-        return "90" + digits;
-      } else if (digits.length === 11 && digits.startsWith("05")) {
-        return "9" + digits;
-      } else if (digits.length === 12 && digits.startsWith("905")) {
+      const digits = phoneStr.replace(/\D/g, '');
+      if (digits.startsWith("905") && digits.length === 12) {
         return digits;
-      } else if (digits.length >= 10) {
+      } else if (digits.startsWith("05") && digits.length === 11) {
+        return "9" + digits;
+      } else if (digits.startsWith("5") && digits.length === 10) {
+        return "90" + digits;
+      } else if (digits.startsWith("00905") && digits.length === 14) {
+        return digits.slice(2);
+      } else if (phoneStr.trim().startsWith("+") && !digits.startsWith("902") && !digits.startsWith("903") && !digits.startsWith("904") && !digits.startsWith("908") && digits.length >= 10 && digits.length <= 15) {
         return digits;
       }
       return "";
@@ -1653,7 +1668,7 @@
 
       const targetPhone = normalizePhoneForWhatsApp(lead.phone, lead.whatsapp);
       if (!targetPhone) {
-        showToast("İşletmenin telefon veya WhatsApp numarası bulunamadı.", "error");
+        showToast("Bu işletmenin cep telefonu veya WhatsApp hattı bulunmuyor (sabit hat kayıtlı). Hemen Ara butonunu kullanabilirsiniz.", "error");
         return;
       }
 
@@ -1695,8 +1710,9 @@
           const sel = document.getElementById("modalStageSelect");
           if (sel) sel.value = "CONTACTED";
         }
-        renderTable(leadsState);
-        renderKanban(leadsState);
+        updatePillCounts();
+        applyFilters();
+        fetchStats();
       } catch (e) {
         console.error(e);
       }
@@ -1797,7 +1813,7 @@
     function updatePillCounts() {
       const allCount = leadsState.length;
       const emailCount = leadsState.filter(l => l.emails && l.emails.length > 0).length;
-      const waCount = leadsState.filter(l => Boolean(l.whatsapp) || (l.phone && l.phone.includes("5"))).length;
+      const waCount = leadsState.filter(l => Boolean(l.whatsapp) || isMobileNumber(l.phone)).length;
       const highScoreCount = leadsState.filter(l => l.opportunity_score >= 70).length;
       const noWebCount = leadsState.filter(l => !l.has_website).length;
       const noSslCount = leadsState.filter(l => l.has_website && !l.has_ssl).length;
@@ -1830,7 +1846,7 @@
 
         let matchesPill = true;
         if (activeFilterPill === "has_email") matchesPill = l.emails && l.emails.length > 0;
-        else if (activeFilterPill === "has_whatsapp") matchesPill = Boolean(l.whatsapp) || (l.phone && l.phone.includes("5"));
+        else if (activeFilterPill === "has_whatsapp") matchesPill = Boolean(l.whatsapp) || isMobileNumber(l.phone);
         else if (activeFilterPill === "high_score") matchesPill = l.opportunity_score >= 70;
         else if (activeFilterPill === "no_website") matchesPill = !l.has_website;
         else if (activeFilterPill === "no_ssl") matchesPill = l.has_website && !l.has_ssl;
