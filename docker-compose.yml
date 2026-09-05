@@ -1,0 +1,24 @@
+services:
+  geoleads-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: geoleads-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - GEOLEADS_MASTER_KEY=geoleads-pro-2026
+      - COMMUNITY_MAX_LEADS=25
+      - PRO_MAX_LEADS=500
+      - GEOLEADS_AI_PROVIDER=template
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - GITHUB_REPO_URL=https://github.com/geoleads/geoleads
+    volumes:
+      - geoleads_data:/app/data
+
+volumes:
+  geoleads_data:
+    driver: local
