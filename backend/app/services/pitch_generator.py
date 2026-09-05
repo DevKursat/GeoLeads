@@ -115,57 +115,155 @@ class PitchGenerator:
 
         hook_data = gap_hooks_tr.get(lead.primary_gap, default_hook_tr)
 
+        tone_lower = (tone or "consultative").lower()
+
         if lang == "tr":
-            if channel == "whatsapp":
-                message = (
-                    f"Merhaba {biz_name} yetkilisi,\n\n"
-                    f"Ben {sender}, {agency}'ndan ulaşıyorum. {city} bölgesinde {category} araması yaparken profilinizi inceledim.\n\n"
-                    f"💡 Önemli bir fırsat fark ettim: {hook_data['hook']}\n\n"
-                    f"🎯 Sunduğumuz çözüm: {hook_data['solution']}\n\n"
-                    f"{hook_data['cta']}\n\n"
-                    f"İyi çalışmalar dilerim!"
-                )
-                subject = f"{biz_name} için Dijital Büyüme Fırsatı"
-            else:  # email
-                subject = f"{biz_name} için Önemli İnceleme ({city} Yerel Sıralama & Dönüşüm)"
-                message = (
-                    f"Sayın {biz_name} Yetkilisi,\n\n"
-                    f"Ben {sender}, {agency} kurucusuyum.\n\n"
-                    f"{city} bölgesinde {category} hizmetleri arayan potansiyel müşterilerin davranışlarını incelerken profilinize rastladık. "
-                    f"Mevcut durumunuzu incelediğimizde dikkat çeken bir nokta oldu:\n\n"
-                    f"📌 Tespit: {hook_data['hook']}\n\n"
-                    f"Bu durum her ay bölgenizden gelebilecek onlarca yeni müşterinin rakiplere yönelmesine yol açıyor.\n\n"
-                    f"Biz bu sorunu şu şekilde çözüyoruz: {hook_data['solution']}\n\n"
-                    f"{hook_data['cta']}\n\n"
-                    f"Müsait olduğunuzda bu e-postayı 'Evet' diyerek yanıtlamanız yeterlidir, hemen iletebilirim.\n\n"
-                    f"Saygılarımla,\n"
-                    f"{sender}\n"
-                    f"{agency}"
-                )
+            if tone_lower in ("friendly", "samimi"):
+                if channel == "whatsapp":
+                    subject = f"{biz_name} için İş Birliği & Çözüm Fikri"
+                    message = (
+                        f"Selamlar {biz_name} ekibi! 👋\n\n"
+                        f"Ben {sender}, {agency}'ndan yazıyorum. {city} bölgesinde {category} profilinize rastladım ve işlerinizi çok beğendim.\n\n"
+                        f"Küçük ama çok etkili bir çözüm fark ettik: {hook_data['hook']}\n\n"
+                        f"Bunu sizin için çok kolay çözebiliriz: {hook_data['solution']}\n\n"
+                        f"{hook_data['cta']}\n\n"
+                        f"Görüşmek dileğiyle, sevgiler!"
+                    )
+                else:
+                    subject = f"Merhaba {biz_name} Ekibi — {city} Bölgesinde Hızlı Bir İnceleme"
+                    message = (
+                        f"Merhaba {biz_name} Ekibi,\n\n"
+                        f"Umarım haftanız harika geçiyordur! Ben {sender}, {agency}'ndan ulaşıyorum.\n\n"
+                        f"{city} bölgesinde {category} araştırması yaparken başarılı profilinizi inceledim. Sizin için işletmenize değer katacak pratik bir fırsat gördük:\n\n"
+                        f"💡 Tespitimiz: {hook_data['hook']}\n\n"
+                        f"Çözüm önerimiz: {hook_data['solution']}\n\n"
+                        f"{hook_data['cta']}\n\n"
+                        f"Müsait olduğunuzda kısa bir dönüş yaparsanız detayları hemen paylaşmaktan mutluluk duyarım.\n\n"
+                        f"Sevgiler,\n"
+                        f"{sender}\n"
+                        f"{agency}"
+                    )
+            elif tone_lower in ("urgency", "direct", "aciliyet"):
+                if channel == "whatsapp":
+                    subject = f"ACİL: {biz_name} Yerel Müşteri Kaybı Uyarısı"
+                    message = (
+                        f"{biz_name} Yetkilisine Önemli Not ⚠️\n\n"
+                        f"Ben {sender}, {agency}'ndan ulaşıyorum. {city} bölgesinde {category} aramalarında rakiplerinizin öne geçmesine sebep olan kritik bir kayıp noktası var:\n\n"
+                        f"🚨 Kritik Açık: {hook_data['hook']}\n\n"
+                        f"Hemen harekete geçilmezse bölgenizdeki potansiyel müşteri kaybı katlanarak sürecek.\n\n"
+                        f"⚡ Hızlı Çözümümüz: {hook_data['solution']}\n\n"
+                        f"{hook_data['cta']}\n\n"
+                        f"{sender} | {agency}"
+                    )
+                else:
+                    subject = f"DİKKAT: {biz_name} İçin Kritik Müşteri Kaybı & Yerel Sıralama Analizi ({city})"
+                    message = (
+                        f"Sayın {biz_name} Yetkilisi,\n\n"
+                        f"Ben {sender}, {agency} kurucusuyum. {city} bölgesindeki {category} pazarını analiz ederken işletmenizin doğrudan müşteri kaybettiği somut bir açık tespit ettik:\n\n"
+                        f"⚠️ Kritik Teşhis: {hook_data['hook']}\n\n"
+                        f"Bu açık yüzünden her ay onlarca yerel müşteri doğrudan rakip firmalara kaptırılıyor. Zaman kaybetmeden müdahale edilmesi kritik önem taşıyor.\n\n"
+                        f"🎯 24 Saatte Çözüm: {hook_data['solution']}\n\n"
+                        f"{hook_data['cta']}\n\n"
+                        f"Cevabınızı bekliyorum.\n\n"
+                        f"{sender}\n"
+                        f"{agency}"
+                    )
+            else:  # corporate / consultative
+                if channel == "whatsapp":
+                    message = (
+                        f"Merhaba {biz_name} yetkilisi,\n\n"
+                        f"Ben {sender}, {agency}'ndan ulaşıyorum. {city} bölgesinde {category} araması yaparken profilinizi inceledim.\n\n"
+                        f"💡 Önemli bir fırsat fark ettim: {hook_data['hook']}\n\n"
+                        f"🎯 Sunduğumuz çözüm: {hook_data['solution']}\n\n"
+                        f"{hook_data['cta']}\n\n"
+                        f"İyi çalışmalar dilerim!"
+                    )
+                    subject = f"{biz_name} için Dijital Büyüme Fırsatı"
+                else:  # email
+                    subject = f"{biz_name} için Önemli İnceleme ({city} Yerel Sıralama & Dönüşüm)"
+                    message = (
+                        f"Sayın {biz_name} Yetkilisi,\n\n"
+                        f"Ben {sender}, {agency} kurucusuyum.\n\n"
+                        f"{city} bölgesinde {category} hizmetleri arayan potansiyel müşterilerin davranışlarını incelerken profilinize rastladık. "
+                        f"Mevcut durumunuzu incelediğimizde dikkat çeken bir nokta oldu:\n\n"
+                        f"📌 Tespit: {hook_data['hook']}\n\n"
+                        f"Bu durum her ay bölgenizden gelebilecek onlarca yeni müşterinin rakiplere yönelmesine yol açıyor.\n\n"
+                        f"Biz bu sorunu şu şekilde çözüyoruz: {hook_data['solution']}\n\n"
+                        f"{hook_data['cta']}\n\n"
+                        f"Müsait olduğunuzda bu e-postayı 'Evet' diyerek yanıtlamanız yeterlidir, hemen iletebilirim.\n\n"
+                        f"Saygılarımla,\n"
+                        f"{sender}\n"
+                        f"{agency}"
+                    )
         else:  # English
-            if channel == "whatsapp":
-                message = (
-                    f"Hi {biz_name} team,\n\n"
-                    f"This is {sender} from {agency}. I noticed your business while analyzing top {category} places in {city}.\n\n"
-                    f"💡 Quick observation: We noticed a key opportunity to increase your inbound leads ({hook_data['hook']}).\n\n"
-                    f"🎯 We can solve this: {hook_data['solution']}\n\n"
-                    f"Would you be open to seeing a quick 2-minute mockup we built for you?\n\n"
-                    f"Best regards,\n{sender}"
-                )
-                subject = f"Growth opportunity for {biz_name}"
-            else:
-                subject = f"Quick question regarding {biz_name} ({city})"
-                message = (
-                    f"Hi {biz_name} Team,\n\n"
-                    f"I came across your profile while reviewing {category} providers in {city}.\n\n"
-                    f"While your location and reputation look strong ({rating_str}), there is a clear bottleneck costing you new inquiries each week:\n\n"
-                    f"🔍 Key Finding: {hook_data['hook']}\n\n"
-                    f"Solution: {hook_data['solution']}\n\n"
-                    f"Would you like me to send over a quick 2-minute overview video on how to implement this?\n\n"
-                    f"Best,\n"
-                    f"{sender}\n"
-                    f"{agency}"
-                )
+            if tone_lower in ("friendly", "samimi"):
+                if channel == "whatsapp":
+                    message = (
+                        f"Hey {biz_name} team! 👋\n\n"
+                        f"This is {sender} from {agency}. I came across your place while searching for great {category} spots in {city}.\n\n"
+                        f"💡 Quick helpful observation: {hook_data['hook']}\n\n"
+                        f"🎯 We can get this sorted for you super fast: {hook_data['solution']}\n\n"
+                        f"Would you be open to checking out a quick preview we put together?\n\n"
+                        f"Cheers,\n{sender}"
+                    )
+                    subject = f"Friendly idea for {biz_name}"
+                else:
+                    subject = f"Quick note for {biz_name} ({city})"
+                    message = (
+                        f"Hi {biz_name} Team,\n\n"
+                        f"Hope your week is off to a great start! I'm {sender} from {agency}.\n\n"
+                        f"While researching top {category} businesses in {city}, I noticed an opportunity that could immediately boost your bookings:\n\n"
+                        f"💡 Observation: {hook_data['hook']}\n\n"
+                        f"How we help: {hook_data['solution']}\n\n"
+                        f"Would you like me to send over a 2-minute overview?\n\n"
+                        f"Best regards,\n{sender}\n{agency}"
+                    )
+            elif tone_lower in ("urgency", "direct", "aciliyet"):
+                if channel == "whatsapp":
+                    message = (
+                        f"Urgent note for {biz_name} team ⚠️\n\n"
+                        f"This is {sender} from {agency}. You are currently losing {city} {category} inquiries to local competitors due to one critical bottleneck:\n\n"
+                        f"🚨 Issue: {hook_data['hook']}\n\n"
+                        f"⚡ Immediate fix: {hook_data['solution']}\n\n"
+                        f"Can I share the 2-minute fix before your competitors widen the lead?\n\n"
+                        f"{sender} | {agency}"
+                    )
+                    subject = f"Urgent lead leak at {biz_name}"
+                else:
+                    subject = f"Action Required: {biz_name} is losing local clients in {city}"
+                    message = (
+                        f"Attention: {biz_name} Leadership,\n\n"
+                        f"This is {sender} from {agency}. While auditing {category} providers in {city}, we uncovered a critical conversion bottleneck:\n\n"
+                        f"⚠️ Bottleneck: {hook_data['hook']}\n\n"
+                        f"Every week this remains unaddressed, potential clients choose competing businesses in {city}.\n\n"
+                        f"🎯 Turnaround Plan: {hook_data['solution']}\n\n"
+                        f"Reply 'YES' to receive the implementation steps today.\n\n"
+                        f"Regards,\n{sender}\n{agency}"
+                    )
+            else:  # corporate / consultative
+                if channel == "whatsapp":
+                    message = (
+                        f"Hi {biz_name} team,\n\n"
+                        f"This is {sender} from {agency}. I noticed your business while analyzing top {category} places in {city}.\n\n"
+                        f"💡 Quick observation: We noticed a key opportunity to increase your inbound leads ({hook_data['hook']}).\n\n"
+                        f"🎯 We can solve this: {hook_data['solution']}\n\n"
+                        f"Would you be open to seeing a quick 2-minute mockup we built for you?\n\n"
+                        f"Best regards,\n{sender}"
+                    )
+                    subject = f"Growth opportunity for {biz_name}"
+                else:
+                    subject = f"Quick question regarding {biz_name} ({city})"
+                    message = (
+                        f"Hi {biz_name} Team,\n\n"
+                        f"I came across your profile while reviewing {category} providers in {city}.\n\n"
+                        f"While your location and reputation look strong ({rating_str}), there is a clear bottleneck costing you new inquiries each week:\n\n"
+                        f"🔍 Key Finding: {hook_data['hook']}\n\n"
+                        f"Solution: {hook_data['solution']}\n\n"
+                        f"Would you like me to send over a quick 2-minute overview video on how to implement this?\n\n"
+                        f"Best,\n"
+                        f"{sender}\n"
+                        f"{agency}"
+                    )
 
         # Generate direct WhatsApp click link if phone is available
         whatsapp_url = ""

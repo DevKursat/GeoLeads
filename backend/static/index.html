@@ -64,14 +64,22 @@
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
           colors: {
             brand: {
               50: '#eef2ff',
               100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
               400: '#818cf8',
               500: '#6366f1',
               600: '#4f46e5',
               700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
             },
             accent: {
               emerald: '#10b981',
@@ -83,39 +91,90 @@
       }
     }
   </script>
-  <!-- Inter font -->
+
+  <!-- Plus Jakarta Sans Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
+    * {
+      -webkit-tap-highlight-color: transparent;
     }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Glassmorphism Design System */
     .glass-card {
-      background: rgba(17, 24, 39, 0.7);
-      backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
     .light .glass-card {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
     }
+
+    .glass-card-hover {
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card-hover:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -8px rgba(99, 102, 241, 0.22);
+    }
+    .light .glass-card-hover:hover {
+      box-shadow: 0 12px 25px -5px rgba(15, 23, 42, 0.08);
+    }
+
     .glow-effect {
-      box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.35);
+      box-shadow: 0 0 35px -5px rgba(99, 102, 241, 0.35);
     }
+    .glow-amber {
+      box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.35);
+    }
+    .glow-emerald {
+      box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.35);
+    }
+
+    /* Custom Scrollbar */
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: rgba(156, 163, 175, 0.4);
+      background: rgba(148, 163, 184, 0.35);
       border-radius: 9999px;
     }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(148, 163, 184, 0.55);
+    }
+
+    /* Shimmer Skeleton Loaders */
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .skeleton-shimmer {
+      background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.03) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s infinite;
+    }
+    .light .skeleton-shimmer {
+      background: linear-gradient(90deg, rgba(0,0,0,0.04) 25%, rgba(0,0,0,0.09) 50%, rgba(0,0,0,0.04) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.6s infinite;
+    }
+
     @keyframes pulse-glow {
       0%, 100% { transform: scale(1); opacity: 0.9; }
       50% { transform: scale(1.03); opacity: 1; }
@@ -123,9 +182,15 @@
     .pulse-glow {
       animation: pulse-glow 3s infinite ease-in-out;
     }
+
+    /* Touch target comfort */
+    .touch-target {
+      min-height: 44px;
+      min-width: 44px;
+    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen transition-colors duration-300 flex flex-col selection:bg-brand-500 selection:text-white">
+<body class="bg-slate-950 dark:bg-slate-950 text-slate-100 dark:text-slate-100 min-h-screen transition-colors duration-300 flex flex-col selection:bg-brand-500 selection:text-white">
 
   <!-- Top Announcement / Star-Gate Banner -->
   <div class="bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 text-white text-xs py-2 px-4 shadow-md flex items-center justify-between z-40">
@@ -152,45 +217,45 @@
   </div>
 
   <!-- Main Navigation Header -->
-  <header class="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md sticky top-0 z-30 transition-colors">
+  <header class="border-b border-slate-800/80 dark:border-slate-800/80 border-slate-200/80 bg-slate-900/70 dark:bg-slate-900/70 bg-white/85 backdrop-blur-md sticky top-0 z-30 transition-colors">
     <div class="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <!-- Logo -->
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center shadow-lg shadow-brand-500/20 text-white font-black text-xl">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center shadow-lg shadow-brand-500/25 text-white font-black text-xl flex-shrink-0">
           <i data-lucide="crosshair" class="w-6 h-6"></i>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="text-xl font-extrabold tracking-tight text-white">Geo<span class="text-brand-400">Leads</span></span>
-            <span id="badgeTier" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">PRO SUITE</span>
+            <span class="text-xl font-extrabold tracking-tight text-white dark:text-white text-slate-900">Geo<span class="text-brand-400">Leads</span></span>
+            <span id="badgeTier" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 dark:text-indigo-300 text-indigo-600 border border-indigo-500/30">PRO SUITE</span>
           </div>
-          <p class="text-[11px] text-slate-400 leading-none">Yerel Müşteri Bulma & Satış Fırsatı Motoru</p>
+          <p class="text-[11px] text-slate-400 dark:text-slate-400 text-slate-500 leading-none">Yerel Müşteri Bulma & Satış Fırsatı Motoru</p>
         </div>
       </div>
 
       <!-- Quick Metrics Pill -->
-      <div class="hidden md:flex items-center space-x-6 text-xs bg-slate-800/60 border border-slate-700/60 px-4 py-2 rounded-full">
+      <div class="hidden md:flex items-center space-x-6 text-xs bg-slate-800/60 dark:bg-slate-800/60 bg-slate-100 border border-slate-700/60 dark:border-slate-700/60 border-slate-200 px-4 py-2 rounded-full">
         <div class="flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-          <span class="text-slate-400">Toplam Müşteri:</span>
-          <span id="statTotalLeads" class="font-bold text-white">0</span>
+          <span class="text-slate-400 dark:text-slate-400 text-slate-500">Toplam:</span>
+          <span id="statTotalLeads" class="font-bold text-white dark:text-white text-slate-900">0</span>
         </div>
-        <div class="h-3 w-px bg-slate-700"></div>
+        <div class="h-3 w-px bg-slate-700 dark:bg-slate-700 bg-slate-300"></div>
         <div class="flex items-center gap-1.5">
           <i data-lucide="mail" class="w-3.5 h-3.5 text-blue-400"></i>
-          <span class="text-slate-400">E-Posta:</span>
-          <span id="statEmails" class="font-bold text-white">0</span>
+          <span class="text-slate-400 dark:text-slate-400 text-slate-500">E-Posta:</span>
+          <span id="statEmails" class="font-bold text-white dark:text-white text-slate-900">0</span>
         </div>
-        <div class="h-3 w-px bg-slate-700"></div>
+        <div class="h-3 w-px bg-slate-700 dark:bg-slate-700 bg-slate-300"></div>
         <div class="flex items-center gap-1.5">
           <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
-          <span class="text-slate-400">WhatsApp:</span>
-          <span id="statWhatsApp" class="font-bold text-white">0</span>
+          <span class="text-slate-400 dark:text-slate-400 text-slate-500">WhatsApp:</span>
+          <span id="statWhatsApp" class="font-bold text-white dark:text-white text-slate-900">0</span>
         </div>
-        <div class="h-3 w-px bg-slate-700"></div>
+        <div class="h-3 w-px bg-slate-700 dark:bg-slate-700 bg-slate-300"></div>
         <div class="flex items-center gap-1.5">
           <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span class="text-slate-400">Yüksek Satış Fırsatı:</span>
+          <span class="text-slate-400 dark:text-slate-400 text-slate-500">Yüksek Fırsat:</span>
           <span id="statOpportunities" class="font-bold text-amber-400">0</span>
         </div>
       </div>
@@ -198,27 +263,27 @@
       <!-- Action Buttons -->
       <div class="flex items-center space-x-2 sm:space-x-3">
         <!-- About Button -->
-        <button onclick="openAboutModal()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-indigo-600/15 hover:bg-indigo-600/25 border border-indigo-500/30 text-indigo-200 hover:text-white transition active:scale-95 shadow-sm" title="Hakkında / About & GEO Bilgisi">
-          <i data-lucide="info" class="w-3.5 h-3.5 text-indigo-400"></i>
+        <button onclick="openAboutModal()" class="touch-target inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-indigo-600/15 hover:bg-indigo-600/25 border border-indigo-500/30 text-indigo-200 dark:text-indigo-200 text-indigo-700 hover:text-white dark:hover:text-white hover:text-indigo-900 transition-all active:scale-95 shadow-sm" title="Hakkında / About & GEO Bilgisi">
+          <i data-lucide="info" class="w-4 h-4 text-indigo-400"></i>
           <span class="hidden sm:inline">Hakkında / About</span>
         </button>
 
         <!-- Install Desktop PWA App -->
-        <button id="btnInstallPwa" onclick="installPwa()" class="hidden inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white shadow-md shadow-brand-500/20 transition active:scale-95" title="Masaüstü Uygulaması Olarak Yükle">
-          <i data-lucide="laptop" class="w-3.5 h-3.5 text-brand-200"></i>
+        <button id="btnInstallPwa" onclick="installPwa()" class="touch-target hidden inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-brand-600 hover:bg-brand-500 text-white shadow-md shadow-brand-500/20 transition-all active:scale-95" title="Masaüstü Uygulaması Olarak Yükle">
+          <i data-lucide="laptop" class="w-4 h-4 text-brand-200"></i>
           <span class="hidden sm:inline">Masaüstüne İndir</span>
         </button>
 
         <!-- Export CSV Button -->
-        <button onclick="downloadCSV()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition active:scale-95">
-          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+        <button onclick="downloadCSV()" class="touch-target inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-700 dark:border-slate-700 border-slate-200 text-slate-200 dark:text-slate-200 text-slate-800 transition-all active:scale-95">
+          <i data-lucide="download" class="w-4 h-4"></i>
           <span class="hidden sm:inline">Dışa Aktar (CSV)</span>
         </button>
 
-        <!-- Theme Toggle -->
-        <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 transition" title="Tema Değiştir">
-          <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
-          <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+        <!-- Theme Toggle with Sun/Moon Icons -->
+        <button onclick="toggleTheme()" class="touch-target p-2 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-700 dark:border-slate-700 border-slate-200 text-slate-300 dark:text-slate-300 text-slate-700 transition-all active:scale-95" title="Tema Değiştir (Koyu / Açık)">
+          <i data-lucide="sun" class="theme-icon-sun w-4 h-4 text-amber-300"></i>
+          <i data-lucide="moon" class="theme-icon-moon w-4 h-4 text-slate-600 hidden"></i>
         </button>
       </div>
     </div>
@@ -228,7 +293,7 @@
   <main class="container mx-auto px-4 sm:px-6 py-8 flex-1 max-w-7xl">
 
     <!-- Search Engine Card -->
-    <div class="glass-card rounded-2xl p-6 sm:p-8 mb-8 border border-slate-800 shadow-xl relative overflow-hidden">
+    <div class="glass-card rounded-3xl p-6 sm:p-8 mb-8 border border-slate-800 dark:border-slate-800 border-slate-200 shadow-2xl relative overflow-hidden">
       <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
       <div class="absolute -left-16 -top-16 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -237,10 +302,10 @@
           <i data-lucide="radar" class="w-3.5 h-3.5 animate-pulse"></i>
           <span>Sıfır Maliyetli Google Maps & Web Derin Tarayıcı</span>
         </div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        <h1 class="text-2xl sm:text-3xl font-black text-white dark:text-white text-slate-900 tracking-tight">
           Hangi sektörde yeni müşteri bulmak istiyorsunuz?
         </h1>
-        <p class="text-sm text-slate-400 mt-1">
+        <p class="text-sm text-slate-400 dark:text-slate-400 text-slate-600 mt-1">
           Konum ve sektörü girin; işletmelerin telefonlarını, onaylı e-postalarını, WhatsApp hatlarını ve web sitesi açıklarını otomatik tespit edelim.
         </p>
       </div>
@@ -249,12 +314,12 @@
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <!-- Sektör / Anahtar Kelime -->
           <div class="sm:col-span-5 relative">
-            <label class="block text-xs font-semibold text-slate-300 mb-1 flex items-center gap-1">
+            <label class="block text-xs font-bold text-slate-300 dark:text-slate-300 text-slate-700 mb-1 flex items-center gap-1">
               <i data-lucide="briefcase" class="w-3 h-3 text-brand-400"></i> Sektör / Hizmet
             </label>
             <div class="relative">
               <input type="text" id="queryInput" required placeholder="Örn: Diş Hekimi, Restoran, Avukat, Klinik..." 
-                class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                class="touch-target w-full bg-slate-900/90 dark:bg-slate-900/90 bg-slate-50 border border-slate-700/80 dark:border-slate-700/80 border-slate-300 rounded-xl px-4 py-3 text-sm text-white dark:text-white text-slate-900 placeholder-slate-500 dark:placeholder-slate-500 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all">
               <div class="absolute right-3 top-3.5 text-slate-500">
                 <i data-lucide="search" class="w-4 h-4"></i>
               </div>
@@ -263,12 +328,12 @@
 
           <!-- Konum / Şehir -->
           <div class="sm:col-span-4 relative">
-            <label class="block text-xs font-semibold text-slate-300 mb-1 flex items-center gap-1">
+            <label class="block text-xs font-bold text-slate-300 dark:text-slate-300 text-slate-700 mb-1 flex items-center gap-1">
               <i data-lucide="map-pin" class="w-3 h-3 text-emerald-400"></i> Şehir / İlçe
             </label>
             <div class="relative">
               <input type="text" id="cityInput" required placeholder="Örn: Kadıköy, İstanbul veya İzmir..." 
-                class="w-full bg-slate-900/80 border border-slate-700/80 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                class="touch-target w-full bg-slate-900/90 dark:bg-slate-900/90 bg-slate-50 border border-slate-700/80 dark:border-slate-700/80 border-slate-300 rounded-xl px-4 py-3 text-sm text-white dark:text-white text-slate-900 placeholder-slate-500 dark:placeholder-slate-500 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all">
               <div class="absolute right-3 top-3.5 text-slate-500">
                 <i data-lucide="compass" class="w-4 h-4"></i>
               </div>
@@ -278,29 +343,49 @@
           <!-- Submit Button -->
           <div class="sm:col-span-3 flex items-end">
             <button type="submit" id="searchSubmitBtn" 
-              class="w-full h-[46px] bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-bold text-sm rounded-xl px-4 flex items-center justify-center gap-2 shadow-lg shadow-brand-500/25 transition active:scale-98">
+              class="touch-target w-full bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-extrabold text-sm rounded-xl px-4 flex items-center justify-center gap-2 shadow-lg shadow-brand-500/25 transition-all active:scale-95">
               <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i>
               <span>Müşterileri Bul</span>
             </button>
           </div>
         </div>
 
-        <!-- Extra Controls: Limit Slider & Deep Crawl Checkbox -->
-        <div class="pt-3 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-4 text-xs">
-          <!-- Suggestion Chips -->
-          <div class="flex items-center gap-1.5 flex-wrap">
-            <span class="text-slate-400 mr-1 font-medium">Önerilenler:</span>
-            <button type="button" onclick="setQuickSearch('Diş Hekimi', 'Kadıköy, İstanbul')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/60 transition">Diş Hekimi (Kadıköy)</button>
-            <button type="button" onclick="setQuickSearch('Avukat & Hukuk Bürosu', 'Çankaya, Ankara')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/60 transition">Hukuk Bürosu (Ankara)</button>
-            <button type="button" onclick="setQuickSearch('Restoran & Cafe', 'Beşiktaş, İstanbul')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/60 transition">Restoran (Beşiktaş)</button>
-            <button type="button" onclick="setQuickSearch('Güzellik Merkezi & Kuaför', 'Alsancak, İzmir')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700/60 transition">Kuaför (İzmir)</button>
+        <!-- QUICK-START SEARCH CHIPS (1-CLICK POPULAR DISCOVERY) -->
+        <div class="pt-3 border-t border-slate-800/80 dark:border-slate-800/80 border-slate-200">
+          <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-1.5 scroll-smooth" id="quickChipsRow">
+            <span class="text-xs font-extrabold text-slate-400 dark:text-slate-400 text-slate-600 whitespace-nowrap flex items-center gap-1 mr-1">
+              <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i> Hızlı Başlat:
+            </span>
+            <button type="button" onclick="executeQuickSearch('Diş Kliniği', 'İstanbul', this)" 
+              class="quick-search-chip touch-target inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 hover:bg-brand-600/20 dark:hover:bg-brand-600/20 hover:bg-brand-100 text-slate-300 dark:text-slate-300 text-slate-800 border border-slate-800 dark:border-slate-800 border-slate-300 active:scale-95 shadow-sm">
+              <span>🦷 Diş Kliniği - İstanbul</span>
+            </button>
+            <button type="button" onclick="executeQuickSearch('Hukuk Bürosu', 'Ankara', this)" 
+              class="quick-search-chip touch-target inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 hover:bg-brand-600/20 dark:hover:bg-brand-600/20 hover:bg-brand-100 text-slate-300 dark:text-slate-300 text-slate-800 border border-slate-800 dark:border-slate-800 border-slate-300 active:scale-95 shadow-sm">
+              <span>⚖️ Hukuk Bürosu - Ankara</span>
+            </button>
+            <button type="button" onclick="executeQuickSearch('Yazılım Şirketi', 'İzmir', this)" 
+              class="quick-search-chip touch-target inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 hover:bg-brand-600/20 dark:hover:bg-brand-600/20 hover:bg-brand-100 text-slate-300 dark:text-slate-300 text-slate-800 border border-slate-800 dark:border-slate-800 border-slate-300 active:scale-95 shadow-sm">
+              <span>💻 Yazılım Şirketi - İzmir</span>
+            </button>
+            <button type="button" onclick="executeQuickSearch('Mimarlık Ofisi', 'Bursa', this)" 
+              class="quick-search-chip touch-target inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 hover:bg-brand-600/20 dark:hover:bg-brand-600/20 hover:bg-brand-100 text-slate-300 dark:text-slate-300 text-slate-800 border border-slate-800 dark:border-slate-800 border-slate-300 active:scale-95 shadow-sm">
+              <span>🏗️ Mimarlık Ofisi - Bursa</span>
+            </button>
+            <button type="button" onclick="executeQuickSearch('Butik Otel', 'Antalya', this)" 
+              class="quick-search-chip touch-target inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 hover:bg-brand-600/20 dark:hover:bg-brand-600/20 hover:bg-brand-100 text-slate-300 dark:text-slate-300 text-slate-800 border border-slate-800 dark:border-slate-800 border-slate-300 active:scale-95 shadow-sm">
+              <span>🏨 Butik Otel - Antalya</span>
+            </button>
           </div>
+        </div>
 
-          <div class="flex items-center gap-6">
+        <!-- Extra Controls: Limit Selector & Deep Crawl Checkbox -->
+        <div class="pt-3 border-t border-slate-800/80 dark:border-slate-800/80 border-slate-200 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div class="flex items-center gap-6 flex-wrap">
             <!-- Lead Count Selector -->
             <div class="flex items-center gap-2">
-              <label for="leadCountSelect" class="text-slate-400 font-medium">Hedef Müşteri Adedi:</label>
-              <select id="leadCountSelect" class="bg-slate-900 border border-slate-700 text-white rounded-lg px-2 py-1 focus:outline-none focus:border-brand-500">
+              <label for="leadCountSelect" class="text-slate-400 dark:text-slate-400 text-slate-600 font-bold">Hedef Müşteri Adedi:</label>
+              <select id="leadCountSelect" class="touch-target bg-slate-900 dark:bg-slate-900 bg-slate-50 border border-slate-700 dark:border-slate-700 border-slate-300 text-white dark:text-white text-slate-900 rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500">
                 <option value="15">15 Adet (Hızlı)</option>
                 <option value="25" selected>25 Adet (Topluluk Sınırı)</option>
                 <option value="50">50 Adet (👑 Pro)</option>
@@ -309,53 +394,75 @@
             </div>
 
             <!-- Deep Website Crawl Checkbox -->
-            <label class="flex items-center gap-2 cursor-pointer text-slate-300">
-              <input type="checkbox" id="deepCrawlCheckbox" checked class="w-4 h-4 rounded border-slate-700 text-brand-600 focus:ring-brand-500">
+            <label class="flex items-center gap-2 cursor-pointer text-slate-300 dark:text-slate-300 text-slate-700 font-semibold select-none">
+              <input type="checkbox" id="deepCrawlCheckbox" checked class="w-4 h-4 rounded border-slate-700 dark:border-slate-700 border-slate-300 text-brand-600 focus:ring-brand-500">
               <span>Web Sitesi & E-Posta Derin Avcısı</span>
             </label>
+          </div>
+
+          <div class="text-[11px] text-slate-400 dark:text-slate-400 text-slate-500">
+            <span>⚡ Canlı Google Maps & Overpass Dizin Taraması</span>
           </div>
         </div>
       </form>
 
-      <!-- Live Search Progress Bar (Hidden by default) -->
-      <div id="scrapingProgress" class="hidden mt-6 pt-6 border-t border-slate-800">
+      <!-- Live Search Progress Bar -->
+      <div id="scrapingProgress" class="hidden mt-6 pt-6 border-t border-slate-800 dark:border-slate-800 border-slate-200">
         <div class="flex items-center justify-between text-xs mb-2">
           <div class="flex items-center gap-2">
-            <div class="w-3 h-3 rounded-full border-2 border-brand-500 border-t-transparent animate-spin"></div>
-            <span id="progressStatusText" class="font-semibold text-brand-300">İşletmeler taranıyor ve web siteleri inceleniyor...</span>
+            <div class="w-3.5 h-3.5 rounded-full border-2 border-brand-500 border-t-transparent animate-spin"></div>
+            <span id="progressStatusText" class="font-bold text-brand-300 dark:text-brand-300 text-brand-600">İşletmeler taranıyor ve web siteleri inceleniyor...</span>
           </div>
-          <span id="progressPercent" class="font-bold text-slate-300">45%</span>
+          <span id="progressPercent" class="font-extrabold text-slate-300 dark:text-slate-300 text-slate-700">15%</span>
         </div>
-        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-          <div id="progressBarFill" class="h-full bg-gradient-to-r from-brand-500 to-emerald-400 w-0 transition-all duration-300"></div>
+        <div class="w-full h-2.5 bg-slate-800 dark:bg-slate-800 bg-slate-200 rounded-full overflow-hidden">
+          <div id="progressBarFill" class="h-full bg-gradient-to-r from-brand-500 via-indigo-500 to-emerald-400 w-0 transition-all duration-300"></div>
         </div>
       </div>
     </div>
 
-    <!-- View Mode Selector & Filters Bar -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+    <!-- View Mode Selector, Search Filter & Sorting Controls -->
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
       <!-- Tabs (Table vs Kanban) -->
-      <div class="inline-flex p-1 bg-slate-900 border border-slate-800 rounded-xl">
-        <button id="tabTableBtn" onclick="switchView('table')" class="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition bg-brand-600 text-white shadow-sm">
-          <i data-lucide="table" class="w-3.5 h-3.5"></i>
+      <div class="inline-flex p-1 bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 border border-slate-800 dark:border-slate-800 border-slate-200 rounded-2xl shadow-sm">
+        <button id="tabTableBtn" onclick="switchView('table')" class="touch-target flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold transition-all bg-brand-600 text-white shadow-md">
+          <i data-lucide="table" class="w-4 h-4"></i>
           <span>Müşteri Tablosu</span>
         </button>
-        <button id="tabKanbanBtn" onclick="switchView('kanban')" class="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">
-          <i data-lucide="kanban" class="w-3.5 h-3.5"></i>
+        <button id="tabKanbanBtn" onclick="switchView('kanban')" class="touch-target flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold text-slate-400 dark:text-slate-400 text-slate-600 hover:text-white dark:hover:text-white hover:text-slate-900 transition-all">
+          <i data-lucide="kanban" class="w-4 h-4"></i>
           <span>Satış Pipeline CRM</span>
-          <span id="kanbanCountBadge" class="bg-slate-800 text-slate-300 text-[10px] px-1.5 py-0.5 rounded-full ml-1">0</span>
+          <span id="kanbanCountBadge" class="bg-slate-800 dark:bg-slate-800 bg-slate-200 text-slate-300 dark:text-slate-300 text-slate-700 text-[10px] px-2 py-0.5 rounded-full ml-1 font-black">0</span>
         </button>
       </div>
 
-      <!-- Table Filters -->
+      <!-- Live Filters & Column Sort Bar -->
       <div class="flex items-center gap-3 flex-wrap">
-        <div class="relative">
-          <input type="text" id="tableSearchFilter" oninput="applyFilters()" placeholder="Sonuçlarda filtrele..." 
-            class="bg-slate-900 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-500">
-          <i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-500"></i>
+        <!-- Live in-table search filter -->
+        <div class="relative flex-1 sm:flex-initial">
+          <input type="text" id="tableSearchFilter" oninput="applyFilters()" placeholder="Sonuçlarda anlık ara..." 
+            class="touch-target w-full sm:w-64 bg-slate-900/90 dark:bg-slate-900/90 bg-slate-50 border border-slate-800 dark:border-slate-800 border-slate-300 rounded-xl pl-9 pr-8 py-2 text-xs text-white dark:text-white text-slate-900 placeholder-slate-500 dark:placeholder-slate-500 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-500"></i>
+          <button type="button" id="clearSearchFilterBtn" onclick="clearSearchFilter()" class="hidden absolute right-2.5 top-2.5 text-slate-400 hover:text-white dark:hover:text-white text-slate-500 hover:text-slate-900">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
         </div>
 
-        <select id="opportunityFilter" onchange="applyFilters()" class="bg-slate-900 border border-slate-800 text-xs text-slate-300 rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500">
+        <!-- Sort Dropdown -->
+        <div class="flex items-center gap-1.5">
+          <label for="sortBySelect" class="text-xs text-slate-400 dark:text-slate-400 text-slate-500 hidden sm:inline font-bold">Sırala:</label>
+          <select id="sortBySelect" onchange="applyFilters()" class="touch-target bg-slate-900/90 dark:bg-slate-900/90 bg-slate-50 border border-slate-800 dark:border-slate-800 border-slate-300 text-xs text-slate-200 dark:text-slate-200 text-slate-800 rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500 font-semibold">
+            <option value="score_desc">⚡ Fırsat Skoru (Yüksekten Düşüğe)</option>
+            <option value="score_asc">⚡ Fırsat Skoru (Düşükten Yükseğe)</option>
+            <option value="rating_desc">★ Google Puanı (En Yüksek)</option>
+            <option value="reviews_desc">💬 Yorum Sayısı (En Çok)</option>
+            <option value="name_asc">🔤 İşletme Adı (A - Z)</option>
+            <option value="name_desc">🔤 İşletme Adı (Z - A)</option>
+          </select>
+        </div>
+
+        <!-- Opportunity Filter -->
+        <select id="opportunityFilter" onchange="applyFilters()" class="touch-target bg-slate-900/90 dark:bg-slate-900/90 bg-slate-50 border border-slate-800 dark:border-slate-800 border-slate-300 text-xs text-slate-200 dark:text-slate-200 text-slate-800 rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500 font-semibold">
           <option value="all">Tüm Satış Fırsatları</option>
           <option value="high">Yüksek Fırsat (70+ Puan)</option>
           <option value="missing_website">Web Sitesi Olmayanlar</option>
@@ -365,66 +472,82 @@
       </div>
     </div>
 
-    <!-- Laser-Targeting Filter Pills -->
-    <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2 mb-5">
-      <span class="text-[11px] font-bold text-slate-400 whitespace-nowrap flex items-center gap-1.5 mr-1">
-        <i data-lucide="filter" class="w-3.5 h-3.5 text-brand-400"></i> Hızlı Filtrele:
-      </span>
-      <button onclick="setFilterPill('all')" id="pill_all" class="filter-pill active px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-brand-600 text-white shadow-sm flex items-center gap-1.5">
-        <span>Tümü</span>
-        <span id="pillCount_all" class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full">0</span>
-      </button>
-      <button onclick="setFilterPill('has_email')" id="pill_has_email" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5">
-        <i data-lucide="mail" class="w-3 h-3 text-brand-400"></i>
-        <span>Sadece E-postası Olanlar</span>
-        <span id="pillCount_has_email" class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded-full">0</span>
-      </button>
-      <button onclick="setFilterPill('has_whatsapp')" id="pill_has_whatsapp" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5">
-        <i data-lucide="message-circle" class="w-3 h-3 text-emerald-400"></i>
-        <span>Sadece WhatsApp Olanlar</span>
-        <span id="pillCount_has_whatsapp" class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded-full">0</span>
-      </button>
-      <button onclick="setFilterPill('high_score')" id="pill_high_score" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5">
-        <i data-lucide="zap" class="w-3 h-3 text-amber-400"></i>
-        <span>Yüksek Fırsat Skoru (70+)</span>
-        <span id="pillCount_high_score" class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded-full">0</span>
-      </button>
-      <button onclick="setFilterPill('no_website')" id="pill_no_website" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5">
-        <i data-lucide="globe" class="w-3 h-3 text-rose-400"></i>
-        <span>Web Sitesi Olmayanlar</span>
-        <span id="pillCount_no_website" class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded-full">0</span>
-      </button>
-      <button onclick="setFilterPill('no_ssl')" id="pill_no_ssl" class="filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5">
-        <i data-lucide="shield-alert" class="w-3 h-3 text-rose-400"></i>
-        <span>SSL Açığı Olanlar</span>
-        <span id="pillCount_no_ssl" class="text-[10px] bg-slate-800 text-slate-400 px-1.5 py-0.2 rounded-full">0</span>
-      </button>
+    <!-- Laser-Targeting Filter Pills with Smooth Horizontal Scroll -->
+    <div class="relative mb-6">
+      <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2">
+        <span class="text-[11px] font-bold text-slate-400 dark:text-slate-400 text-slate-600 whitespace-nowrap flex items-center gap-1.5 mr-1">
+          <i data-lucide="filter" class="w-3.5 h-3.5 text-brand-400"></i> Hızlı Filtrele:
+        </span>
+        <button onclick="setFilterPill('all')" id="pill_all" class="filter-pill active touch-target px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all bg-brand-600 text-white shadow-md flex items-center gap-1.5">
+          <span>Tümü</span>
+          <span id="pillCount_all" class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-black">0</span>
+        </button>
+        <button onclick="setFilterPill('has_email')" id="pill_has_email" class="filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 border border-slate-800 dark:border-slate-800 border-slate-300 text-slate-300 dark:text-slate-300 text-slate-700 hover:text-white dark:hover:text-white hover:text-slate-900 flex items-center gap-1.5">
+          <i data-lucide="mail" class="w-3.5 h-3.5 text-brand-400"></i>
+          <span>Sadece E-postası Olanlar</span>
+          <span id="pillCount_has_email" class="text-[10px] bg-slate-800 dark:bg-slate-800 bg-slate-200 text-slate-400 dark:text-slate-400 text-slate-600 px-1.5 py-0.2 rounded-full font-black">0</span>
+        </button>
+        <button onclick="setFilterPill('has_whatsapp')" id="pill_has_whatsapp" class="filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 border border-slate-800 dark:border-slate-800 border-slate-300 text-slate-300 dark:text-slate-300 text-slate-700 hover:text-white dark:hover:text-white hover:text-slate-900 flex items-center gap-1.5">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Sadece WhatsApp Olanlar</span>
+          <span id="pillCount_has_whatsapp" class="text-[10px] bg-slate-800 dark:bg-slate-800 bg-slate-200 text-slate-400 dark:text-slate-400 text-slate-600 px-1.5 py-0.2 rounded-full font-black">0</span>
+        </button>
+        <button onclick="setFilterPill('high_score')" id="pill_high_score" class="filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 border border-slate-800 dark:border-slate-800 border-slate-300 text-slate-300 dark:text-slate-300 text-slate-700 hover:text-white dark:hover:text-white hover:text-slate-900 flex items-center gap-1.5">
+          <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>Yüksek Fırsat Skoru (70+)</span>
+          <span id="pillCount_high_score" class="text-[10px] bg-slate-800 dark:bg-slate-800 bg-slate-200 text-slate-400 dark:text-slate-400 text-slate-600 px-1.5 py-0.2 rounded-full font-black">0</span>
+        </button>
+        <button onclick="setFilterPill('no_website')" id="pill_no_website" class="filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 border border-slate-800 dark:border-slate-800 border-slate-300 text-slate-300 dark:text-slate-300 text-slate-700 hover:text-white dark:hover:text-white hover:text-slate-900 flex items-center gap-1.5">
+          <i data-lucide="globe" class="w-3.5 h-3.5 text-rose-400"></i>
+          <span>Web Sitesi Olmayanlar</span>
+          <span id="pillCount_no_website" class="text-[10px] bg-slate-800 dark:bg-slate-800 bg-slate-200 text-slate-400 dark:text-slate-400 text-slate-600 px-1.5 py-0.2 rounded-full font-black">0</span>
+        </button>
+        <button onclick="setFilterPill('no_ssl')" id="pill_no_ssl" class="filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 border border-slate-800 dark:border-slate-800 border-slate-300 text-slate-300 dark:text-slate-300 text-slate-700 hover:text-white dark:hover:text-white hover:text-slate-900 flex items-center gap-1.5">
+          <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-rose-400"></i>
+          <span>SSL Açığı Olanlar</span>
+          <span id="pillCount_no_ssl" class="text-[10px] bg-slate-800 dark:bg-slate-800 bg-slate-200 text-slate-400 dark:text-slate-400 text-slate-600 px-1.5 py-0.2 rounded-full font-black">0</span>
+        </button>
+
+        <span id="filterMatchCount" class="ml-auto text-[11px] font-bold text-slate-400 dark:text-slate-400 text-slate-500 whitespace-nowrap hidden sm:inline"></span>
+      </div>
     </div>
 
     <!-- VIEW 1: DATA TABLE -->
-    <div id="tableView" class="glass-card rounded-2xl border border-slate-800 shadow-xl overflow-hidden mb-8">
+    <div id="tableView" class="glass-card rounded-3xl border border-slate-800 dark:border-slate-800 border-slate-200 shadow-2xl overflow-hidden mb-8">
       <div class="overflow-x-auto custom-scrollbar">
         <table class="w-full text-left border-collapse text-xs">
           <thead>
-            <tr class="border-b border-slate-800 bg-slate-900/90 text-slate-400 font-semibold tracking-wider uppercase text-[11px]">
-              <th class="py-3.5 px-4">İşletme Adı & Sektör</th>
-              <th class="py-3.5 px-4">Satış Fırsat Skoru</th>
-              <th class="py-3.5 px-4">İletişim Bilgileri</th>
-              <th class="py-3.5 px-4">Web & Güvenlik</th>
-              <th class="py-3.5 px-4">CRM Aşaması</th>
-              <th class="py-3.5 px-4 text-right">Satış Aksiyonları</th>
+            <tr class="border-b border-slate-800 dark:border-slate-800 border-slate-200 bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100/90 text-slate-400 dark:text-slate-400 text-slate-600 font-extrabold tracking-wider uppercase text-[11px] select-none">
+              <th onclick="toggleSort('name')" class="py-4 px-4 cursor-pointer hover:text-white dark:hover:text-white hover:text-slate-900 transition-colors">
+                <div class="flex items-center gap-1.5">
+                  <span>İşletme Adı & Sektör</span>
+                  <i id="sortIcon_name" data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-slate-500"></i>
+                </div>
+              </th>
+              <th onclick="toggleSort('score')" class="py-4 px-4 cursor-pointer hover:text-white dark:hover:text-white hover:text-slate-900 transition-colors">
+                <div class="flex items-center gap-1.5">
+                  <span>Satış Fırsat Skoru</span>
+                  <i id="sortIcon_score" data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-amber-400"></i>
+                </div>
+              </th>
+              <th class="py-4 px-4">İletişim Kanalları</th>
+              <th class="py-4 px-4">Web & Güvenlik</th>
+              <th class="py-4 px-4">CRM Aşaması</th>
+              <th class="py-4 px-4 text-right">Satış Aksiyonları</th>
             </tr>
           </thead>
-          <tbody id="leadsTableBody" class="divide-y divide-slate-800/60">
+          <tbody id="leadsTableBody" class="divide-y divide-slate-800/60 dark:divide-slate-800/60 divide-slate-200">
             <!-- Empty state placeholder -->
             <tr id="emptyRow">
-              <td colspan="6" class="text-center py-16">
-                <div class="max-w-sm mx-auto flex flex-col items-center">
-                  <div class="w-12 h-12 rounded-full bg-slate-800/80 flex items-center justify-center text-slate-400 mb-3">
-                    <i data-lucide="search-x" class="w-6 h-6"></i>
+              <td colspan="6" class="text-center py-20">
+                <div class="max-w-md mx-auto flex flex-col items-center">
+                  <div class="w-16 h-16 rounded-3xl bg-slate-800/80 dark:bg-slate-800/80 bg-slate-100 flex items-center justify-center text-slate-400 dark:text-slate-400 text-slate-500 mb-4 shadow-inner">
+                    <i data-lucide="search-x" class="w-8 h-8"></i>
                   </div>
-                  <h3 class="text-sm font-bold text-slate-200">Henüz müşteri araması yapılmadı</h3>
-                  <p class="text-xs text-slate-500 mt-1">Yukarıdaki panelden sektör ve şehir girerek arama başlatın veya hızlı önerilerden birine tıklayın.</p>
+                  <h3 class="text-base font-extrabold text-slate-200 dark:text-slate-200 text-slate-800">Henüz müşteri araması yapılmadı</h3>
+                  <p class="text-xs text-slate-400 dark:text-slate-400 text-slate-500 mt-1 max-w-sm leading-relaxed">
+                    Yukarıdaki panelden sektör ve şehir girerek arama başlatın veya <strong class="text-amber-400">Hızlı Başlat</strong> önerilerinden birine tıklayın.
+                  </p>
                 </div>
               </td>
             </tr>
@@ -433,71 +556,71 @@
       </div>
     </div>
 
-    <!-- VIEW 2: KANBAN CRM BOARD (Hidden by default) -->
+    <!-- VIEW 2: KANBAN CRM BOARD -->
     <div id="kanbanView" class="hidden mb-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4 custom-scrollbar">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 custom-scrollbar">
         <!-- 1. YENİ (NEW) -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex flex-col min-h-[500px]">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-3">
-            <span class="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-blue-400"></span> Yeni Bulunan
+        <div class="bg-slate-900/80 dark:bg-slate-900/80 bg-slate-100/90 border border-slate-800 dark:border-slate-800 border-slate-200 rounded-2xl p-3.5 flex flex-col min-h-[520px]">
+          <div class="flex items-center justify-between pb-2.5 border-b border-slate-800 dark:border-slate-800 border-slate-200 mb-3">
+            <span class="text-xs font-black text-slate-200 dark:text-slate-200 text-slate-800 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-400"></span> Yeni Bulunan
             </span>
-            <span id="badgeCount_NEW" class="text-[11px] font-bold bg-slate-800 px-2 py-0.5 rounded-full text-slate-400">0</span>
+            <span id="badgeCount_NEW" class="text-[11px] font-black bg-slate-800 dark:bg-slate-800 bg-slate-200 px-2.5 py-0.5 rounded-full text-slate-400 dark:text-slate-400 text-slate-700">0</span>
           </div>
           <div id="column_NEW" class="flex-1 space-y-2.5 custom-scrollbar overflow-y-auto max-h-[700px]"></div>
         </div>
 
         <!-- 2. İNCELENDİ (ENRICHED) -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex flex-col min-h-[500px]">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-3">
-            <span class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-indigo-400"></span> İncelendi / Audit
+        <div class="bg-slate-900/80 dark:bg-slate-900/80 bg-slate-100/90 border border-slate-800 dark:border-slate-800 border-slate-200 rounded-2xl p-3.5 flex flex-col min-h-[520px]">
+          <div class="flex items-center justify-between pb-2.5 border-b border-slate-800 dark:border-slate-800 border-slate-200 mb-3">
+            <span class="text-xs font-black text-slate-200 dark:text-slate-200 text-slate-800 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span> İncelendi
             </span>
-            <span id="badgeCount_ENRICHED" class="text-[11px] font-bold bg-slate-800 px-2 py-0.5 rounded-full text-slate-400">0</span>
+            <span id="badgeCount_ENRICHED" class="text-[11px] font-black bg-slate-800 dark:bg-slate-800 bg-slate-200 px-2.5 py-0.5 rounded-full text-slate-400 dark:text-slate-400 text-slate-700">0</span>
           </div>
           <div id="column_ENRICHED" class="flex-1 space-y-2.5 custom-scrollbar overflow-y-auto max-h-[700px]"></div>
         </div>
 
         <!-- 3. İLETİŞİME GEÇİLDİ (CONTACTED) -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex flex-col min-h-[500px]">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-3">
-            <span class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-amber-400"></span> İletişim Kuruldu
+        <div class="bg-slate-900/80 dark:bg-slate-900/80 bg-slate-100/90 border border-slate-800 dark:border-slate-800 border-slate-200 rounded-2xl p-3.5 flex flex-col min-h-[520px]">
+          <div class="flex items-center justify-between pb-2.5 border-b border-slate-800 dark:border-slate-800 border-slate-200 mb-3">
+            <span class="text-xs font-black text-slate-200 dark:text-slate-200 text-slate-800 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> İletişim Kuruldu
             </span>
-            <span id="badgeCount_CONTACTED" class="text-[11px] font-bold bg-slate-800 px-2 py-0.5 rounded-full text-slate-400">0</span>
+            <span id="badgeCount_CONTACTED" class="text-[11px] font-black bg-slate-800 dark:bg-slate-800 bg-slate-200 px-2.5 py-0.5 rounded-full text-slate-400 dark:text-slate-400 text-slate-700">0</span>
           </div>
           <div id="column_CONTACTED" class="flex-1 space-y-2.5 custom-scrollbar overflow-y-auto max-h-[700px]"></div>
         </div>
 
         <!-- 4. GÖRÜŞMEDE (IN_DISCUSSION) -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex flex-col min-h-[500px]">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-3">
-            <span class="text-xs font-bold text-purple-300 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-purple-400"></span> Görüşmede / Teklif
+        <div class="bg-slate-900/80 dark:bg-slate-900/80 bg-slate-100/90 border border-slate-800 dark:border-slate-800 border-slate-200 rounded-2xl p-3.5 flex flex-col min-h-[520px]">
+          <div class="flex items-center justify-between pb-2.5 border-b border-slate-800 dark:border-slate-800 border-slate-200 mb-3">
+            <span class="text-xs font-black text-slate-200 dark:text-slate-200 text-slate-800 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span> Görüşmede
             </span>
-            <span id="badgeCount_IN_DISCUSSION" class="text-[11px] font-bold bg-slate-800 px-2 py-0.5 rounded-full text-slate-400">0</span>
+            <span id="badgeCount_IN_DISCUSSION" class="text-[11px] font-black bg-slate-800 dark:bg-slate-800 bg-slate-200 px-2.5 py-0.5 rounded-full text-slate-400 dark:text-slate-400 text-slate-700">0</span>
           </div>
           <div id="column_IN_DISCUSSION" class="flex-1 space-y-2.5 custom-scrollbar overflow-y-auto max-h-[700px]"></div>
         </div>
 
-        <!-- 5. KAZANILDI / SATIŞ (WON) -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex flex-col min-h-[500px]">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-3">
-            <span class="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Satış Yapıldı 🎯
+        <!-- 5. KAZANILDI (WON) -->
+        <div class="bg-slate-900/80 dark:bg-slate-900/80 bg-slate-100/90 border border-emerald-500/30 rounded-2xl p-3.5 flex flex-col min-h-[520px] shadow-sm">
+          <div class="flex items-center justify-between pb-2.5 border-b border-emerald-500/20 mb-3">
+            <span class="text-xs font-black text-emerald-400 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span> Satış Yapıldı 🎉
             </span>
-            <span id="badgeCount_WON" class="text-[11px] font-bold bg-emerald-900/60 text-emerald-300 px-2 py-0.5 rounded-full">0</span>
+            <span id="badgeCount_WON" class="text-[11px] font-black bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full">0</span>
           </div>
           <div id="column_WON" class="flex-1 space-y-2.5 custom-scrollbar overflow-y-auto max-h-[700px]"></div>
         </div>
 
         <!-- 6. OLUMSUZ (LOST) -->
-        <div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex flex-col min-h-[500px]">
-          <div class="flex items-center justify-between pb-2 border-b border-slate-800 mb-3">
-            <span class="text-xs font-bold text-slate-400 flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-slate-500"></span> Olumsuz
+        <div class="bg-slate-900/80 dark:bg-slate-900/80 bg-slate-100/90 border border-slate-800 dark:border-slate-800 border-slate-200 rounded-2xl p-3.5 flex flex-col min-h-[520px]">
+          <div class="flex items-center justify-between pb-2.5 border-b border-slate-800 dark:border-slate-800 border-slate-200 mb-3">
+            <span class="text-xs font-black text-slate-400 dark:text-slate-400 text-slate-600 flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-slate-500"></span> Olumsuz
             </span>
-            <span id="badgeCount_LOST" class="text-[11px] font-bold bg-slate-800 px-2 py-0.5 rounded-full text-slate-400">0</span>
+            <span id="badgeCount_LOST" class="text-[11px] font-black bg-slate-800 dark:bg-slate-800 bg-slate-200 px-2.5 py-0.5 rounded-full text-slate-400 dark:text-slate-400 text-slate-700">0</span>
           </div>
           <div id="column_LOST" class="flex-1 space-y-2.5 custom-scrollbar overflow-y-auto max-h-[700px]"></div>
         </div>
@@ -505,79 +628,40 @@
     </div>
   </main>
 
-  <!-- Site Footer -->
-  <footer class="border-t border-slate-800/80 bg-slate-950/60 backdrop-blur-md mt-16 py-10 transition-colors">
-    <div class="container mx-auto px-4 sm:px-6 max-w-7xl">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-        <!-- Brand / Value Proposition -->
-        <div class="md:col-span-2 space-y-3">
-          <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center text-white font-black text-base shadow-md shadow-brand-500/20">
-              <i data-lucide="crosshair" class="w-5 h-5"></i>
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 dark:border-slate-800/80 border-slate-200 bg-slate-900/60 dark:bg-slate-900/60 bg-white/70 backdrop-blur-md py-8 transition-colors">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center text-white font-black text-sm">
+              <i data-lucide="crosshair" class="w-4 h-4"></i>
             </div>
-            <span class="text-lg font-extrabold tracking-tight text-white">Geo<span class="text-brand-400">Leads</span></span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">100% Açık Kaynak</span>
+            <span class="text-base font-extrabold text-white dark:text-white text-slate-900">Geo<span class="text-brand-400">Leads</span> Pro</span>
           </div>
-          <p class="text-xs text-slate-400 leading-relaxed max-w-md">
-            Sıfır maliyetli Google Maps & Açık Harita B2B müşteri arama motoru. Şehir ve sektör bazlı küresel GEO tarama, derin web avcısıyla e-posta & doğrudan WhatsApp filtreleme ve 1-tıkla AI soğuk satış kancası üretimi.
+          <p class="text-xs text-slate-400 dark:text-slate-400 text-slate-600 leading-relaxed max-w-sm">
+            Sıfır maliyetli Google Maps & Overpass B2B müşteri keşif platformu. Ajanslar, serbest çalışanlar ve satış ekipleri için tasarlanmıştır.
           </p>
-          <div class="flex flex-wrap items-center gap-3 pt-1">
-            <a href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()" class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 transition">
-              <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-400"></i>
-              <span>GitHub'da Yıldızla</span>
-              <span id="footerStarCountBadge" class="bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded text-[10px] font-bold">⭐ Star</span>
-            </a>
-            <span class="text-slate-700">•</span>
-            <a href="https://opensource.org/licenses/MIT" target="_blank" class="text-xs text-slate-400 hover:text-slate-200 transition flex items-center gap-1">
-              <i data-lucide="shield" class="w-3 h-3 text-slate-500"></i> MIT Lisansı
-            </a>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-slate-300 dark:text-slate-300 text-slate-700 uppercase tracking-wider mb-2">Hızlı Erişim</h4>
+          <div class="flex flex-col space-y-1.5 text-xs text-slate-400 dark:text-slate-400 text-slate-600">
+            <button onclick="openAboutModal()" class="text-left hover:text-brand-400 transition">Hakkında / About & GEO</button>
+            <a href="https://github.com/DevKursat/GeoLeads" target="_blank" class="hover:text-brand-400 transition">GitHub Kaynak Kodu</a>
+            <button onclick="openStarGateModal()" class="text-left hover:text-brand-400 transition">Pro Özellikleri Aç</button>
           </div>
         </div>
 
-        <!-- Quick Links -->
-        <div class="space-y-3">
-          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Hızlı Bağlantılar</h4>
-          <ul class="space-y-2 text-xs text-slate-400">
-            <li>
-              <button onclick="openAboutModal()" class="hover:text-brand-400 transition flex items-center gap-1.5 text-left">
-                <i data-lucide="info" class="w-3.5 h-3.5 text-brand-400"></i> Hakkında / About & GEO Motoru
-              </button>
-            </li>
-            <li>
-              <a href="https://github.com/DevKursat/GeoLeads#readme" target="_blank" class="hover:text-brand-400 transition flex items-center gap-1.5">
-                <i data-lucide="book-open" class="w-3.5 h-3.5 text-indigo-400"></i> Dokümantasyon & Kurulum
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/DevKursat/GeoLeads/issues" target="_blank" class="hover:text-brand-400 transition flex items-center gap-1.5">
-                <i data-lucide="bug" class="w-3.5 h-3.5 text-rose-400"></i> Hata / Özellik Bildir
-              </a>
-            </li>
-            <li>
-              <button onclick="openStarGateModal()" class="hover:text-amber-300 transition flex items-center gap-1.5 text-amber-400">
-                <i data-lucide="award" class="w-3.5 h-3.5"></i> Pro Sürümü Aç
-              </button>
-            </li>
-          </ul>
-        </div>
-
-        <!-- Viral Share & Community -->
-        <div class="space-y-3">
-          <h4 class="text-xs font-bold text-white uppercase tracking-wider">Topluluk & Paylaş</h4>
-          <p class="text-[11px] text-slate-400 leading-snug">
-            GeoLeads'i çevrenizle paylaşarak açık kaynak projemize yıldız ve organik destek kazandırın:
-          </p>
-          <div class="flex items-center gap-2 pt-1">
-            <button onclick="shareOnTwitter()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-sky-500/20 hover:text-sky-400 text-slate-300 border border-slate-700/80 transition" title="X / Twitter'da Paylaş">
-              <i data-lucide="twitter" class="w-4 h-4"></i>
-            </button>
-            <button onclick="shareOnLinkedIn()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-blue-600/20 hover:text-blue-400 text-slate-300 border border-slate-700/80 transition" title="LinkedIn'de Paylaş">
-              <i data-lucide="linkedin" class="w-4 h-4"></i>
-            </button>
-            <button onclick="shareOnWhatsApp()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-emerald-600/20 hover:text-emerald-400 text-slate-300 border border-slate-700/80 transition" title="WhatsApp'ta Paylaş">
-              <i data-lucide="message-circle" class="w-4 h-4"></i>
-            </button>
-            <button onclick="copyRepoUrl()" class="p-2 rounded-lg bg-slate-800/80 hover:bg-brand-600/20 hover:text-brand-300 text-slate-300 border border-slate-700/80 transition" title="Depo Bağlantısını Kopyala">
+        <div>
+          <h4 class="text-xs font-bold text-slate-300 dark:text-slate-300 text-slate-700 uppercase tracking-wider mb-2">Topluluk & Destek</h4>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()" class="touch-target inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs transition active:scale-95 shadow-sm">
+              <i data-lucide="star" class="w-4 h-4 fill-slate-950 text-slate-950"></i>
+              <span>Yıldız Ver</span>
+              <span id="footerStarCountBadge" class="bg-amber-500/30 text-slate-950 text-[10px] px-1.5 py-0.2 rounded font-black ml-0.5">⭐ Star</span>
+            </a>
+            <button onclick="copyRepoUrl()" class="touch-target p-2 rounded-xl bg-slate-800/80 dark:bg-slate-800/80 bg-slate-100 hover:bg-brand-600/20 text-slate-300 dark:text-slate-300 text-slate-700 border border-slate-700/80 dark:border-slate-700/80 border-slate-200 transition" title="Depo Bağlantısını Kopyala">
               <i data-lucide="copy" class="w-4 h-4"></i>
             </button>
           </div>
@@ -585,188 +669,300 @@
       </div>
 
       <!-- Bottom Bar -->
-      <div class="pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-2">
-        <p>© 2026 GeoLeads Pro. Açık Kaynak Topluluk Projesi — Geliştirici: <a href="https://github.com/DevKursat" target="_blank" class="text-slate-400 hover:text-white underline decoration-slate-700">DevKursat</a>.</p>
+      <div class="pt-6 border-t border-slate-800/60 dark:border-slate-800/60 border-slate-200 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-2">
+        <p>© 2026 GeoLeads Pro. Açık Kaynak Topluluk Projesi — Geliştirici: <a href="https://github.com/DevKursat" target="_blank" class="text-slate-400 hover:text-white dark:hover:text-white text-slate-600 hover:text-slate-900 underline decoration-slate-700">DevKursat</a>.</p>
         <div class="flex items-center gap-4">
           <span>Küresel Yerel SEO & GEO Hedefli Arama</span>
-          <span class="text-slate-700">•</span>
-          <button onclick="openAboutModal()" class="hover:text-slate-300 transition">Hakkında / About</button>
+          <span class="text-slate-700 dark:text-slate-700 text-slate-300">•</span>
+          <button onclick="openAboutModal()" class="hover:text-slate-300 dark:hover:text-slate-300 hover:text-slate-800 transition">Hakkında / About</button>
         </div>
       </div>
     </div>
   </footer>
 
-  <!-- MODAL 1: LEAD DETAIL & AI PITCH STUDIO -->
-  <div id="leadModal" onclick="if(event.target === this) closeLeadModal()" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-    <div class="glass-card bg-slate-900 border border-slate-700 rounded-2xl max-w-3xl w-full p-6 my-8 shadow-2xl relative">
+  <!-- ========================================================================= -->
+  <!-- MODAL 1: LEAD DETAIL & AI PITCH PRO STUDIO (3-TAB STUDIO)                 -->
+  <!-- ========================================================================= -->
+  <div id="leadModal" onclick="if(event.target === this) closeLeadModal()" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="glass-card bg-slate-900/95 dark:bg-slate-900/95 bg-white border border-slate-700/80 dark:border-slate-700/80 border-slate-200 rounded-3xl max-w-4xl w-full p-5 sm:p-7 my-6 shadow-2xl relative text-slate-100 dark:text-slate-100 text-slate-900 transition-all duration-300">
+      
       <!-- Close Button -->
-      <button onclick="closeLeadModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1 rounded-lg bg-slate-800">
+      <button onclick="closeLeadModal()" class="touch-target absolute right-4 top-4 text-slate-400 hover:text-white dark:hover:text-white text-slate-500 hover:text-slate-900 p-2 rounded-xl bg-slate-800/80 dark:bg-slate-800/80 bg-slate-100 transition active:scale-95" title="Kapat (Esc)">
         <i data-lucide="x" class="w-5 h-5"></i>
       </button>
 
       <!-- Modal Header -->
-      <div class="mb-4">
-        <div class="flex items-center gap-2 mb-1">
-          <span id="modalCategory" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30">Kategori</span>
-          <span id="modalScoreBadge" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">Fırsat Skoru: 85</span>
+      <div class="mb-5 pr-10">
+        <div class="flex flex-wrap items-center gap-2 mb-1.5">
+          <span id="modalCategory" class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-brand-500/20 text-brand-300 dark:text-brand-300 text-brand-600 border border-brand-500/30">Kategori</span>
+          <span id="modalScoreBadge" class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 dark:text-amber-300 text-amber-700 border border-amber-500/30 flex items-center gap-1">
+            <i data-lucide="zap" class="w-3.5 h-3.5"></i> Fırsat Skoru: 85
+          </span>
+          <span id="modalRating" class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-slate-800 dark:bg-slate-800 bg-slate-100 text-amber-400 border border-slate-700 dark:border-slate-700 border-slate-200">-</span>
         </div>
-        <h2 id="modalLeadName" class="text-xl font-extrabold text-white">İşletme Adı</h2>
-        <p id="modalAddress" class="text-xs text-slate-400 flex items-center gap-1 mt-1">
+        <h2 id="modalLeadName" class="text-xl sm:text-2xl font-black text-white dark:text-white text-slate-900 tracking-tight">İşletme Adı</h2>
+        <p id="modalAddress" class="text-xs text-slate-400 dark:text-slate-400 text-slate-500 flex items-center gap-1 mt-1">
           <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-500"></i> Adres bilgisi
         </p>
       </div>
 
-      <!-- Fast 1-Click Outreach Action Bar -->
+      <!-- Quick Action Bar -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
-        <a id="modalCallBtn" href="#" class="py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-bold text-white transition flex items-center justify-center gap-1.5 shadow-md shadow-blue-600/20">
-          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+        <a id="modalCallBtn" href="#" class="touch-target py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-xs font-extrabold text-white transition-all flex items-center justify-center gap-1.5 shadow-md shadow-blue-600/20 active:scale-95">
+          <i data-lucide="phone-call" class="w-4 h-4"></i>
           <span>Hemen Ara</span>
         </a>
-        <button id="modalWhatsAppTopBtn" onclick="sendWhatsAppWithPitch()" class="py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition flex items-center justify-center gap-1.5 shadow-md shadow-emerald-600/20">
-          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-          <span>WhatsApp ile Ulaş</span>
+        <button id="modalWhatsAppTopBtn" onclick="sendWhatsAppWithPitch()" class="touch-target py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition-all flex items-center justify-center gap-1.5 shadow-md shadow-emerald-600/20 active:scale-95">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>1-Tıkla WhatsApp</span>
         </button>
-        <button id="modalEmailTopBtn" onclick="sendEmailWithPitch()" class="py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white transition flex items-center justify-center gap-1.5 shadow-md shadow-indigo-600/20">
-          <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+        <button id="modalEmailTopBtn" onclick="sendEmailWithPitch()" class="touch-target py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-extrabold text-white transition-all flex items-center justify-center gap-1.5 shadow-md shadow-indigo-600/20 active:scale-95">
+          <i data-lucide="mail" class="w-4 h-4"></i>
           <span>E-Posta Gönder</span>
         </button>
-        <a id="modalMapsLink" href="#" target="_blank" class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition flex items-center justify-center gap-1.5 border border-slate-700">
-          <i data-lucide="map" class="w-3.5 h-3.5"></i>
+        <a id="modalMapsLink" href="#" target="_blank" class="touch-target py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-200 dark:text-slate-200 text-slate-700 transition-all flex items-center justify-center gap-1.5 border border-slate-700 dark:border-slate-700 border-slate-300 active:scale-95">
+          <i data-lucide="map" class="w-4 h-4"></i>
           <span>Haritada Aç</span>
         </a>
       </div>
 
-      <!-- Comprehensive Digital Audit Report Grid -->
-      <div class="bg-slate-950/70 border border-slate-800 rounded-xl p-4 mb-5">
-        <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3 flex items-center justify-between">
-          <span class="flex items-center gap-1.5">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-400"></i> Kapsamlı Dijital Varlık & Açık Denetim Raporu
-          </span>
-          <span id="modalAuditScore" class="text-[11px] font-bold text-amber-400">Fırsat Skoru: 0/100</span>
-        </h4>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
-          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
-            <span class="text-[10px] text-slate-400 block mb-0.5">🌐 Web Sitesi Varlığı:</span>
-            <div id="auditWebStatus" class="font-bold text-slate-200">-</div>
+      <!-- 3-TAB STUDIO NAVIGATION -->
+      <div class="flex items-center gap-1.5 p-1 bg-slate-950/70 dark:bg-slate-950/70 bg-slate-100 border border-slate-800/80 dark:border-slate-800/80 border-slate-200 rounded-2xl mb-5">
+        <button id="modalTabBtn1" onclick="switchModalTab(1)" class="flex-1 touch-target py-2.5 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 bg-brand-600 text-white shadow-md">
+          <i data-lucide="building-2" class="w-4 h-4"></i>
+          <span>Firma & İletişim</span>
+        </button>
+        <button id="modalTabBtn2" onclick="switchModalTab(2)" class="flex-1 touch-target py-2.5 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white dark:text-slate-400 dark:hover:text-white text-slate-600 hover:text-slate-900">
+          <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400"></i>
+          <span>Zafiyet & Açık Denetimi</span>
+          <span id="modalGapCountBadge" class="text-[10px] px-1.5 py-0.2 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/30 font-black">0</span>
+        </button>
+        <button id="modalTabBtn3" onclick="switchModalTab(3)" class="flex-1 touch-target py-2.5 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white dark:text-slate-400 dark:hover:text-white text-slate-600 hover:text-slate-900">
+          <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i>
+          <span>AI Soğuk Satış Stüdyosu</span>
+          <span class="text-[9px] px-1.5 py-0.2 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30 font-black hidden sm:inline">PRO</span>
+        </button>
+      </div>
+
+      <!-- TAB 1: FIRMA & İLETİŞİM -->
+      <div id="modalTab1" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <!-- Telefon Kartı -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 border border-slate-800/80 dark:border-slate-800/80 border-slate-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-400 dark:text-slate-400 text-slate-500 flex items-center gap-1.5">
+                <i data-lucide="phone" class="w-4 h-4 text-blue-400"></i> Telefon Numarası
+              </span>
+              <button onclick="copyModalField('modalPhone', 'Telefon numarası')" class="text-slate-400 hover:text-brand-400 p-1 rounded-lg hover:bg-slate-800/50 transition">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+            <div id="modalPhone" class="text-sm font-extrabold text-white dark:text-white text-slate-900 font-mono select-all">-</div>
+            <div class="mt-2.5 pt-2 border-t border-slate-800/60 dark:border-slate-800/60 border-slate-200 flex items-center gap-2 text-[11px]">
+              <span id="modalPhoneTypeBadge" class="px-2 py-0.5 rounded-full bg-slate-800 dark:bg-slate-800 bg-slate-200 text-slate-300 dark:text-slate-300 text-slate-700 font-semibold">Hat Türü</span>
+            </div>
           </div>
-          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
-            <span class="text-[10px] text-slate-400 block mb-0.5">🔒 SSL Güvenlik:</span>
-            <div id="auditSSLStatus" class="font-bold text-slate-200">-</div>
+
+          <!-- E-Posta Kartı -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 border border-slate-800/80 dark:border-slate-800/80 border-slate-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-400 dark:text-slate-400 text-slate-500 flex items-center gap-1.5">
+                <i data-lucide="mail" class="w-4 h-4 text-indigo-400"></i> Doğrulanmış E-Posta
+              </span>
+              <button onclick="copyModalField('modalEmails', 'E-posta')" class="text-slate-400 hover:text-brand-400 p-1 rounded-lg hover:bg-slate-800/50 transition">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+            <div id="modalEmails" class="text-sm font-extrabold text-brand-300 dark:text-brand-300 text-brand-600 font-mono truncate select-all">-</div>
+            <div class="mt-2.5 pt-2 border-t border-slate-800/60 dark:border-slate-800/60 border-slate-200 flex items-center gap-2 text-[11px]">
+              <span id="modalEmailCountBadge" class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 dark:text-indigo-300 text-indigo-600 font-semibold">E-posta Durumu</span>
+            </div>
           </div>
-          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
-            <span class="text-[10px] text-slate-400 block mb-0.5">📱 Mobil Uyumluluk:</span>
-            <div id="auditMobileStatus" class="font-bold text-slate-200">-</div>
+
+          <!-- Web Sitesi Kartı -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 border border-slate-800/80 dark:border-slate-800/80 border-slate-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-400 dark:text-slate-400 text-slate-500 flex items-center gap-1.5">
+                <i data-lucide="globe" class="w-4 h-4 text-emerald-400"></i> Resmi Web Sitesi
+              </span>
+              <a id="modalWebLink" href="#" target="_blank" class="text-slate-400 hover:text-brand-400 p-1 rounded-lg hover:bg-slate-800/50 transition" title="Yeni Sekmede Aç">
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+              </a>
+            </div>
+            <div id="modalWebsite" class="text-sm font-extrabold text-blue-400 truncate font-mono select-all">-</div>
+            <div class="mt-2.5 pt-2 border-t border-slate-800/60 dark:border-slate-800/60 border-slate-200 flex items-center gap-2 text-[11px]">
+              <span id="modalSslBadge" class="px-2 py-0.5 rounded-full bg-slate-800 dark:bg-slate-800 bg-slate-200 text-slate-300 dark:text-slate-300 text-slate-700 font-semibold">SSL Durumu</span>
+            </div>
           </div>
-          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
-            <span class="text-[10px] text-slate-400 block mb-0.5">⭐ Harita & Yorum İtibarı:</span>
-            <div id="auditReputationStatus" class="font-bold text-amber-400">-</div>
+
+          <!-- Google Harita & Yorum Kartı -->
+          <div class="p-4 rounded-2xl bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 border border-slate-800/80 dark:border-slate-800/80 border-slate-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-400 dark:text-slate-400 text-slate-500 flex items-center gap-1.5">
+                <i data-lucide="star" class="w-4 h-4 text-amber-400 fill-amber-400"></i> Google İtibarı & Yorum
+              </span>
+              <span id="modalReviewCount" class="text-xs font-extrabold text-slate-400">0 yorum</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="modalRatingText" class="text-lg font-black text-amber-400">-</span>
+              <span id="modalReputationBadge" class="text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold">İtibar Skoru</span>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-800/60 dark:border-slate-800/60 border-slate-200 text-[11px] text-slate-400 flex items-center justify-between">
+              <span>Google Maps Doğrulaması</span>
+              <span class="text-emerald-400 font-bold">Aktif Dizin</span>
+            </div>
           </div>
-          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
-            <span class="text-[10px] text-slate-400 block mb-0.5">💬 Doğrudan WhatsApp:</span>
-            <div id="auditWhatsAppStatus" class="font-bold text-slate-200">-</div>
-          </div>
-          <div class="p-2.5 rounded-lg bg-slate-900/90 border border-slate-800/80">
-            <span class="text-[10px] text-slate-400 block mb-0.5">📧 Doğrulanmış E-Posta:</span>
-            <div id="auditEmailStatus" class="font-bold text-slate-200">-</div>
+        </div>
+
+        <!-- Sosyal Vitrin & Dijital Varlık Badges -->
+        <div class="p-4 rounded-2xl bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 border border-slate-800/80 dark:border-slate-800/80 border-slate-200">
+          <h4 class="text-xs font-bold text-slate-300 dark:text-slate-300 text-slate-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+            <i data-lucide="share-2" class="w-3.5 h-3.5 text-brand-400"></i> Sosyal Medya & Dijital Kanallar
+          </h4>
+          <div class="flex flex-wrap items-center gap-2" id="modalSocialBadges">
+            <!-- Dynamic Social Badges -->
           </div>
         </div>
       </div>
 
-      <!-- Two Columns: Audit Gaps & Contact Hub -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-        <!-- Audit Gaps -->
-        <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4">
-          <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-            <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-400"></i> Tespit Edilen Açıklar & Satış Kancaları
+      <!-- TAB 2: ZAFİYET & AÇIK DENETİMİ -->
+      <div id="modalTab2" class="hidden space-y-4">
+        <!-- Comprehensive Digital Audit Report Grid -->
+        <div class="bg-slate-950/70 dark:bg-slate-950/70 bg-slate-50 border border-slate-800 dark:border-slate-800 border-slate-200 rounded-2xl p-4">
+          <h4 class="text-xs font-extrabold text-slate-300 dark:text-slate-300 text-slate-700 uppercase tracking-wider mb-3 flex items-center justify-between">
+            <span class="flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-4 h-4 text-brand-400"></i> Kapsamlı Dijital Varlık & Açık Denetim Matrisi
+            </span>
+            <span id="modalAuditScore" class="text-xs font-extrabold text-amber-400 bg-amber-500/20 px-2.5 py-0.5 rounded-full border border-amber-500/30">Fırsat Skoru: 0/100</span>
           </h4>
-          <div id="modalGapsList" class="space-y-2 text-xs custom-scrollbar max-h-48 overflow-y-auto pr-1">
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
+            <div class="p-3 rounded-xl bg-slate-900/90 dark:bg-slate-900/90 bg-white border border-slate-800/80 dark:border-slate-800/80 border-slate-200 shadow-sm">
+              <span class="text-[10px] font-bold text-slate-400 dark:text-slate-400 text-slate-500 block mb-1">🌐 Web Sitesi Varlığı:</span>
+              <div id="auditWebStatus" class="font-extrabold text-slate-200 dark:text-slate-200 text-slate-800">-</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 dark:bg-slate-900/90 bg-white border border-slate-800/80 dark:border-slate-800/80 border-slate-200 shadow-sm">
+              <span class="text-[10px] font-bold text-slate-400 dark:text-slate-400 text-slate-500 block mb-1">🔒 SSL Güvenlik:</span>
+              <div id="auditSSLStatus" class="font-extrabold text-slate-200 dark:text-slate-200 text-slate-800">-</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 dark:bg-slate-900/90 bg-white border border-slate-800/80 dark:border-slate-800/80 border-slate-200 shadow-sm">
+              <span class="text-[10px] font-bold text-slate-400 dark:text-slate-400 text-slate-500 block mb-1">📱 Mobil Uyumluluk:</span>
+              <div id="auditMobileStatus" class="font-extrabold text-slate-200 dark:text-slate-200 text-slate-800">-</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 dark:bg-slate-900/90 bg-white border border-slate-800/80 dark:border-slate-800/80 border-slate-200 shadow-sm">
+              <span class="text-[10px] font-bold text-slate-400 dark:text-slate-400 text-slate-500 block mb-1">⭐ Harita & Yorum İtibarı:</span>
+              <div id="auditReputationStatus" class="font-extrabold text-amber-400">-</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 dark:bg-slate-900/90 bg-white border border-slate-800/80 dark:border-slate-800/80 border-slate-200 shadow-sm">
+              <span class="text-[10px] font-bold text-slate-400 dark:text-slate-400 text-slate-500 block mb-1">💬 Doğrudan WhatsApp:</span>
+              <div id="auditWhatsAppStatus" class="font-extrabold text-slate-200 dark:text-slate-200 text-slate-800">-</div>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/90 dark:bg-slate-900/90 bg-white border border-slate-800/80 dark:border-slate-800/80 border-slate-200 shadow-sm">
+              <span class="text-[10px] font-bold text-slate-400 dark:text-slate-400 text-slate-500 block mb-1">📧 Doğrulanmış E-Posta:</span>
+              <div id="auditEmailStatus" class="font-extrabold text-slate-200 dark:text-slate-200 text-slate-800">-</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detected Gaps & Actionable Sales Angles -->
+        <div class="bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 border border-slate-800 dark:border-slate-800 border-slate-200 rounded-2xl p-4">
+          <h4 class="text-xs font-extrabold text-slate-300 dark:text-slate-300 text-slate-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400"></i> Tespit Edilen Açıklar & Satış Kancaları
+          </h4>
+          <div id="modalGapsList" class="space-y-3 custom-scrollbar max-h-72 overflow-y-auto pr-1">
             <!-- Dynamic Gaps -->
           </div>
         </div>
-
-        <!-- Contact Points & Direct Actions -->
-        <div class="bg-slate-950/60 border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
-          <div>
-            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-              <i data-lucide="contact" class="w-3.5 h-3.5 text-emerald-400"></i> Doğrulanmış İletişim Kanalları
-            </h4>
-            <div class="space-y-2 text-xs">
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400">Telefon:</span>
-                <span id="modalPhone" class="font-bold text-white select-all">-</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400">E-Posta:</span>
-                <span id="modalEmails" class="font-bold text-brand-300 select-all truncate max-w-[180px]">-</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400">Web Sitesi:</span>
-                <span id="modalWebsite" class="font-bold text-blue-400 truncate max-w-[180px]">-</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-slate-400">Google Puanı:</span>
-                <span id="modalRating" class="font-bold text-amber-400">-</span>
-              </div>
-            </div>
-          </div>
-          <div class="mt-4 pt-3 border-t border-slate-800 flex gap-2">
-            <button id="modalWhatsAppBtn" onclick="sendWhatsAppWithPitch()" class="flex-1 py-2 text-center rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition flex items-center justify-center gap-1">
-              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> WhatsApp ile Ulaş
-            </button>
-            <button id="modalEmailBtn" onclick="sendEmailWithPitch()" class="flex-1 py-2 text-center rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white transition flex items-center justify-center gap-1">
-              <i data-lucide="mail" class="w-3.5 h-3.5"></i> E-Posta Gönder
-            </button>
-          </div>
-        </div>
       </div>
 
-      <!-- AI Pitch Studio -->
-      <div class="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950/40 border border-brand-500/30 rounded-xl p-5 mb-6 shadow-inner">
-        <div class="flex items-center justify-between flex-wrap gap-2 mb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-6 h-6 rounded-lg bg-brand-600/30 border border-brand-500/40 flex items-center justify-center text-brand-300">
-              <i data-lucide="wand-2" class="w-3.5 h-3.5"></i>
-            </span>
-            <h3 class="text-sm font-extrabold text-white">AI Kişiselleştirilmiş Satış Metni Oluşturucu</h3>
+      <!-- TAB 3: AI SOĞUK SATIŞ STÜDYOSU -->
+      <div id="modalTab3" class="hidden space-y-4">
+        <!-- Studio Controls: Tone Switcher, Channel & Language -->
+        <div class="bg-slate-950/70 dark:bg-slate-950/70 bg-slate-50 border border-brand-500/30 rounded-2xl p-4 shadow-inner">
+          
+          <!-- Tone Switcher Pills -->
+          <div class="mb-4">
+            <label class="block text-xs font-extrabold text-slate-300 dark:text-slate-300 text-slate-700 mb-2 flex items-center gap-1.5">
+              <i data-lucide="sliders" class="w-3.5 h-3.5 text-brand-400"></i> Satış Tonu & İletişim Tarzı Seçin:
+            </label>
+            <div class="flex items-center gap-2 flex-wrap" id="studioToneButtons">
+              <button type="button" onclick="setStudioTone('consultative', this)" id="tone_consultative" 
+                class="tone-chip touch-target px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all bg-brand-600 text-white shadow-md flex items-center gap-1.5 ring-2 ring-brand-400/40">
+                <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+                <span>Kurumsal & Profesyonel</span>
+              </button>
+              <button type="button" onclick="setStudioTone('friendly', this)" id="tone_friendly" 
+                class="tone-chip touch-target px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all bg-slate-900 dark:bg-slate-900 bg-white border border-slate-800 dark:border-slate-800 border-slate-300 text-slate-300 dark:text-slate-300 text-slate-700 hover:text-white dark:hover:text-white hover:text-slate-900 flex items-center gap-1.5">
+                <i data-lucide="smile" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>Samimi & Çözüm Odaklı</span>
+              </button>
+              <button type="button" onclick="setStudioTone('urgency', this)" id="tone_urgency" 
+                class="tone-chip touch-target px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all bg-slate-900 dark:bg-slate-900 bg-white border border-slate-800 dark:border-slate-800 border-slate-300 text-slate-300 dark:text-slate-300 text-slate-700 hover:text-white dark:hover:text-white hover:text-slate-900 flex items-center gap-1.5">
+                <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Aciliyet & Fırsat Odaklı</span>
+              </button>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
-            <!-- Channel Selector -->
-            <select id="pitchChannel" onchange="generateModalPitch()" class="bg-slate-900 border border-slate-700 text-xs text-white rounded-lg px-2 py-1">
-              <option value="whatsapp">WhatsApp Mesajı</option>
-              <option value="email">Soğuk E-Posta</option>
-            </select>
-            <!-- Language Selector -->
-            <select id="pitchLang" onchange="generateModalPitch()" class="bg-slate-900 border border-slate-700 text-xs text-white rounded-lg px-2 py-1">
-              <option value="tr">Türkçe</option>
-              <option value="en">English</option>
-            </select>
+
+          <!-- Channel & Language Selectors -->
+          <div class="flex items-center justify-between flex-wrap gap-3 pt-3 border-t border-slate-800 dark:border-slate-800 border-slate-200">
+            <div class="flex items-center gap-3">
+              <div>
+                <label for="pitchChannel" class="text-[10px] font-bold text-slate-400 dark:text-slate-400 text-slate-500 block mb-1">Gönderim Kanalı:</label>
+                <select id="pitchChannel" onchange="generateModalPitch()" class="touch-target bg-slate-900 dark:bg-slate-900 bg-white border border-slate-700 dark:border-slate-700 border-slate-300 text-xs text-white dark:text-white text-slate-900 rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-brand-500">
+                  <option value="whatsapp">💬 WhatsApp Mesajı</option>
+                  <option value="email">📧 Soğuk E-Posta</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="pitchLang" class="text-[10px] font-bold text-slate-400 dark:text-slate-400 text-slate-500 block mb-1">Dil Seçimi:</label>
+                <select id="pitchLang" onchange="generateModalPitch()" class="touch-target bg-slate-900 dark:bg-slate-900 bg-white border border-slate-700 dark:border-slate-700 border-slate-300 text-xs text-white dark:text-white text-slate-900 rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-brand-500">
+                  <option value="tr">🇹🇷 Türkçe</option>
+                  <option value="en">🇬🇧 English</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="button" onclick="generateModalPitch()" class="touch-target px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 bg-slate-100 hover:bg-slate-200 text-xs font-extrabold text-slate-200 dark:text-slate-200 text-slate-800 transition flex items-center gap-1.5 self-end">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+              <span>Yeniden Üret</span>
+            </button>
           </div>
         </div>
 
+        <!-- Live Editable Pitch Textarea -->
         <div class="relative">
-          <textarea id="modalPitchText" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 leading-relaxed focus:outline-none focus:border-brand-500 custom-scrollbar font-mono"></textarea>
-          <div class="flex items-center justify-between mt-2">
-            <span class="text-[11px] text-slate-400">Metin işletmenin adına ve tespit edilen açığına göre otomatik kişiselleştirildi. Düzenleyebilirsiniz.</span>
-            <div class="flex items-center gap-2">
-              <button onclick="copyPitchText()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white transition flex items-center gap-1">
-                <i data-lucide="copy" class="w-3 h-3"></i> Kopyala
+          <textarea id="modalPitchText" rows="7" oninput="updatePitchMetrics()" 
+            class="w-full bg-slate-950 dark:bg-slate-950 bg-slate-50 border border-slate-800 dark:border-slate-800 border-slate-300 rounded-2xl p-4 text-xs text-slate-100 dark:text-slate-100 text-slate-900 leading-relaxed focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 custom-scrollbar font-mono"></textarea>
+          
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-2.5 mt-2.5">
+            <span id="pitchMetricsBadge" class="text-[11px] font-bold text-slate-400 dark:text-slate-400 text-slate-500">
+              0 karakter • 0 kelime
+            </span>
+
+            <div class="flex items-center gap-2 flex-wrap">
+              <button type="button" id="btnCopyPitch" onclick="copyPitchText()" class="touch-target px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 bg-slate-100 hover:bg-slate-200 text-xs font-extrabold text-slate-200 dark:text-slate-200 text-slate-800 transition flex items-center gap-1.5 active:scale-95 shadow-sm">
+                <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                <span>Metni Kopyala</span>
               </button>
-              <button onclick="sendEmailWithPitch()" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white transition flex items-center gap-1 shadow-lg shadow-indigo-600/20">
-                <i data-lucide="mail" class="w-3 h-3"></i> E-Posta Gönder
+              <button type="button" onclick="sendEmailWithPitch()" class="touch-target px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-extrabold text-white transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20 active:scale-95">
+                <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+                <span>E-Posta Gönder</span>
               </button>
-              <button onclick="sendWhatsAppWithPitch()" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition flex items-center gap-1 shadow-lg shadow-emerald-600/20">
-                <i data-lucide="send" class="w-3 h-3"></i> WhatsApp Web'de Gönder
+              <button type="button" onclick="sendWhatsAppWithPitch()" class="touch-target px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition flex items-center gap-1.5 shadow-lg shadow-emerald-600/20 active:scale-95">
+                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                <span>WhatsApp'ta Başlat</span>
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- CRM Stage & Quick Note -->
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-800">
+      <!-- CRM Stage & Quick Note Footer -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-5 border-t border-slate-800 dark:border-slate-800 border-slate-200 mt-5">
         <div class="flex items-center gap-2 w-full sm:w-auto">
-          <label class="text-xs font-semibold text-slate-400">Aşama Değiştir:</label>
-          <select id="modalStageSelect" onchange="updateLeadStageFromModal(this.value)" class="bg-slate-900 border border-slate-700 text-xs text-white rounded-lg px-3 py-1.5">
+          <label for="modalStageSelect" class="text-xs font-bold text-slate-400 dark:text-slate-400 text-slate-600">Aşama:</label>
+          <select id="modalStageSelect" onchange="updateLeadStageFromModal(this.value)" class="touch-target bg-slate-900 dark:bg-slate-900 bg-white border border-slate-700 dark:border-slate-700 border-slate-300 text-xs text-white dark:text-white text-slate-900 rounded-xl px-3 py-2 font-bold focus:outline-none">
             <option value="NEW">Yeni Bulunan</option>
             <option value="ENRICHED">İncelendi</option>
             <option value="CONTACTED">İletişime Geçildi</option>
@@ -775,17 +971,33 @@
             <option value="LOST">Olumsuz (Lost)</option>
           </select>
         </div>
-        <button onclick="markAsContacted()" class="w-full sm:w-auto px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-xs font-bold text-white transition flex items-center justify-center gap-1.5">
-          <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> 'İletişime Geçildi' Olarak İşaretle
+        <button onclick="markAsContacted()" class="touch-target w-full sm:w-auto px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-xs font-extrabold text-white transition flex items-center justify-center gap-2 active:scale-95 shadow-md shadow-brand-500/20">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>'İletişime Geçildi' Olarak İşaretle</span>
+        </button>
+      </div>
+
+      <!-- Mobile Sticky Action Drawer (Sticky at Bottom for touch screens < 640px) -->
+      <div class="sm:hidden mt-4 pt-3 border-t border-slate-800/80 dark:border-slate-800/80 border-slate-200 grid grid-cols-3 gap-2">
+        <button onclick="openMobileCall()" class="touch-target py-2 px-2 rounded-xl bg-blue-600 text-white font-extrabold text-xs flex items-center justify-center gap-1 shadow-md">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> Ara
+        </button>
+        <button onclick="sendWhatsAppWithPitch()" class="touch-target py-2 px-2 rounded-xl bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center gap-1 shadow-md">
+          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i> WhatsApp
+        </button>
+        <button onclick="copyPitchText()" class="touch-target py-2 px-2 rounded-xl bg-slate-800 dark:bg-slate-800 bg-slate-200 text-white dark:text-white text-slate-800 font-extrabold text-xs flex items-center justify-center gap-1 shadow-md">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i> Kopyala
         </button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL 2: GITHUB STAR-GATE VIRAL GROWTH MODAL (UI/UX PRO MAX) -->
+  <!-- ========================================================================= -->
+  <!-- MODAL 2: GITHUB STAR-GATE VIRAL GROWTH MODAL                              -->
+  <!-- ========================================================================= -->
   <div id="starGateModal" onclick="if(event.target === this) closeStarGateModal()" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="glass-card bg-slate-900/95 border border-amber-500/30 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative glow-effect">
-      <button onclick="closeStarGateModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 transition">
+    <div class="glass-card bg-slate-900/95 dark:bg-slate-900/95 bg-white border border-amber-500/40 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative glow-amber">
+      <button onclick="closeStarGateModal()" class="touch-target absolute right-4 top-4 text-slate-400 hover:text-white dark:hover:text-white text-slate-500 hover:text-slate-900 p-2 rounded-xl bg-slate-800/80 dark:bg-slate-800/80 bg-slate-100 transition">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
@@ -794,26 +1006,26 @@
         <i data-lucide="star" class="w-8 h-8 fill-amber-400 text-amber-400"></i>
       </div>
 
-      <h3 class="text-xl font-extrabold text-white tracking-tight">⭐ Pro Özellikleri Ücretsiz Açın!</h3>
-      <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+      <h3 class="text-xl font-extrabold text-white dark:text-white text-slate-900 tracking-tight">⭐ Pro Özellikleri Ücretsiz Açın!</h3>
+      <p class="text-xs text-slate-400 dark:text-slate-400 text-slate-600 mt-2 leading-relaxed">
         GeoLeads %100 açık kaynaklı bir topluluk projesidir. GitHub depomuza 1 yıldız vererek tüm Pro yetenekleri <strong class="text-amber-300">anında ve ücretsiz</strong> açabilirsiniz.
       </p>
 
       <!-- Value Props Grid -->
-      <div class="grid grid-cols-2 gap-2 text-left my-5 bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80 text-[11px]">
-        <div class="flex items-center gap-1.5 text-slate-200">
+      <div class="grid grid-cols-2 gap-2 text-left my-5 bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 p-3 rounded-2xl border border-slate-800/80 dark:border-slate-800/80 border-slate-200 text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate-200 dark:text-slate-200 text-slate-800">
           <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400 flex-shrink-0"></i>
           <span>500+ Arama Kotası</span>
         </div>
-        <div class="flex items-center gap-1.5 text-slate-200">
+        <div class="flex items-center gap-1.5 text-slate-200 dark:text-slate-200 text-slate-800">
           <i data-lucide="bot" class="w-3.5 h-3.5 text-indigo-400 flex-shrink-0"></i>
           <span>AI Satış Kancaları</span>
         </div>
-        <div class="flex items-center gap-1.5 text-slate-200">
+        <div class="flex items-center gap-1.5 text-slate-200 dark:text-slate-200 text-slate-800">
           <i data-lucide="table" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>
           <span>Sınırsız Excel/CSV</span>
         </div>
-        <div class="flex items-center gap-1.5 text-slate-200">
+        <div class="flex items-center gap-1.5 text-slate-200 dark:text-slate-200 text-slate-800">
           <i data-lucide="radar" class="w-3.5 h-3.5 text-purple-400 flex-shrink-0"></i>
           <span>Derin Web & E-Posta</span>
         </div>
@@ -821,23 +1033,25 @@
 
       <div class="space-y-2.5">
         <a href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()"
-          class="w-full py-3 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition-all transform active:scale-95">
+          class="touch-target w-full py-3 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition-all transform active:scale-95">
           <i data-lucide="star" class="w-4 h-4 fill-slate-950 text-slate-950"></i>
           <span>GitHub'da 1-Tıkla Yıldız Ver & Pro Aç 🎉</span>
         </a>
-        <button onclick="closeStarGateModal()" class="w-full py-2 text-slate-400 hover:text-slate-200 text-xs font-semibold transition">
+        <button onclick="closeStarGateModal()" class="touch-target w-full py-2 text-slate-400 hover:text-slate-200 dark:hover:text-slate-200 text-slate-500 hover:text-slate-800 text-xs font-semibold transition">
           Şimdilik Topluluk Sürümüyle Devam Et
         </button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL 3: ABOUT GEOLEADS & SEO/GEO GROWTH ENGINE (UI/UX PRO MAX) -->
+  <!-- ========================================================================= -->
+  <!-- MODAL 3: ABOUT GEOLEADS & SEO/GEO GROWTH ENGINE                           -->
+  <!-- ========================================================================= -->
   <div id="aboutModal" onclick="if(event.target === this) closeAboutModal()" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-    <div class="glass-card bg-slate-900/95 border border-indigo-500/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 text-left shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar">
+    <div class="glass-card bg-slate-900/95 dark:bg-slate-900/95 bg-white border border-indigo-500/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 text-left shadow-2xl relative max-h-[90vh] overflow-y-auto custom-scrollbar text-slate-100 dark:text-slate-100 text-slate-900">
       
       <!-- Close Button -->
-      <button onclick="closeAboutModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 transition" title="Kapat">
+      <button onclick="closeAboutModal()" class="touch-target absolute right-4 top-4 text-slate-400 hover:text-white dark:hover:text-white text-slate-500 hover:text-slate-900 p-2 rounded-xl bg-slate-800/80 dark:bg-slate-800/80 bg-slate-100 transition" title="Kapat">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
@@ -848,68 +1062,68 @@
         </div>
         <div>
           <div class="flex flex-wrap items-center gap-2 mb-1">
-            <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">Geo<span class="text-brand-400">Leads</span> Pro</h2>
+            <h2 class="text-xl sm:text-2xl font-black text-white dark:text-white text-slate-900 tracking-tight">Geo<span class="text-brand-400">Leads</span> Pro</h2>
             <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-wider">v2.0 Turbo GEO</span>
             <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30 uppercase tracking-wider">%100 Açık Kaynak</span>
           </div>
-          <p class="text-xs sm:text-sm text-slate-300 leading-snug">
+          <p class="text-xs sm:text-sm text-slate-300 dark:text-slate-300 text-slate-600 leading-snug">
             Sıfır Maliyetli B2B Müşteri Bulma, Canlı Harita Kazıyıcı & AI Satış Kancası Motoru
           </p>
         </div>
       </div>
 
       <!-- Section 1: Value Proposition -->
-      <div class="space-y-4 mb-6 text-xs text-slate-300">
-        <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
-          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+      <div class="space-y-4 mb-6 text-xs text-slate-300 dark:text-slate-300 text-slate-700">
+        <div class="bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 border border-slate-800/80 dark:border-slate-800/80 border-slate-200 rounded-2xl p-4">
+          <h3 class="text-sm font-bold text-white dark:text-white text-slate-900 mb-2 flex items-center gap-2">
             <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i>
             <span>Neden GeoLeads? (Sıfır Maliyet & Doğrulanmış Canlı Veri)</span>
           </h3>
-          <p class="leading-relaxed text-slate-300">
+          <p class="leading-relaxed text-slate-300 dark:text-slate-300 text-slate-600">
             Geleneksel Google Maps ve B2B müşteri listesi servisleri, sorgu başına yüksek faturalar çıkarır veya yalnızca genel santral numarası sunar. 
-            <strong class="text-white">GeoLeads</strong>, sıfır API maliyetiyle doğrudan canlı harita verisi ve arama motoru dizinlerinden <strong class="text-emerald-300">%100 gerçek işletmeleri</strong> bularak ajanslar, serbest çalışanlar ve satış ekipleri için uçtan uca müşteri hattı kurar.
+            <strong class="text-white dark:text-white text-slate-900">GeoLeads</strong>, sıfır API maliyetiyle doğrudan canlı harita verisi ve arama motoru dizinlerinden <strong class="text-emerald-300 dark:text-emerald-300 text-emerald-600">%100 gerçek işletmeleri</strong> bularak ajanslar, serbest çalışanlar ve satış ekipleri için uçtan uca müşteri hattı kurar.
           </p>
         </div>
 
         <!-- Section 2: GEO & Global Search Explanation -->
-        <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
-          <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
+        <div class="bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 border border-slate-800/80 dark:border-slate-800/80 border-slate-200 rounded-2xl p-4">
+          <h3 class="text-sm font-bold text-white dark:text-white text-slate-900 mb-2 flex items-center gap-2">
             <i data-lucide="globe" class="w-4 h-4 text-blue-400"></i>
             <span>GEO & Yerel Arama Algoritması Nasıl Çalışır?</span>
           </h3>
-          <p class="leading-relaxed text-slate-300 mb-3">
+          <p class="leading-relaxed text-slate-300 dark:text-slate-300 text-slate-600 mb-3">
             GeoLeads, dünya çapındaki coğrafi sınırları (bounding box, enlem, boylam) ve yerel dizinleri akıllı algoritmalarla harmanlar:
           </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
-              <div class="font-bold text-white flex items-center gap-1.5 mb-1">
+            <div class="bg-slate-900/80 dark:bg-slate-900/80 bg-white border border-slate-800 dark:border-slate-800 border-slate-200 p-3 rounded-xl shadow-sm">
+              <div class="font-bold text-white dark:text-white text-slate-900 flex items-center gap-1.5 mb-1">
                 <i data-lucide="map-pin" class="w-3.5 h-3.5 text-rose-400"></i> Küresel Coğrafi Kapsama
               </div>
-              <p class="text-[11px] text-slate-400">
+              <p class="text-[11px] text-slate-400 dark:text-slate-400 text-slate-600">
                 İstanbul, Berlin, Londra veya New York; dünyanın her ülkesinde ve semtinde anında yerel B2B arama yapabilirsiniz.
               </p>
             </div>
-            <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
-              <div class="font-bold text-white flex items-center gap-1.5 mb-1">
+            <div class="bg-slate-900/80 dark:bg-slate-900/80 bg-white border border-slate-800 dark:border-slate-800 border-slate-200 p-3 rounded-xl shadow-sm">
+              <div class="font-bold text-white dark:text-white text-slate-900 flex items-center gap-1.5 mb-1">
                 <i data-lucide="layers" class="w-3.5 h-3.5 text-indigo-400"></i> 5 Döner Ayna (Overpass)
               </div>
-              <p class="text-[11px] text-slate-400">
+              <p class="text-[11px] text-slate-400 dark:text-slate-400 text-slate-600">
                 5 yedekli OpenStreetMap Overpass aynası ile kesintisiz, limitsiz ve sıfır gecikmeli harita verisi.
               </p>
             </div>
-            <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
-              <div class="font-bold text-white flex items-center gap-1.5 mb-1">
+            <div class="bg-slate-900/80 dark:bg-slate-900/80 bg-white border border-slate-800 dark:border-slate-800 border-slate-200 p-3 rounded-xl shadow-sm">
+              <div class="font-bold text-white dark:text-white text-slate-900 flex items-center gap-1.5 mb-1">
                 <i data-lucide="radar" class="w-3.5 h-3.5 text-emerald-400"></i> Derin Web & WhatsApp Avcısı
               </div>
-              <p class="text-[11px] text-slate-400">
+              <p class="text-[11px] text-slate-400 dark:text-slate-400 text-slate-600">
                 İşletmenin web sitesine gidip iletişim ve hakkında sayfalarından net e-posta ve doğrudan WhatsApp hatlarını filtreler.
               </p>
             </div>
-            <div class="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
-              <div class="font-bold text-white flex items-center gap-1.5 mb-1">
+            <div class="bg-slate-900/80 dark:bg-slate-900/80 bg-white border border-slate-800 dark:border-slate-800 border-slate-200 p-3 rounded-xl shadow-sm">
+              <div class="font-bold text-white dark:text-white text-slate-900 flex items-center gap-1.5 mb-1">
                 <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i> Dijital Açık & Fırsat Skoru
               </div>
-              <p class="text-[11px] text-slate-400">
+              <p class="text-[11px] text-slate-400 dark:text-slate-400 text-slate-600">
                 SSL eksikliği, düşük Google puanı, web sitesi yokluğu gibi satış açıklarını saptar ve 1-tıkla AI soğuk teklif üretir.
               </p>
             </div>
@@ -922,14 +1136,14 @@
             <div class="space-y-1 text-center sm:text-left">
               <div class="flex items-center justify-center sm:justify-start gap-2">
                 <span class="text-amber-400 animate-bounce">⭐</span>
-                <h4 id="aboutStarTitle" class="text-base font-extrabold text-white">GitHub'da Projeye Yıldız Verin</h4>
-                <span id="aboutStarCountBadge" class="bg-amber-400/30 text-amber-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-amber-400/40">⭐ Star</span>
+                <h4 id="aboutStarTitle" class="text-base font-extrabold text-white dark:text-white text-slate-900">GitHub'da Projeye Yıldız Verin</h4>
+                <span id="aboutStarCountBadge" class="bg-amber-400/30 text-amber-300 dark:text-amber-300 text-amber-800 text-[10px] font-black px-2 py-0.5 rounded-full border border-amber-400/40">⭐ Star</span>
               </div>
-              <p id="aboutStarDesc" class="text-xs text-slate-300 max-w-sm">
+              <p id="aboutStarDesc" class="text-xs text-slate-300 dark:text-slate-300 text-slate-600 max-w-sm">
                 Açık kaynak topluluğumuzu destekleyin, GitHub arama sıralamasında zirveye çıkmamıza yardımcı olun ve tüm Pro yetenekleri anında açın!
               </p>
             </div>
-            <a id="aboutStarBtn" href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="celebrateStarFromAbout(event)" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/30 transition transform active:scale-95 flex-shrink-0">
+            <a id="aboutStarBtn" href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="celebrateStarFromAbout(event)" class="touch-target w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/30 transition transform active:scale-95 flex-shrink-0">
               <i data-lucide="star" class="w-4 h-4 fill-slate-950 text-slate-950"></i>
               <span>Yıldız Ver & Kutla 🎉</span>
             </a>
@@ -937,27 +1151,27 @@
         </div>
 
         <!-- Section 4: 1-Click Viral Sharing -->
-        <div class="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4">
+        <div class="bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 border border-slate-800/80 dark:border-slate-800/80 border-slate-200 rounded-2xl p-4">
           <div class="flex items-center justify-between mb-3">
-            <h4 class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+            <h4 class="text-xs font-bold text-white dark:text-white text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
               <i data-lucide="share-2" class="w-3.5 h-3.5 text-indigo-400"></i> 1-Tıkla Topluluğunla Paylaş
             </h4>
-            <span class="text-[10px] text-slate-400">Organik GitHub & GEO Desteği</span>
+            <span class="text-[10px] text-slate-400 dark:text-slate-400 text-slate-500">Organik GitHub & GEO Desteği</span>
           </div>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <button onclick="shareOnTwitter()" class="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-sky-500/20 text-slate-200 hover:text-sky-300 border border-slate-800 hover:border-sky-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
+            <button onclick="shareOnTwitter()" class="touch-target w-full py-2.5 px-3 rounded-xl bg-slate-900 dark:bg-slate-900 bg-white hover:bg-sky-500/20 text-slate-200 dark:text-slate-200 text-slate-800 hover:text-sky-400 border border-slate-800 dark:border-slate-800 border-slate-200 hover:border-sky-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
               <i data-lucide="twitter" class="w-3.5 h-3.5 text-sky-400"></i>
               <span>X / Twitter</span>
             </button>
-            <button onclick="shareOnLinkedIn()" class="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-blue-600/20 text-slate-200 hover:text-blue-300 border border-slate-800 hover:border-blue-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
+            <button onclick="shareOnLinkedIn()" class="touch-target w-full py-2.5 px-3 rounded-xl bg-slate-900 dark:bg-slate-900 bg-white hover:bg-blue-600/20 text-slate-200 dark:text-slate-200 text-slate-800 hover:text-blue-400 border border-slate-800 dark:border-slate-800 border-slate-200 hover:border-blue-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
               <i data-lucide="linkedin" class="w-3.5 h-3.5 text-blue-400"></i>
               <span>LinkedIn</span>
             </button>
-            <button onclick="shareOnWhatsApp()" class="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-emerald-600/20 text-slate-200 hover:text-emerald-300 border border-slate-800 hover:border-emerald-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
+            <button onclick="shareOnWhatsApp()" class="touch-target w-full py-2.5 px-3 rounded-xl bg-slate-900 dark:bg-slate-900 bg-white hover:bg-emerald-600/20 text-slate-200 dark:text-slate-200 text-slate-800 hover:text-emerald-400 border border-slate-800 dark:border-slate-800 border-slate-200 hover:border-emerald-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
               <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
               <span>WhatsApp</span>
             </button>
-            <button onclick="copyRepoUrl()" class="w-full py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-indigo-600/20 text-slate-200 hover:text-indigo-300 border border-slate-800 hover:border-indigo-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
+            <button onclick="copyRepoUrl()" class="touch-target w-full py-2.5 px-3 rounded-xl bg-slate-900 dark:bg-slate-900 bg-white hover:bg-indigo-600/20 text-slate-200 dark:text-slate-200 text-slate-800 hover:text-indigo-400 border border-slate-800 dark:border-slate-800 border-slate-200 hover:border-indigo-500/40 transition flex items-center justify-center gap-1.5 text-xs font-bold">
               <i data-lucide="link" class="w-3.5 h-3.5 text-indigo-400"></i>
               <span>Linki Kopyala</span>
             </button>
@@ -966,9 +1180,9 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="flex items-center justify-between pt-4 border-t border-slate-800 text-[11px] text-slate-500">
+      <div class="flex items-center justify-between pt-4 border-t border-slate-800 dark:border-slate-800 border-slate-200 text-[11px] text-slate-500">
         <span>Geliştirici: <a href="https://github.com/DevKursat" target="_blank" class="text-brand-400 hover:underline">@DevKursat</a> • MIT License</span>
-        <button onclick="closeAboutModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 transition">
+        <button onclick="closeAboutModal()" class="touch-target px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 bg-slate-100 hover:bg-slate-200 text-xs font-bold text-slate-200 dark:text-slate-200 text-slate-800 transition">
           Kapat
         </button>
       </div>
@@ -976,7 +1190,7 @@
   </div>
 
   <!-- Toast Notification Container -->
-  <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-2"></div>
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 space-y-2 pointer-events-none"></div>
 
   <!-- Frontend Logic Script -->
   <script>
@@ -986,9 +1200,91 @@
     let isStarred = localStorage.getItem("geoleads_starred") === "true";
     let masterKeyStored = localStorage.getItem("geoleads_master_key") || "";
     let deferredPrompt = null;
+    let activeFilterPill = 'all';
+    let currentStudioTone = 'consultative';
+    let currentSortField = 'score';
+    let currentSortDir = 'desc';
 
-    // Initialize application
+    // Theme Management with Persistent LocalStorage
+    function initTheme() {
+      const savedTheme = localStorage.getItem("geoleads_theme") || "dark";
+      if (savedTheme === "light") {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.classList.add("light");
+      } else {
+        document.documentElement.classList.remove("light");
+        document.documentElement.classList.add("dark");
+      }
+      updateThemeIcons();
+    }
+
+    function toggleTheme() {
+      const isCurrentlyDark = document.documentElement.classList.contains("dark");
+      if (isCurrentlyDark) {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.classList.add("light");
+        localStorage.setItem("geoleads_theme", "light");
+      } else {
+        document.documentElement.classList.remove("light");
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("geoleads_theme", "dark");
+      }
+      updateThemeIcons();
+      playAudioChime('chime');
+    }
+
+    function updateThemeIcons() {
+      const isDark = document.documentElement.classList.contains("dark");
+      document.querySelectorAll(".theme-icon-sun").forEach(el => el.classList.toggle("hidden", !isDark));
+      document.querySelectorAll(".theme-icon-moon").forEach(el => el.classList.toggle("hidden", isDark));
+    }
+
+    // Audio Chime Synthesis (Zero External Audio Dependencies)
+    function playAudioChime(type = "chime") {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        if (ctx.state === 'suspended') ctx.resume();
+
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === "outreach" || type === "won") {
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+          osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.08);
+          osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.16);
+          osc.frequency.setValueAtTime(1046.50, ctx.currentTime + 0.24);
+          gain.gain.setValueAtTime(0.08, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.45);
+        } else if (type === "copy") {
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(659.25, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.12);
+          gain.gain.setValueAtTime(0.06, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.2);
+        } else {
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
+          gain.gain.setValueAtTime(0.07, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.3);
+        }
+      } catch (e) {}
+    }
+
+    // Initialize Application
     document.addEventListener("DOMContentLoaded", () => {
+      initTheme();
       lucide.createIcons();
       fetchStats();
       fetchLeads();
@@ -1002,7 +1298,7 @@
       setupKeyboardShortcuts();
     });
 
-    // Silent master key verification from URL query param (?key=... or ?admin=...)
+    // URL Master Key Detection
     function checkUrlKey() {
       const params = new URLSearchParams(window.location.search);
       const k = params.get("key") || params.get("admin");
@@ -1033,7 +1329,7 @@
       } catch (e) {}
     }
 
-    // PWA BeforeInstallPrompt Handler
+    // PWA Support
     window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
@@ -1063,6 +1359,7 @@
       });
     }
 
+    // GitHub Star Counts
     async function fetchGitHubStars() {
       const badges = [
         document.getElementById("starCountBadge"),
@@ -1094,6 +1391,7 @@
       });
     }
 
+    // Metrics Stats
     async function fetchStats() {
       try {
         const res = await fetch("/api/stats");
@@ -1110,6 +1408,7 @@
       }
     }
 
+    // Fetch Leads
     async function fetchLeads() {
       try {
         const res = await fetch("/api/leads?limit=250");
@@ -1131,17 +1430,30 @@
       document.getElementById("cityInput").value = city;
     }
 
-    // Search & Scraping handler
-    async function handleSearch(e) {
-      e.preventDefault();
-      const query = document.getElementById("queryInput").value.trim();
-      const city = document.getElementById("cityInput").value.trim();
+    // 1-Click Discovery Search Chip Trigger
+    async function executeQuickSearch(query, city, btn) {
+      setQuickSearch(query, city);
+
+      // Visual active indication on chips
+      document.querySelectorAll('.quick-search-chip').forEach(b => {
+        b.classList.remove('bg-brand-600', 'text-white', 'border-brand-500', 'ring-2', 'ring-brand-400/40');
+      });
+      if (btn) {
+        btn.classList.add('bg-brand-600', 'text-white', 'border-brand-500', 'ring-2', 'ring-brand-400/40');
+      }
+
+      playAudioChime('chime');
+      showToast(`🔍 ${query} (${city}) aranıyor...`, "info");
+      
+      // Trigger search
+      await executeSearch(query, city);
+    }
+
+    // Search & Scraping Execution
+    async function executeSearch(query, city) {
       const count = parseInt(document.getElementById("leadCountSelect").value);
       const deepCrawl = document.getElementById("deepCrawlCheckbox").checked;
 
-      if (!query || !city) return;
-
-      // Show Progress Bar
       const progressBox = document.getElementById("scrapingProgress");
       const progressFill = document.getElementById("progressBarFill");
       const progressText = document.getElementById("progressStatusText");
@@ -1150,6 +1462,8 @@
       progressBox.classList.remove("hidden");
       submitBtn.disabled = true;
       submitBtn.classList.add("opacity-60");
+
+      renderSkeletonTable();
 
       let p = 15;
       progressFill.style.width = p + "%";
@@ -1169,12 +1483,8 @@
 
       try {
         const headers = { "Content-Type": "application/json" };
-        if (masterKeyStored) {
-          headers["X-Master-Key"] = masterKeyStored;
-        }
-        if (isStarred) {
-          headers["X-Starred"] = "1";
-        }
+        if (masterKeyStored) headers["X-Master-Key"] = masterKeyStored;
+        if (isStarred) headers["X-Starred"] = "1";
 
         const res = await fetch("/api/scrape", {
           method: "POST",
@@ -1195,6 +1505,7 @@
 
         const json = await res.json();
         if (json.success) {
+          playAudioChime('won');
           showToast(`Başarılı! ${json.count} adet yeni müşteri keşfedildi.`, "success");
           if (json.star_gate_triggered) {
             setTimeout(openStarGateModal, 1200);
@@ -1213,7 +1524,50 @@
           progressFill.style.width = "0%";
           submitBtn.disabled = false;
           submitBtn.classList.remove("opacity-60");
-        }, 1000);
+        }, 900);
+      }
+    }
+
+    async function handleSearch(e) {
+      if (e) e.preventDefault();
+      const query = document.getElementById("queryInput").value.trim();
+      const city = document.getElementById("cityInput").value.trim();
+      if (!query || !city) return;
+      await executeSearch(query, city);
+    }
+
+    // Skeleton loaders
+    function renderSkeletonTable() {
+      const tbody = document.getElementById("leadsTableBody");
+      tbody.innerHTML = "";
+      for (let i = 0; i < 5; i++) {
+        const tr = document.createElement("tr");
+        tr.className = "border-b border-slate-800/40 dark:border-slate-800/40 border-slate-200";
+        tr.innerHTML = `
+          <td class="py-4 px-4">
+            <div class="h-4 w-40 rounded-lg skeleton-shimmer bg-slate-800 dark:bg-slate-800 bg-slate-200 mb-2"></div>
+            <div class="h-3 w-28 rounded-lg skeleton-shimmer bg-slate-800/60 dark:bg-slate-800/60 bg-slate-200/60"></div>
+          </td>
+          <td class="py-4 px-4">
+            <div class="h-5 w-24 rounded-full skeleton-shimmer bg-slate-800 dark:bg-slate-800 bg-slate-200 mb-1.5"></div>
+            <div class="h-3 w-32 rounded-lg skeleton-shimmer bg-slate-800/60 dark:bg-slate-800/60 bg-slate-200/60"></div>
+          </td>
+          <td class="py-4 px-4">
+            <div class="h-3.5 w-32 rounded-lg skeleton-shimmer bg-slate-800 dark:bg-slate-800 bg-slate-200 mb-2"></div>
+            <div class="h-3.5 w-36 rounded-lg skeleton-shimmer bg-slate-800 dark:bg-slate-800 bg-slate-200"></div>
+          </td>
+          <td class="py-4 px-4">
+            <div class="h-4 w-28 rounded-lg skeleton-shimmer bg-slate-800 dark:bg-slate-800 bg-slate-200 mb-1.5"></div>
+            <div class="h-3 w-16 rounded-lg skeleton-shimmer bg-slate-800/60 dark:bg-slate-800/60 bg-slate-200/60"></div>
+          </td>
+          <td class="py-4 px-4">
+            <div class="h-8 w-28 rounded-xl skeleton-shimmer bg-slate-800 dark:bg-slate-800 bg-slate-200"></div>
+          </td>
+          <td class="py-4 px-4 text-right">
+            <div class="h-8 w-28 rounded-xl skeleton-shimmer bg-slate-800 dark:bg-slate-800 bg-slate-200 ml-auto"></div>
+          </td>
+        `;
+        tbody.appendChild(tr);
       }
     }
 
@@ -1225,44 +1579,49 @@
       if (leads.length === 0) {
         tbody.innerHTML = `
           <tr>
-            <td colspan="6" class="text-center py-16 text-slate-500">
-              Arama kriterlerine uygun müşteri bulunamadı.
+            <td colspan="6" class="text-center py-20 text-slate-400 dark:text-slate-400 text-slate-500">
+              <div class="max-w-xs mx-auto flex flex-col items-center">
+                <i data-lucide="filter-x" class="w-8 h-8 text-slate-500 mb-2"></i>
+                <p class="font-bold">Arama kriterlerine uygun müşteri bulunamadı.</p>
+                <p class="text-[11px] mt-1">Filtrelerinizi temizlemeyi veya yeni bir arama yapmayı deneyin.</p>
+              </div>
             </td>
           </tr>
         `;
+        lucide.createIcons();
         return;
       }
 
       leads.forEach(l => {
         const tr = document.createElement("tr");
-        tr.className = "hover:bg-slate-900/50 transition-colors border-b border-slate-800/40";
+        tr.className = "hover:bg-slate-900/50 dark:hover:bg-slate-900/50 hover:bg-slate-100/70 transition-all border-b border-slate-800/40 dark:border-slate-800/40 border-slate-200";
 
-        // Score color
+        // Score Badge
         let scoreBg = "bg-slate-800 text-slate-300 border-slate-700";
         if (l.opportunity_score >= 70) {
-          scoreBg = "bg-amber-500/20 text-amber-300 border-amber-500/30";
+          scoreBg = "bg-amber-500/20 text-amber-300 dark:text-amber-300 text-amber-700 border-amber-500/30";
         } else if (l.opportunity_score >= 50) {
-          scoreBg = "bg-indigo-500/20 text-indigo-300 border-indigo-500/30";
+          scoreBg = "bg-indigo-500/20 text-indigo-300 dark:text-indigo-300 text-indigo-700 border-indigo-500/30";
         }
 
         // Contact badges
         const emailsHtml = (l.emails && l.emails.length > 0) 
-          ? `<span class="inline-flex items-center gap-1 text-[11px] text-blue-400 font-mono"><i data-lucide="mail" class="w-3 h-3"></i> ${l.emails[0]}</span>`
-          : `<span class="text-[11px] text-slate-500">E-posta yok</span>`;
+          ? `<div class="inline-flex items-center gap-1.5 text-[11px] text-brand-300 dark:text-brand-300 text-brand-600 font-mono"><i data-lucide="mail" class="w-3 h-3"></i> <span class="truncate max-w-[170px]">${l.emails[0]}</span></div>`
+          : `<div class="text-[11px] text-slate-500">E-posta yok</div>`;
 
         const phoneHtml = l.phone 
-          ? `<span class="inline-flex items-center gap-1 text-[11px] text-slate-200 font-mono"><i data-lucide="phone" class="w-3 h-3 text-slate-400"></i> ${l.phone}</span>`
-          : `<span class="text-[11px] text-slate-500">Telefon yok</span>`;
+          ? `<div class="inline-flex items-center gap-1.5 text-[11px] text-slate-200 dark:text-slate-200 text-slate-800 font-mono"><i data-lucide="phone" class="w-3 h-3 text-slate-400"></i> ${l.phone}</div>`
+          : `<div class="text-[11px] text-slate-500">Telefon yok</div>`;
 
         // Web status
         let webHtml = `<span class="text-[11px] text-rose-400 font-semibold flex items-center gap-1"><i data-lucide="x-circle" class="w-3 h-3"></i> Web Yok</span>`;
         if (l.has_website) {
           const sslBadge = l.has_ssl 
-            ? `<span class="text-[10px] text-emerald-400">HTTPS ✓</span>` 
-            : `<span class="text-[10px] text-amber-400">SSL Yok ⚠</span>`;
+            ? `<span class="text-[10px] text-emerald-400 font-bold">HTTPS ✓</span>` 
+            : `<span class="text-[10px] text-amber-400 font-bold">SSL Yok ⚠</span>`;
           webHtml = `
             <div>
-              <a href="${l.website}" target="_blank" class="text-[11px] text-blue-400 hover:underline truncate max-w-[140px] block font-mono">${l.website.replace('https://','').replace('http://','')}</a>
+              <a href="${l.website}" target="_blank" class="text-[11px] text-blue-400 hover:underline truncate max-w-[140px] block font-mono font-semibold">${l.website.replace('https://','').replace('http://','')}</a>
               ${sslBadge}
             </div>
           `;
@@ -1272,28 +1631,28 @@
         const primaryGapTitle = (l.gaps && l.gaps.length > 0) ? l.gaps[0].title : "Genel Büyüme";
 
         tr.innerHTML = `
-          <td class="py-3 px-4">
-            <div class="font-bold text-slate-100 text-xs">${escapeHtml(l.name)}</div>
-            <div class="text-[11px] text-slate-400 flex items-center gap-1 mt-0.5">
+          <td class="py-3.5 px-4">
+            <div class="font-bold text-slate-100 dark:text-slate-100 text-slate-900 text-xs">${escapeHtml(l.name)}</div>
+            <div class="text-[11px] text-slate-400 dark:text-slate-400 text-slate-500 flex items-center gap-1 mt-0.5">
               <span>${escapeHtml(l.category)}</span> • <span>${escapeHtml(l.city)}</span>
-              ${l.rating ? `<span class="text-amber-400 ml-1">★ ${l.rating} (${l.review_count})</span>` : ''}
+              ${l.rating ? `<span class="text-amber-400 ml-1 font-bold">★ ${l.rating} (${l.review_count})</span>` : ''}
             </div>
           </td>
-          <td class="py-3 px-4">
-            <div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-bold border ${scoreBg}">
+          <td class="py-3.5 px-4">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold border ${scoreBg}">
               <i data-lucide="zap" class="w-3 h-3"></i> ${l.opportunity_score}/100
             </div>
-            <div class="text-[10px] text-slate-400 mt-1 max-w-[160px] truncate" title="${primaryGapTitle}">${primaryGapTitle}</div>
+            <div class="text-[10px] text-slate-400 dark:text-slate-400 text-slate-500 mt-1 max-w-[160px] truncate" title="${primaryGapTitle}">${primaryGapTitle}</div>
           </td>
-          <td class="py-3 px-4 space-y-1">
-            <div>${phoneHtml}</div>
-            <div>${emailsHtml}</div>
+          <td class="py-3.5 px-4 space-y-1">
+            ${phoneHtml}
+            ${emailsHtml}
           </td>
-          <td class="py-3 px-4">
+          <td class="py-3.5 px-4">
             ${webHtml}
           </td>
-          <td class="py-3 px-4">
-            <select onchange="updateLeadStage(${l.id}, this.value)" class="bg-slate-900 border border-slate-700 text-[11px] text-slate-300 rounded-lg px-2 py-1 focus:outline-none">
+          <td class="py-3.5 px-4">
+            <select onchange="updateLeadStage(${l.id}, this.value)" class="touch-target bg-slate-900 dark:bg-slate-900 bg-white border border-slate-700 dark:border-slate-700 border-slate-300 text-[11px] text-slate-300 dark:text-slate-300 text-slate-800 rounded-xl px-2.5 py-1.5 font-bold focus:outline-none">
               <option value="NEW" ${l.crm_stage === 'NEW' ? 'selected' : ''}>Yeni Bulunan</option>
               <option value="ENRICHED" ${l.crm_stage === 'ENRICHED' ? 'selected' : ''}>İncelendi</option>
               <option value="CONTACTED" ${l.crm_stage === 'CONTACTED' ? 'selected' : ''}>İletişim Kuruldu</option>
@@ -1302,27 +1661,27 @@
               <option value="LOST" ${l.crm_stage === 'LOST' ? 'selected' : ''}>Olumsuz</option>
             </select>
           </td>
-          <td class="py-3 px-4 text-right">
+          <td class="py-3.5 px-4 text-right">
             <div class="flex items-center justify-end gap-1.5 flex-wrap sm:flex-nowrap">
               ${(l.whatsapp || isMobileNumber(l.phone)) ? `
-                <button onclick="quickWhatsAppOutreach(${l.id})" class="px-2 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-[11px] font-semibold transition flex items-center gap-1 shadow-sm" title="1-Tıkla Hazır Teklif ile WhatsApp Aç & İletişim Kuruldu Yap">
+                <button onclick="quickWhatsAppOutreach(${l.id})" class="touch-target px-2.5 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold transition flex items-center gap-1 shadow-sm active:scale-95" title="1-Tıkla Hazır Teklif ile WhatsApp Aç & İletişim Kuruldu Yap">
                   <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
                   <span class="hidden md:inline">WhatsApp</span>
                 </button>
               ` : ''}
               ${(l.emails && l.emails.length > 0) ? `
-                <button onclick="quickEmailOutreach(${l.id})" class="px-2 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 text-[11px] font-semibold transition flex items-center gap-1 shadow-sm" title="1-Tıkla Hazır Teklif ile E-Posta Aç & İletişim Kuruldu Yap">
+                <button onclick="quickEmailOutreach(${l.id})" class="touch-target px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 text-[11px] font-bold transition flex items-center gap-1 shadow-sm active:scale-95" title="1-Tıkla Hazır Teklif ile E-Posta Aç & İletişim Kuruldu Yap">
                   <i data-lucide="mail" class="w-3.5 h-3.5"></i>
                   <span class="hidden md:inline">E-Posta</span>
                 </button>
               ` : ''}
               ${l.phone ? `
-                <a href="tel:${l.phone.replace(/\s+/g, '')}" onclick="markLeadContactedDirect(${l.id})" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 transition" title="Hemen Ara">
+                <a href="tel:${l.phone.replace(/\s+/g, '')}" onclick="markLeadContactedDirect(${l.id})" class="touch-target p-2 rounded-xl bg-slate-800 hover:bg-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700 bg-slate-100 hover:bg-slate-200 text-slate-300 dark:text-slate-300 text-slate-700 hover:text-white border border-slate-700 dark:border-slate-700 border-slate-300 transition flex items-center justify-center active:scale-95" title="Hemen Ara">
                   <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
                 </a>
               ` : ''}
-              <button onclick="openLeadModal(${l.id})" class="px-2.5 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-bold transition flex items-center gap-1 shadow-sm" title="Kapsamlı Denetim Raporu & Pitch Stüdyosu">
-                <i data-lucide="wand-2" class="w-3 h-3"></i> Detay & Pitch
+              <button onclick="openLeadModal(${l.id})" class="touch-target px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-extrabold transition flex items-center gap-1.5 shadow-md shadow-brand-500/20 active:scale-95" title="Kapsamlı Denetim Raporu & Pitch Stüdyosu">
+                <i data-lucide="wand-2" class="w-3.5 h-3.5"></i> Detay & Pitch
               </button>
             </div>
           </td>
@@ -1341,7 +1700,7 @@
 
       stages.forEach(s => {
         const col = document.getElementById("column_" + s);
-        col.innerHTML = "";
+        if (col) col.innerHTML = "";
       });
 
       leads.forEach(l => {
@@ -1352,28 +1711,29 @@
         if (!col) return;
 
         const card = document.createElement("div");
-        card.className = "glass-card bg-slate-900/90 border border-slate-800 hover:border-slate-700 rounded-xl p-3 shadow-md space-y-2 text-xs transition active:scale-98 cursor-pointer";
+        card.className = "glass-card-hover bg-slate-900/90 dark:bg-slate-900/90 bg-white border border-slate-800 dark:border-slate-800 border-slate-200 hover:border-brand-500/50 rounded-2xl p-3.5 shadow-sm space-y-2.5 text-xs transition-all active:scale-98 cursor-pointer";
         card.onclick = () => openLeadModal(l.id);
 
         card.innerHTML = `
           <div class="flex items-center justify-between">
-            <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">${escapeHtml(l.category || 'İşletme')}</span>
-            <span class="text-[10px] font-bold text-amber-400">⚡ ${l.opportunity_score}</span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-slate-800 dark:bg-slate-800 bg-slate-100 text-slate-300 dark:text-slate-300 text-slate-700">${escapeHtml(l.category || 'İşletme')}</span>
+            <span class="text-[10px] font-extrabold text-amber-400 bg-amber-500/15 px-2 py-0.5 rounded-full border border-amber-500/25">⚡ ${l.opportunity_score}</span>
           </div>
-          <div class="font-bold text-slate-200 text-xs truncate">${escapeHtml(l.name)}</div>
-          <div class="text-[11px] text-slate-400 flex items-center gap-1">
+          <div class="font-extrabold text-slate-100 dark:text-slate-100 text-slate-900 text-xs truncate">${escapeHtml(l.name)}</div>
+          <div class="text-[11px] text-slate-400 dark:text-slate-400 text-slate-500 flex items-center gap-1">
             <i data-lucide="map-pin" class="w-3 h-3 text-slate-500"></i> ${escapeHtml(l.city)}
           </div>
-          <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
-            <span class="text-slate-400 font-mono">${l.phone ? l.phone.slice(-9) : 'Tel yok'}</span>
-            <span class="text-brand-400 font-semibold hover:underline">Detay & Pitch →</span>
+          <div class="pt-2 border-t border-slate-800/80 dark:border-slate-800/80 border-slate-200 flex items-center justify-between text-[11px]">
+            <span class="text-slate-400 dark:text-slate-400 text-slate-500 font-mono">${l.phone ? l.phone.slice(-9) : 'Tel yok'}</span>
+            <span class="text-brand-400 font-bold hover:underline">Detay & Pitch →</span>
           </div>
         `;
         col.appendChild(card);
       });
 
       stages.forEach(s => {
-        document.getElementById("badgeCount_" + s).textContent = counts[s];
+        const b = document.getElementById("badgeCount_" + s);
+        if (b) b.textContent = counts[s];
       });
 
       lucide.createIcons();
@@ -1389,17 +1749,54 @@
       if (mode === "table") {
         tableView.classList.remove("hidden");
         kanbanView.classList.add("hidden");
-        tabTableBtn.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition bg-brand-600 text-white shadow-sm";
-        tabKanbanBtn.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
+        tabTableBtn.className = "touch-target flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold transition-all bg-brand-600 text-white shadow-md";
+        tabKanbanBtn.className = "touch-target flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold text-slate-400 dark:text-slate-400 text-slate-600 hover:text-white dark:hover:text-white hover:text-slate-900 transition-all";
       } else {
         tableView.classList.add("hidden");
         kanbanView.classList.remove("hidden");
-        tabKanbanBtn.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition bg-brand-600 text-white shadow-sm";
-        tabTableBtn.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
+        tabKanbanBtn.className = "touch-target flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold transition-all bg-brand-600 text-white shadow-md";
+        tabTableBtn.className = "touch-target flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold text-slate-400 dark:text-slate-400 text-slate-600 hover:text-white dark:hover:text-white hover:text-slate-900 transition-all";
       }
     }
 
-    // Lead Detail Modal Handlers
+    // Lead Detail Modal 3-Tab Studio Switcher
+    function switchModalTab(tabIndex) {
+      const t1 = document.getElementById("modalTab1");
+      const t2 = document.getElementById("modalTab2");
+      const t3 = document.getElementById("modalTab3");
+      const b1 = document.getElementById("modalTabBtn1");
+      const b2 = document.getElementById("modalTabBtn2");
+      const b3 = document.getElementById("modalTabBtn3");
+
+      const activeClasses = "flex-1 touch-target py-2.5 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 bg-brand-600 text-white shadow-md";
+      const inactiveClasses = "flex-1 touch-target py-2.5 px-3 rounded-xl text-xs font-extrabold transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-white dark:text-slate-400 dark:hover:text-white text-slate-600 hover:text-slate-900";
+
+      t1.classList.toggle("hidden", tabIndex !== 1);
+      t2.classList.toggle("hidden", tabIndex !== 2);
+      t3.classList.toggle("hidden", tabIndex !== 3);
+
+      b1.className = tabIndex === 1 ? activeClasses : inactiveClasses;
+      b2.className = tabIndex === 2 ? activeClasses : inactiveClasses;
+      b3.className = tabIndex === 3 ? activeClasses : inactiveClasses;
+
+      playAudioChime('chime');
+      lucide.createIcons();
+    }
+
+    // Tone Switcher inside Studio Tab 3
+    function setStudioTone(tone, btn) {
+      currentStudioTone = tone;
+      document.querySelectorAll('.tone-chip').forEach(b => {
+        b.className = "tone-chip touch-target px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all bg-slate-900 dark:bg-slate-900 bg-white border border-slate-800 dark:border-slate-800 border-slate-300 text-slate-300 dark:text-slate-300 text-slate-700 hover:text-white dark:hover:text-white hover:text-slate-900 flex items-center gap-1.5";
+      });
+      if (btn) {
+        btn.className = "tone-chip touch-target px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all bg-brand-600 text-white shadow-md flex items-center gap-1.5 ring-2 ring-brand-400/40";
+      }
+      playAudioChime('chime');
+      generateModalPitch();
+    }
+
+    // Open Lead Studio Modal
     async function openLeadModal(leadId) {
       const lead = leadsState.find(x => x.id === leadId);
       if (!lead) return;
@@ -1407,7 +1804,7 @@
 
       document.getElementById("modalLeadName").textContent = lead.name;
       document.getElementById("modalCategory").textContent = lead.category || "Genel";
-      document.getElementById("modalScoreBadge").textContent = `Fırsat Skoru: ${lead.opportunity_score}/100`;
+      document.getElementById("modalScoreBadge").innerHTML = `<i data-lucide="zap" class="w-3.5 h-3.5"></i> Fırsat Skoru: ${lead.opportunity_score}/100`;
       document.getElementById("modalAddress").innerHTML = `<i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-500"></i> ${escapeHtml(lead.address)}`;
       document.getElementById("modalPhone").textContent = lead.phone || "Bulunamadı";
       document.getElementById("modalEmails").textContent = (lead.emails && lead.emails.length > 0) ? lead.emails.join(", ") : "E-posta yok";
@@ -1416,7 +1813,69 @@
       document.getElementById("modalStageSelect").value = lead.crm_stage || "NEW";
       document.getElementById("modalMapsLink").href = lead.google_maps_url || "#";
 
-      // Setup Direct Call Button
+      // Tab 1 Fields
+      const phoneTypeBadge = document.getElementById("modalPhoneTypeBadge");
+      if (phoneTypeBadge) {
+        phoneTypeBadge.textContent = isMobileNumber(lead.phone) ? "📱 Cep Telefonu (WhatsApp Uyumlu)" : (lead.phone ? "☎️ Sabit Santral Hattı" : "Telefon Bulunamadı");
+      }
+
+      const emailCountBadge = document.getElementById("modalEmailCountBadge");
+      if (emailCountBadge) {
+        emailCountBadge.textContent = (lead.emails && lead.emails.length > 0) ? `✓ ${lead.emails.length} Adet Doğrulanmış E-Posta` : "Kayıtlı E-Posta Yok";
+      }
+
+      const webLink = document.getElementById("modalWebLink");
+      if (webLink) {
+        webLink.href = lead.website || "#";
+        if (!lead.website) webLink.classList.add("opacity-50", "pointer-events-none");
+        else webLink.classList.remove("opacity-50", "pointer-events-none");
+      }
+
+      const sslBadge = document.getElementById("modalSslBadge");
+      if (sslBadge) {
+        sslBadge.textContent = lead.has_ssl ? "🔒 Güvenli SSL (HTTPS)" : (lead.has_website ? "⚠️ Güvensiz HTTP ('Güvenli Değil')" : "Site Yok");
+        sslBadge.className = lead.has_ssl ? "px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold" : "px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 font-bold";
+      }
+
+      const revCountEl = document.getElementById("modalReviewCount");
+      if (revCountEl) revCountEl.textContent = `${lead.review_count || 0} yorum`;
+
+      const ratingTextEl = document.getElementById("modalRatingText");
+      if (ratingTextEl) ratingTextEl.textContent = lead.rating ? `★ ${lead.rating}` : "Yorum Yok";
+
+      const repBadge = document.getElementById("modalReputationBadge");
+      if (repBadge) {
+        if (!lead.rating) {
+          repBadge.textContent = "Yeni İşletme";
+          repBadge.className = "text-[11px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-bold";
+        } else if (lead.rating >= 4.5) {
+          repBadge.textContent = "Mükemmel İtibar";
+          repBadge.className = "text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold";
+        } else {
+          repBadge.textContent = "İyileştirme Fırsatı";
+          repBadge.className = "text-[11px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold";
+        }
+      }
+
+      // Social Badges Render
+      const socialContainer = document.getElementById("modalSocialBadges");
+      if (socialContainer) {
+        socialContainer.innerHTML = "";
+        const badges = [
+          { name: "Google Maps", icon: "map-pin", active: Boolean(lead.google_maps_url), color: "text-blue-400" },
+          { name: "WhatsApp", icon: "message-circle", active: Boolean(lead.whatsapp) || isMobileNumber(lead.phone), color: "text-emerald-400" },
+          { name: "E-Posta", icon: "mail", active: Boolean(lead.emails && lead.emails.length > 0), color: "text-indigo-400" },
+          { name: "Web Sitesi", icon: "globe", active: Boolean(lead.has_website), color: "text-purple-400" }
+        ];
+        badges.forEach(b => {
+          const pill = document.createElement("span");
+          pill.className = `inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold ${b.active ? 'bg-slate-800 dark:bg-slate-800 bg-slate-200 text-slate-200 dark:text-slate-200 text-slate-800 border border-slate-700 dark:border-slate-700 border-slate-300' : 'bg-slate-900/50 dark:bg-slate-900/50 bg-slate-100 text-slate-500 line-through opacity-60'}`;
+          pill.innerHTML = `<i data-lucide="${b.icon}" class="w-3.5 h-3.5 ${b.active ? b.color : 'text-slate-500'}"></i> <span>${b.name}</span>`;
+          socialContainer.appendChild(pill);
+        });
+      }
+
+      // Call button
       const callBtn = document.getElementById("modalCallBtn");
       if (lead.phone) {
         callBtn.href = `tel:${lead.phone.replace(/\s+/g, '')}`;
@@ -1428,49 +1887,38 @@
         callBtn.classList.add("opacity-50");
       }
 
-      // Setup Email Buttons
-      const emailTopBtn = document.getElementById("modalEmailTopBtn");
-      const emailBtn = document.getElementById("modalEmailBtn");
-      if (lead.emails && lead.emails.length > 0) {
-        if (emailTopBtn) emailTopBtn.classList.remove("opacity-50");
-        if (emailBtn) emailBtn.classList.remove("opacity-50");
-      } else {
-        if (emailTopBtn) emailTopBtn.classList.add("opacity-50");
-        if (emailBtn) emailBtn.classList.add("opacity-50");
-      }
-
-      // Populate Digital Audit Report Grid
+      // Audit Score & Grid
       document.getElementById("modalAuditScore").textContent = `Fırsat Skoru: ${lead.opportunity_score}/100`;
 
-      // 1. Web Varlığı
+      // 1. Web
       const webStatusEl = document.getElementById("auditWebStatus");
       if (lead.has_website) {
-        webStatusEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Aktif Web Sitesi</span>`;
+        webStatusEl.innerHTML = `<span class="text-emerald-400 font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Aktif Web Sitesi</span>`;
       } else {
-        webStatusEl.innerHTML = `<span class="text-rose-400 font-semibold flex items-center gap-1"><i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Web Sitesi Yok (Büyük Satış Açığı!)</span>`;
+        webStatusEl.innerHTML = `<span class="text-rose-400 font-bold flex items-center gap-1"><i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> Web Yok (Büyük Fırsat!)</span>`;
       }
 
-      // 2. SSL Güvenlik
+      // 2. SSL
       const sslStatusEl = document.getElementById("auditSSLStatus");
       if (lead.has_ssl) {
-        sslStatusEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Güvenli SSL (HTTPS)</span>`;
+        sslStatusEl.innerHTML = `<span class="text-emerald-400 font-bold flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Güvenli HTTPS</span>`;
       } else if (lead.has_website) {
-        sslStatusEl.innerHTML = `<span class="text-rose-400 font-semibold flex items-center gap-1"><i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Güvensiz HTTP ('Güvenli Değil')</span>`;
+        sslStatusEl.innerHTML = `<span class="text-rose-400 font-bold flex items-center gap-1"><i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> 'Güvenli Değil' Uyarısı</span>`;
       } else {
         sslStatusEl.innerHTML = `<span class="text-slate-500">Site Yok</span>`;
       }
 
-      // 3. Mobil Uyumluluk
+      // 3. Mobil
       const mobileStatusEl = document.getElementById("auditMobileStatus");
       if (lead.is_mobile_friendly) {
-        mobileStatusEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="smartphone" class="w-3.5 h-3.5"></i> Mobil Uyumlu</span>`;
+        mobileStatusEl.innerHTML = `<span class="text-emerald-400 font-bold flex items-center gap-1"><i data-lucide="smartphone" class="w-3.5 h-3.5"></i> Mobil Uyumlu</span>`;
       } else if (lead.has_website) {
-        mobileStatusEl.innerHTML = `<span class="text-amber-400 font-semibold flex items-center gap-1"><i data-lucide="smartphone" class="w-3.5 h-3.5"></i> Mobil Uyumluluk Açığı</span>`;
+        mobileStatusEl.innerHTML = `<span class="text-amber-400 font-bold flex items-center gap-1"><i data-lucide="smartphone" class="w-3.5 h-3.5"></i> Mobil Uyumluluk Açığı</span>`;
       } else {
         mobileStatusEl.innerHTML = `<span class="text-slate-500">-</span>`;
       }
 
-      // 4. Google İtibarı
+      // 4. İtibar
       const repStatusEl = document.getElementById("auditReputationStatus");
       if (lead.rating) {
         repStatusEl.innerHTML = `★ ${lead.rating} (${lead.review_count} yorum)`;
@@ -1478,43 +1926,58 @@
         repStatusEl.innerHTML = `<span class="text-slate-400">Yorum Yok</span>`;
       }
 
-      // 5. WhatsApp Hattı
+      // 5. WhatsApp
       const waStatusEl = document.getElementById("auditWhatsAppStatus");
-      if (lead.whatsapp) {
-        waStatusEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Doğrudan Hat Aktif</span>`;
+      if (lead.whatsapp || isMobileNumber(lead.phone)) {
+        waStatusEl.innerHTML = `<span class="text-emerald-400 font-bold flex items-center gap-1"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i> Doğrudan Hat Aktif</span>`;
       } else {
-        waStatusEl.innerHTML = `<span class="text-amber-400 font-semibold flex items-center gap-1"><i data-lucide="minus-circle" class="w-3.5 h-3.5"></i> WhatsApp Hattı Yok</span>`;
+        waStatusEl.innerHTML = `<span class="text-amber-400 font-bold flex items-center gap-1"><i data-lucide="minus-circle" class="w-3.5 h-3.5"></i> WhatsApp Hattı Yok</span>`;
       }
 
-      // 6. E-Posta Varlığı
+      // 6. E-Posta
       const emailStatusEl = document.getElementById("auditEmailStatus");
       if (lead.emails && lead.emails.length > 0) {
-        emailStatusEl.innerHTML = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><i data-lucide="mail" class="w-3.5 h-3.5"></i> ${lead.emails.length} Doğrulanmış E-posta</span>`;
+        emailStatusEl.innerHTML = `<span class="text-emerald-400 font-bold flex items-center gap-1"><i data-lucide="mail" class="w-3.5 h-3.5"></i> ${lead.emails.length} Doğrulanmış E-posta</span>`;
       } else {
         emailStatusEl.innerHTML = `<span class="text-slate-400">E-posta Bulunamadı</span>`;
       }
 
-      // Render Gaps
+      // Gaps List Breakdown
       const gapsBox = document.getElementById("modalGapsList");
       gapsBox.innerHTML = "";
+      const gapCountBadge = document.getElementById("modalGapCountBadge");
       if (lead.gaps && lead.gaps.length > 0) {
+        if (gapCountBadge) gapCountBadge.textContent = lead.gaps.length;
         lead.gaps.forEach(g => {
           const div = document.createElement("div");
-          div.className = "p-2 rounded-lg bg-slate-900 border border-slate-800";
+          div.className = "p-3.5 rounded-2xl bg-slate-900/90 dark:bg-slate-900/90 bg-white border border-slate-800 dark:border-slate-800 border-slate-200 shadow-sm space-y-2";
+          
+          let sevColor = "bg-amber-500/20 text-amber-400 border border-amber-500/30";
+          if (g.severity === "HIGH") sevColor = "bg-rose-500/20 text-rose-400 border border-rose-500/30";
+          else if (g.severity === "INFO") sevColor = "bg-blue-500/20 text-blue-400 border border-blue-500/30";
+
           div.innerHTML = `
-            <div class="font-bold text-slate-200 flex items-center justify-between">
-              <span>${escapeHtml(g.title)}</span>
-              <span class="text-[9px] px-1.5 py-0.5 rounded uppercase font-extrabold ${g.severity === 'HIGH' ? 'bg-rose-500/20 text-rose-400' : 'bg-amber-500/20 text-amber-400'}">${g.severity}</span>
+            <div class="font-extrabold text-slate-100 dark:text-slate-100 text-slate-900 flex items-center justify-between">
+              <span class="flex items-center gap-1.5"><i data-lucide="alert-circle" class="w-4 h-4 text-amber-400"></i> ${escapeHtml(g.title)}</span>
+              <span class="text-[9px] px-2 py-0.5 rounded-full uppercase font-black ${sevColor}">${g.severity}</span>
             </div>
-            <p class="text-[11px] text-slate-400 mt-1">${escapeHtml(g.pitch_angle)}</p>
+            <div class="p-2.5 rounded-xl bg-slate-950/60 dark:bg-slate-950/60 bg-slate-50 border border-slate-800/80 dark:border-slate-800/80 border-slate-200 text-[11px] text-slate-300 dark:text-slate-300 text-slate-700">
+              <span class="font-bold text-brand-400 block mb-0.5">🎯 Önerilen Satış Kancası:</span>
+              <p>${escapeHtml(g.pitch_angle)}</p>
+            </div>
           `;
           gapsBox.appendChild(div);
         });
       } else {
-        gapsBox.innerHTML = `<p class="text-slate-500 text-xs">Açık bulunamadı.</p>`;
+        if (gapCountBadge) gapCountBadge.textContent = "0";
+        gapsBox.innerHTML = `<p class="text-slate-400 text-xs py-4 text-center">Bu işletmede tespit edilmiş kritik bir dijital açık bulunmuyor.</p>`;
       }
 
+      // Generate Pitch in Studio
       await generateModalPitch();
+
+      // Reset to Tab 1 by default
+      switchModalTab(1);
 
       document.getElementById("leadModal").classList.remove("hidden");
       lucide.createIcons();
@@ -1525,36 +1988,39 @@
       activeLead = null;
     }
 
+    // Studio AI Pitch Generator
     async function generateModalPitch() {
       if (!activeLead) return;
       const channel = document.getElementById("pitchChannel").value;
       const lang = document.getElementById("pitchLang").value;
       const pitchArea = document.getElementById("modalPitchText");
       pitchArea.value = "Kişiselleştirilmiş metin hazırlanıyor...";
+      updatePitchMetrics();
 
       try {
         const headers = { "Content-Type": "application/json" };
-        if (masterKeyStored) {
-          headers["X-Master-Key"] = masterKeyStored;
-        }
+        if (masterKeyStored) headers["X-Master-Key"] = masterKeyStored;
+        if (isStarred) headers["X-Starred"] = "1";
+
         const res = await fetch(`/api/leads/${activeLead.id}/pitch`, {
           method: "POST",
           headers: headers,
           body: JSON.stringify({
             channel: channel,
-            tone: "consultative",
+            tone: currentStudioTone,
             lang: lang,
             sender_name: "Kürşat",
             agency_name: "Dijital Büyüme Ajansı",
             master_key: masterKeyStored,
-            is_preview: !isProActive
+            is_preview: !isProActive && !isStarred
           })
         });
         const json = await res.json();
         if (json.success) {
           pitchArea.value = json.data.content;
           activeLead.generatedPitch = json.data;
-          if (json.star_gate_required && !isProActive) {
+          updatePitchMetrics();
+          if (json.star_gate_required && !isProActive && !isStarred) {
             setTimeout(openStarGateModal, 1500);
           }
         } else if (json.star_gate_required) {
@@ -1568,6 +2034,17 @@
       }
     }
 
+    function updatePitchMetrics() {
+      const pitchArea = document.getElementById("modalPitchText");
+      const badge = document.getElementById("pitchMetricsBadge");
+      if (!pitchArea || !badge) return;
+      const val = pitchArea.value || "";
+      const charCount = val.length;
+      const wordCount = val.trim() ? val.trim().split(/\s+/).length : 0;
+      badge.textContent = `${charCount} karakter • ${wordCount} kelime`;
+    }
+
+    // Safe Clipboard Copy Helper with Animated Button Feedback
     function safeCopy(text, successMsg) {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(() => {
@@ -1602,9 +2079,28 @@
 
     function copyPitchText() {
       const text = document.getElementById("modalPitchText").value;
+      const btn = document.getElementById("btnCopyPitch");
+      playAudioChime('copy');
       safeCopy(text, "Satış metni panoya kopyalandı!");
+      if (btn) {
+        const original = btn.innerHTML;
+        btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i> <span class="text-emerald-400">Kopyalandı!</span>`;
+        lucide.createIcons();
+        setTimeout(() => {
+          btn.innerHTML = original;
+          lucide.createIcons();
+        }, 2000);
+      }
     }
 
+    function copyModalField(elementId, label) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      playAudioChime('copy');
+      safeCopy(el.textContent, `${label} panoya kopyalandı!`);
+    }
+
+    // Mobile detection
     function isMobileNumber(phoneStr) {
       if (!phoneStr) return false;
       const digits = phoneStr.replace(/\D/g, '');
@@ -1618,6 +2114,7 @@
       return false;
     }
 
+    // Phone normalizer
     function normalizePhoneForWhatsApp(phoneStr, waLink) {
       if (waLink && waLink.includes("wa.me/")) {
         const parts = waLink.split("wa.me/")[1].split("?")[0].replace(/\D/g, '');
@@ -1639,6 +2136,7 @@
       return "";
     }
 
+    // Quick Pitch Templates
     function generateQuickPitch(lead, channel = 'whatsapp') {
       const biz = lead.name || "Yetkili";
       const city = lead.city || "";
@@ -1674,6 +2172,7 @@
 
       const pitchText = generateQuickPitch(lead, 'whatsapp');
       const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(pitchText)}`;
+      playAudioChime('outreach');
       window.open(waUrl, "_blank");
 
       await markLeadContactedDirect(leadId);
@@ -1690,6 +2189,7 @@
       const pitch = generateQuickPitch(lead, 'email');
       const targetEmail = lead.emails[0];
       const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(pitch.subject)}&body=${encodeURIComponent(pitch.body)}`;
+      playAudioChime('outreach');
       window.open(mailtoUrl, "_blank");
 
       await markLeadContactedDirect(leadId);
@@ -1726,6 +2226,7 @@
         showToast("Bu işletmenin telefon veya WhatsApp numarası bulunmuyor.", "error");
         return;
       }
+      playAudioChime('outreach');
       let url = `https://wa.me/${targetPhone}?text=${encodeURIComponent(text)}`;
       window.open(url, "_blank");
       markAsContacted();
@@ -1743,8 +2244,18 @@
         ? activeLead.generatedPitch.subject 
         : `${activeLead.name} İçin Dijital Fırsat Analizi (${activeLead.city || ''})`;
       
+      playAudioChime('outreach');
       const mailto = `mailto:${targetEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
       window.open(mailto, "_blank");
+      markAsContacted();
+    }
+
+    function openMobileCall() {
+      if (!activeLead || !activeLead.phone) {
+        showToast("Telefon numarası kayıtlı değil.", "error");
+        return;
+      }
+      window.location.href = `tel:${activeLead.phone.replace(/\s+/g, '')}`;
       markAsContacted();
     }
 
@@ -1755,6 +2266,7 @@
         showToast("WhatsApp bağlantısı bulunamadı.", "error");
         return;
       }
+      playAudioChime('outreach');
       window.open(`https://wa.me/${targetPhone}`, "_blank");
       markAsContacted();
     }
@@ -1768,7 +2280,9 @@
           body: JSON.stringify({ channel: "whatsapp" })
         });
         activeLead.crm_stage = "CONTACTED";
-        document.getElementById("modalStageSelect").value = "CONTACTED";
+        const sel = document.getElementById("modalStageSelect");
+        if (sel) sel.value = "CONTACTED";
+        playAudioChime('won');
         showToast("Müşteri 'İletişime Geçildi' olarak kaydedildi!", "success");
         await fetchLeads();
       } catch (e) {
@@ -1783,7 +2297,14 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ stage: stage })
         });
-        showToast("Aşama güncellendi", "success");
+        if (stage === "WON") {
+          showConfetti();
+          playAudioChime('won');
+          showToast("🎉 Tebrikler! Müşteri Satış Yapıldı (WON) aşamasına taşındı!", "success");
+        } else {
+          playAudioChime('chime');
+          showToast("Aşama güncellendi", "success");
+        }
         await fetchLeads();
       } catch (e) {
         console.error(e);
@@ -1795,18 +2316,17 @@
       await updateLeadStage(activeLead.id, stage);
     }
 
-    // Laser-Targeting Filter Pills Logic
-    let activeFilterPill = 'all';
-
+    // Filter Pills Logic
     function setFilterPill(pillKey) {
       activeFilterPill = pillKey;
       document.querySelectorAll('.filter-pill').forEach(btn => {
-        btn.className = "filter-pill px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 flex items-center gap-1.5";
+        btn.className = "filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-900/90 dark:bg-slate-900/90 bg-slate-100 border border-slate-800 dark:border-slate-800 border-slate-300 text-slate-300 dark:text-slate-300 text-slate-700 hover:text-white dark:hover:text-white hover:text-slate-900 flex items-center gap-1.5";
       });
       const activeBtn = document.getElementById("pill_" + pillKey);
       if (activeBtn) {
-        activeBtn.className = "filter-pill active px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-brand-600 text-white shadow-sm flex items-center gap-1.5";
+        activeBtn.className = "filter-pill active touch-target px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all bg-brand-600 text-white shadow-md flex items-center gap-1.5";
       }
+      playAudioChime('chime');
       applyFilters();
     }
 
@@ -1827,16 +2347,71 @@
       setT("pillCount_no_ssl", noSslCount);
     }
 
-    // Filter Logic
+    function clearSearchFilter() {
+      const input = document.getElementById("tableSearchFilter");
+      if (input) input.value = "";
+      applyFilters();
+    }
+
+    // Toggle Column Sorting from Table Headers
+    function toggleSort(field) {
+      if (currentSortField === field) {
+        currentSortDir = currentSortDir === "desc" ? "asc" : "desc";
+      } else {
+        currentSortField = field;
+        currentSortDir = (field === "name") ? "asc" : "desc";
+      }
+      const select = document.getElementById("sortBySelect");
+      if (select) select.value = `${currentSortField}_${currentSortDir}`;
+      playAudioChime('chime');
+      applyFilters();
+    }
+
+    // Filter & Sort Logic
     function applyFilters() {
-      const search = (document.getElementById("tableSearchFilter").value || "").toLowerCase();
+      const searchInput = document.getElementById("tableSearchFilter");
+      const search = (searchInput ? searchInput.value : "").toLowerCase().trim();
       const opp = document.getElementById("opportunityFilter").value;
+      const sortVal = document.getElementById("sortBySelect") ? document.getElementById("sortBySelect").value : "score_desc";
+
+      const [sortField, sortDir] = sortVal.split("_");
+      currentSortField = sortField;
+      currentSortDir = sortDir;
+
+      // Update clear search button
+      const clearBtn = document.getElementById("clearSearchFilterBtn");
+      if (clearBtn) clearBtn.classList.toggle("hidden", search.length === 0);
+
+      // Update header sort icons
+      const iconName = document.getElementById("sortIcon_name");
+      const iconScore = document.getElementById("sortIcon_score");
+      if (iconName) {
+        if (sortField === "name") {
+          iconName.setAttribute("data-lucide", sortDir === "asc" ? "arrow-up-a-z" : "arrow-down-z-a");
+          iconName.className = "w-3.5 h-3.5 text-brand-400";
+        } else {
+          iconName.setAttribute("data-lucide", "chevrons-up-down");
+          iconName.className = "w-3.5 h-3.5 text-slate-500";
+        }
+      }
+      if (iconScore) {
+        if (sortField === "score") {
+          iconScore.setAttribute("data-lucide", sortDir === "asc" ? "arrow-up-narrow-wide" : "arrow-down-wide-narrow");
+          iconScore.className = "w-3.5 h-3.5 text-amber-400";
+        } else {
+          iconScore.setAttribute("data-lucide", "chevrons-up-down");
+          iconScore.className = "w-3.5 h-3.5 text-slate-500";
+        }
+      }
 
       const filtered = leadsState.filter(l => {
         const matchesSearch = !search || 
           (l.name && l.name.toLowerCase().includes(search)) || 
           (l.category && l.category.toLowerCase().includes(search)) ||
-          (l.city && l.city.toLowerCase().includes(search));
+          (l.city && l.city.toLowerCase().includes(search)) ||
+          (l.phone && l.phone.toLowerCase().includes(search)) ||
+          (l.emails && l.emails.some(e => e.toLowerCase().includes(search))) ||
+          (l.primary_gap && l.primary_gap.toLowerCase().includes(search));
 
         let matchesOpp = true;
         if (opp === "high") matchesOpp = l.opportunity_score >= 70;
@@ -1854,11 +2429,32 @@
         return matchesSearch && matchesOpp && matchesPill;
       });
 
+      // Sorting
+      filtered.sort((a, b) => {
+        let cmp = 0;
+        if (sortField === "score") {
+          cmp = (b.opportunity_score || 0) - (a.opportunity_score || 0);
+        } else if (sortField === "rating") {
+          cmp = (b.rating || 0) - (a.rating || 0);
+        } else if (sortField === "reviews") {
+          cmp = (b.review_count || 0) - (a.review_count || 0);
+        } else if (sortField === "name") {
+          cmp = (a.name || "").localeCompare(b.name || "", "tr");
+        }
+        return sortDir === "asc" ? -cmp : cmp;
+      });
+
+      // Match count text
+      const counterEl = document.getElementById("filterMatchCount");
+      if (counterEl) {
+        counterEl.textContent = `${leadsState.length} işletmeden ${filtered.length} tanesi gösteriliyor`;
+      }
+
       renderTable(filtered);
       renderKanban(filtered);
     }
 
-    // About Modal
+    // About Modal Handlers
     function openAboutModal() {
       const m = document.getElementById("aboutModal");
       if (m) {
@@ -1866,9 +2462,11 @@
         if (isStarred || isProActive) {
           updateAboutCardToCelebration();
         }
+        playAudioChime('chime');
         lucide.createIcons();
       }
     }
+
     function closeAboutModal() {
       const m = document.getElementById("aboutModal");
       if (m) m.classList.add("hidden");
@@ -1881,6 +2479,7 @@
       setProUIState();
       updateAboutCardToCelebration();
       showConfetti();
+      playAudioChime('won');
       showToast("🎉 Harika! GitHub Yıldızınız için teşekkürler. Tüm Pro özelliklerin kilidi anında açıldı!", "success");
     }
 
@@ -1903,6 +2502,7 @@
         btn.onclick = (e) => {
           e.preventDefault();
           showConfetti();
+          playAudioChime('won');
           showToast("🎉 Kutlama! Pro sürüm aktif ve hazır.", "success");
         };
         lucide.createIcons();
@@ -1929,20 +2529,24 @@
 
     function copyRepoUrl() {
       const url = "https://github.com/DevKursat/GeoLeads";
+      playAudioChime('copy');
       safeCopy(url, "📋 GitHub depo bağlantısı panoya kopyalandı!");
     }
 
     // Star-Gate Modals
     function openStarGateModal() {
       const m = document.getElementById("starGateModal");
-      if (m) m.classList.remove("hidden");
+      if (m) {
+        m.classList.remove("hidden");
+        playAudioChime('chime');
+        lucide.createIcons();
+      }
     }
     function closeStarGateModal() {
       const m = document.getElementById("starGateModal");
       if (m) m.classList.add("hidden");
     }
 
-    // Safe compatibility shims (no password popup)
     function openMasterModal() {
       openStarGateModal();
     }
@@ -1995,6 +2599,7 @@
       setProUIState();
       closeStarGateModal();
       showConfetti();
+      playAudioChime('won');
       showToast("🎉 Harika! GitHub Yıldızınız için teşekkürler. Tüm Pro özelliklerin kilidi anında açıldı!", "success");
     }
 
@@ -2011,40 +2616,40 @@
       }
     }
 
-    function toggleTheme() {
-      document.documentElement.classList.toggle("dark");
-      document.documentElement.classList.toggle("light");
-    }
-
     function showConfetti() {
       if (typeof confetti === "function") {
         confetti({
-          particleCount: 90,
-          spread: 75,
+          particleCount: 100,
+          spread: 80,
           origin: { y: 0.6 }
         });
         setTimeout(() => {
           confetti({
-            particleCount: 45,
+            particleCount: 50,
             angle: 60,
-            spread: 55,
+            spread: 60,
             origin: { x: 0.05, y: 0.65 }
           });
           confetti({
-            particleCount: 45,
+            particleCount: 50,
             angle: 120,
-            spread: 55,
+            spread: 60,
             origin: { x: 0.95, y: 0.65 }
           });
-        }, 220);
+        }, 250);
       }
     }
 
     function showToast(message, type = "info") {
       const c = document.getElementById("toastContainer");
+      if (!c) return;
       const toast = document.createElement("div");
-      const bg = type === "success" ? "bg-emerald-600 text-white" : type === "error" ? "bg-rose-600 text-white" : "bg-slate-800 text-slate-100";
-      toast.className = `${bg} text-xs font-bold px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 transform transition-all duration-300 translate-y-2 opacity-0`;
+      const bg = type === "success" 
+        ? "bg-emerald-600 text-white shadow-emerald-500/25" 
+        : type === "error" 
+        ? "bg-rose-600 text-white shadow-rose-500/25" 
+        : "bg-slate-900/95 dark:bg-slate-900/95 bg-slate-800 text-white shadow-brand-500/20";
+      toast.className = `${bg} pointer-events-auto text-xs font-bold px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 transform transition-all duration-300 translate-y-2 opacity-0 border border-white/10`;
       toast.innerHTML = `<span>${message}</span>`;
       c.appendChild(toast);
 
