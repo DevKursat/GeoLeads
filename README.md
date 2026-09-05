@@ -168,7 +168,7 @@ GeoLeads, kapsamlı bir test süitine sahiptir:
 python3 -m unittest discover -s backend/tests -p "test_*.py" -v
 ```
 
-Sonuç: **Tüm 38 test başarıyla geçmektedir.**
+Sonuç: **Tüm 39 test başarıyla geçmektedir.**
 
 ---
 

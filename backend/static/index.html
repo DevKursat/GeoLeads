@@ -198,9 +198,9 @@
       <!-- Action Buttons -->
       <div class="flex items-center space-x-2 sm:space-x-3">
         <!-- About Button -->
-        <button onclick="openAboutModal()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-indigo-600/15 hover:bg-indigo-600/25 border border-indigo-500/30 text-indigo-200 hover:text-white transition active:scale-95 shadow-sm" title="Hakkında & GEO Bilgisi">
+        <button onclick="openAboutModal()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-indigo-600/15 hover:bg-indigo-600/25 border border-indigo-500/30 text-indigo-200 hover:text-white transition active:scale-95 shadow-sm" title="Hakkında / About & GEO Bilgisi">
           <i data-lucide="info" class="w-3.5 h-3.5 text-indigo-400"></i>
-          <span class="hidden sm:inline">Hakkında</span>
+          <span class="hidden sm:inline">Hakkında / About</span>
         </button>
 
         <!-- Install Desktop PWA App -->
@@ -504,7 +504,7 @@
           <ul class="space-y-2 text-xs text-slate-400">
             <li>
               <button onclick="openAboutModal()" class="hover:text-brand-400 transition flex items-center gap-1.5 text-left">
-                <i data-lucide="info" class="w-3.5 h-3.5 text-brand-400"></i> Hakkında & GEO Motoru
+                <i data-lucide="info" class="w-3.5 h-3.5 text-brand-400"></i> Hakkında / About & GEO Motoru
               </button>
             </li>
             <li>
@@ -561,7 +561,7 @@
   </footer>
 
   <!-- MODAL 1: LEAD DETAIL & AI PITCH STUDIO -->
-  <div id="leadModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+  <div id="leadModal" onclick="if(event.target === this) closeLeadModal()" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
     <div class="glass-card bg-slate-900 border border-slate-700 rounded-2xl max-w-3xl w-full p-6 my-8 shadow-2xl relative">
       <!-- Close Button -->
       <button onclick="closeLeadModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1 rounded-lg bg-slate-800">
@@ -688,7 +688,7 @@
   </div>
 
   <!-- MODAL 2: GITHUB STAR-GATE VIRAL GROWTH MODAL (UI/UX PRO MAX) -->
-  <div id="starGateModal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+  <div id="starGateModal" onclick="if(event.target === this) closeStarGateModal()" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
     <div class="glass-card bg-slate-900/95 border border-amber-500/30 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative glow-effect">
       <button onclick="closeStarGateModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 transition">
         <i data-lucide="x" class="w-4 h-4"></i>
@@ -821,20 +821,20 @@
           </div>
         </div>
 
-        <!-- Section 3: Prominent Star on GitHub CTA Card -->
-        <div class="bg-gradient-to-br from-amber-500/15 via-indigo-600/15 to-purple-600/15 border-2 border-amber-400/40 rounded-2xl p-5 relative overflow-hidden shadow-xl">
+        <!-- Section 3: Prominent Star on GitHub CTA Card with Celebration Animation -->
+        <div id="aboutStarCtaCard" class="bg-gradient-to-br from-amber-500/15 via-indigo-600/15 to-purple-600/15 border-2 border-amber-400/40 rounded-2xl p-5 relative overflow-hidden shadow-xl transition-all duration-300">
           <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="space-y-1 text-center sm:text-left">
               <div class="flex items-center justify-center sm:justify-start gap-2">
                 <span class="text-amber-400 animate-bounce">⭐</span>
-                <h4 class="text-base font-extrabold text-white">GitHub'da Projeye Yıldız Verin</h4>
+                <h4 id="aboutStarTitle" class="text-base font-extrabold text-white">GitHub'da Projeye Yıldız Verin</h4>
                 <span id="aboutStarCountBadge" class="bg-amber-400/30 text-amber-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-amber-400/40">⭐ Star</span>
               </div>
-              <p class="text-xs text-slate-300 max-w-sm">
+              <p id="aboutStarDesc" class="text-xs text-slate-300 max-w-sm">
                 Açık kaynak topluluğumuzu destekleyin, GitHub arama sıralamasında zirveye çıkmamıza yardımcı olun ve tüm Pro yetenekleri anında açın!
               </p>
             </div>
-            <a href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClickFromAbout()" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/30 transition transform active:scale-95 flex-shrink-0">
+            <a id="aboutStarBtn" href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="celebrateStarFromAbout(event)" class="w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/30 transition transform active:scale-95 flex-shrink-0">
               <i data-lucide="star" class="w-4 h-4 fill-slate-950 text-slate-950"></i>
               <span>Yıldız Ver & Kutla 🎉</span>
             </a>
@@ -1383,10 +1383,41 @@
       }
     }
 
+    function safeCopy(text, successMsg) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          showToast(successMsg || "Panoya kopyalandı!", "success");
+        }).catch(() => {
+          fallbackCopy(text, successMsg);
+        });
+      } else {
+        fallbackCopy(text, successMsg);
+      }
+    }
+
+    function fallbackCopy(text, successMsg) {
+      try {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        const successful = document.execCommand("copy");
+        document.body.removeChild(textarea);
+        if (successful) {
+          showToast(successMsg || "Panoya kopyalandı!", "success");
+        } else {
+          showToast("Bağlantı: " + text, "info");
+        }
+      } catch (e) {
+        showToast("Bağlantı: " + text, "info");
+      }
+    }
+
     function copyPitchText() {
       const text = document.getElementById("modalPitchText").value;
-      navigator.clipboard.writeText(text);
-      showToast("Satış metni panoya kopyalandı!", "success");
+      safeCopy(text, "Satış metni panoya kopyalandı!");
     }
 
     function sendWhatsAppWithPitch() {
@@ -1474,6 +1505,9 @@
       const m = document.getElementById("aboutModal");
       if (m) {
         m.classList.remove("hidden");
+        if (isStarred || isProActive) {
+          updateAboutCardToCelebration();
+        }
         lucide.createIcons();
       }
     }
@@ -1481,9 +1515,40 @@
       const m = document.getElementById("aboutModal");
       if (m) m.classList.add("hidden");
     }
-    function trackStarClickFromAbout() {
-      trackStarClick();
-      closeAboutModal();
+
+    function celebrateStarFromAbout(event) {
+      localStorage.setItem("geoleads_starred", "true");
+      isStarred = true;
+      isProActive = true;
+      setProUIState();
+      updateAboutCardToCelebration();
+      showConfetti();
+      showToast("🎉 Harika! GitHub Yıldızınız için teşekkürler. Tüm Pro özelliklerin kilidi anında açıldı!", "success");
+    }
+
+    function updateAboutCardToCelebration() {
+      const card = document.getElementById("aboutStarCtaCard");
+      if (!card) return;
+      card.className = "bg-gradient-to-br from-amber-500/20 via-emerald-600/20 to-indigo-600/20 border-2 border-emerald-400/80 rounded-2xl p-5 relative overflow-hidden shadow-2xl transition-all duration-500 ring-2 ring-emerald-400/40";
+      const badge = document.getElementById("aboutStarCountBadge");
+      if (badge) {
+        badge.className = "bg-emerald-400/30 text-emerald-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-emerald-400/50 animate-pulse";
+        badge.textContent = "⭐ PRO AKTİF";
+      }
+      const title = document.getElementById("aboutStarTitle");
+      if (title) title.textContent = "🎉 Teşekkürler! Pro Sürüm Aktif";
+      const desc = document.getElementById("aboutStarDesc");
+      if (desc) desc.textContent = "GitHub açık kaynak desteğiniz için teşekkür ederiz! Tüm 500+ arama kotası ve AI kancaları anında kullanımınıza açıldı.";
+      const btn = document.getElementById("aboutStarBtn");
+      if (btn) {
+        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4 fill-slate-950 text-slate-950"></i><span>🎉 Kutlamayı Yenile</span>`;
+        btn.onclick = (e) => {
+          e.preventDefault();
+          showConfetti();
+          showToast("🎉 Kutlama! Pro sürüm aktif ve hazır.", "success");
+        };
+        lucide.createIcons();
+      }
     }
 
     // Viral Share Helpers
@@ -1491,26 +1556,22 @@
       const text = encodeURIComponent("🎯 GeoLeads ile sıfır maliyetle Google Maps & yerel B2B müşterileri bulup WhatsApp ve e-posta avcılığı yapabilirsiniz! %100 açık kaynak harika bir araç:");
       const url = encodeURIComponent("https://github.com/DevKursat/GeoLeads");
       const hashtags = encodeURIComponent("b2b,leadgeneration,opensource,python,growthhacking");
-      window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`, "_blank");
+      window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`, "_blank", "noopener,noreferrer");
     }
 
     function shareOnLinkedIn() {
       const url = encodeURIComponent("https://github.com/DevKursat/GeoLeads");
-      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank");
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank", "noopener,noreferrer");
     }
 
     function shareOnWhatsApp() {
       const text = encodeURIComponent("🎯 GeoLeads: Sıfır Maliyetli B2B Müşteri Bulma & Google Maps Avcısı. İşletmelerin WhatsApp, e-posta ve web açıklarını bulup 1-tıkla AI teklif hazırlıyor! Açık kaynak deposu: https://github.com/DevKursat/GeoLeads");
-      window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+      window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank", "noopener,noreferrer");
     }
 
     function copyRepoUrl() {
       const url = "https://github.com/DevKursat/GeoLeads";
-      navigator.clipboard.writeText(url).then(() => {
-        showToast("📋 GitHub depo bağlantısı panoya kopyalandı!", "success");
-      }).catch(() => {
-        showToast("Bağlantı: " + url, "info");
-      });
+      safeCopy(url, "📋 GitHub depo bağlantısı panoya kopyalandı!");
     }
 
     // Star-Gate Modals
@@ -1566,6 +1627,7 @@
         const opt50 = countSelect.querySelector('option[value="50"]');
         if (opt50) opt50.textContent = "50 Adet (⭐ Pro Sürüm)";
       }
+      updateAboutCardToCelebration();
     }
 
     function trackStarClick() {
@@ -1574,7 +1636,6 @@
       isProActive = true;
       setProUIState();
       closeStarGateModal();
-      closeAboutModal();
       showConfetti();
       showToast("🎉 Harika! GitHub Yıldızınız için teşekkürler. Tüm Pro özelliklerin kilidi anında açıldı!", "success");
     }
@@ -1600,10 +1661,24 @@
     function showConfetti() {
       if (typeof confetti === "function") {
         confetti({
-          particleCount: 80,
-          spread: 70,
+          particleCount: 90,
+          spread: 75,
           origin: { y: 0.6 }
         });
+        setTimeout(() => {
+          confetti({
+            particleCount: 45,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0.05, y: 0.65 }
+          });
+          confetti({
+            particleCount: 45,
+            angle: 120,
+            spread: 55,
+            origin: { x: 0.95, y: 0.65 }
+          });
+        }, 220);
       }
     }
 

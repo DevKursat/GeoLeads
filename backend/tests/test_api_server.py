@@ -182,6 +182,26 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertIn("text/html", headers)
         self.assertIn("GeoLeads", body.decode("utf-8"))
 
+    def test_about_modal_and_viral_share_elements(self):
+        status, body, headers = simulate_request("GET", "/")
+        self.assertEqual(status, 200)
+        html = body.decode("utf-8")
+        # Check navigation and footer About triggers
+        self.assertIn("Hakkında / About", html)
+        self.assertIn("openAboutModal()", html)
+        # Check About modal elements
+        self.assertIn('id="aboutModal"', html)
+        self.assertIn('id="aboutStarCtaCard"', html)
+        self.assertIn('id="aboutStarCountBadge"', html)
+        self.assertIn('id="footerStarCountBadge"', html)
+        # Check celebration trigger
+        self.assertIn("celebrateStarFromAbout", html)
+        # Check 1-click viral share buttons
+        self.assertIn("shareOnTwitter()", html)
+        self.assertIn("shareOnLinkedIn()", html)
+        self.assertIn("shareOnWhatsApp()", html)
+        self.assertIn("copyRepoUrl()", html)
+
     def test_lead_detail_endpoint(self):
         lead = Lead(name="Detay Test", city="Bursa", category="Otel")
         saved = db.save_or_update_lead(lead)
