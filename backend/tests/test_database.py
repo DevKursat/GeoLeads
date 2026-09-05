@@ -3,7 +3,11 @@ Unit tests for SQLite Database operations.
 """
 import unittest
 import os
+import sys
 import tempfile
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from app.core.database import Database
 from app.models import Lead, CRMStage, SalesGap, OpportunitySeverity
 

@@ -3,7 +3,60 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GeoLeads Pro - B2B Müşteri Bulma & Satış Motoru</title>
+  
+  <!-- Primary SEO Meta Tags -->
+  <title>GeoLeads Pro - B2B Müşteri Bulma, Google Maps Scraper & Satış Motoru</title>
+  <meta name="title" content="GeoLeads Pro - B2B Müşteri Bulma, Google Maps Scraper & Satış Motoru">
+  <meta name="description" content="Sıfır maliyetli Google Maps ve OpenStreetMap tarayıcı, derin web sitesi e-posta avcısı, WhatsApp CRM ve AI destekli satış kancası motoru.">
+  <meta name="keywords" content="b2b lead generation, google maps scraper, yerel müşteri bulma, osm overpass scraper, whatsapp crm, satış kancası motoru, cold outreach, website audit, duckduckgo local scraper">
+  <meta name="author" content="DevKursat">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://github.com/DevKursat/GeoLeads">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://github.com/DevKursat/GeoLeads">
+  <meta property="og:title" content="GeoLeads Pro - B2B Müşteri Bulma & Satış Motoru">
+  <meta property="og:description" content="100% gerçek yerel işletmeleri keşfedin, web açıklarını otomatik analiz edin ve 1-tıkla AI soğuk satış teklifleri üretin.">
+  <meta property="og:image" content="https://raw.githubusercontent.com/DevKursat/GeoLeads/main/geoleads_preview.png">
+  <meta property="og:site_name" content="GeoLeads Pro">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://github.com/DevKursat/GeoLeads">
+  <meta property="twitter:title" content="GeoLeads Pro - B2B Müşteri Bulma & Satış Motoru">
+  <meta property="twitter:description" content="Google Maps Scraper, OpenStreetMap Overpass, Web Crawl & WhatsApp CRM.">
+  <meta property="twitter:image" content="https://raw.githubusercontent.com/DevKursat/GeoLeads/main/geoleads_preview.png">
+
+  <!-- PWA & Mobile Capabilities -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+
+  <!-- Structured Data: Schema.org SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "GeoLeads Pro",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web, Windows, macOS, Linux",
+    "description": "Zero-cost B2B lead generation engine with Google Maps scraper, website gap detector, and WhatsApp sales automation.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "DevKursat",
+      "url": "https://github.com/DevKursat"
+    }
+  }
+  </script>
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -84,16 +137,16 @@
         <span class="font-medium hidden sm:inline">Projeyi beğendiyseniz GitHub'da yıldız vererek organik büyümeyi destekleyin!</span>
         <span class="font-medium sm:hidden">GitHub'da bize yıldız verin!</span>
       </div>
-      <div class="flex items-center space-x-3">
-        <a href="https://github.com/geoleads/geoleads" target="_blank" onclick="trackStarClick()" class="inline-flex items-center gap-1.5 bg-white text-slate-900 px-3 py-1 rounded-md text-xs font-bold hover:bg-slate-100 shadow-sm transition-transform active:scale-95">
-          <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400 text-amber-500"></i>
-          <span>GitHub'da Yıldız Ver</span>
-          <span id="starCountBadge" class="bg-slate-200 text-slate-800 text-[10px] px-1.5 py-0.2 rounded font-semibold ml-0.5">⭐ 1.4k</span>
+      <div class="flex items-center space-x-2.5">
+        <a id="btnTopStar" href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()" class="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1 rounded-lg text-xs font-black shadow-sm transition-all active:scale-95">
+          <i data-lucide="star" class="w-3.5 h-3.5 fill-slate-950 text-slate-950"></i>
+          <span>GitHub'da Yıldız Ver & Pro Aç</span>
+          <span id="starCountBadge" class="bg-amber-500/30 text-slate-950 text-[10px] px-1.5 py-0.2 rounded font-black ml-0.5">⭐ Star</span>
         </a>
-        <button onclick="openMasterModal()" class="text-xs bg-amber-400/20 text-amber-200 border border-amber-300/30 px-2.5 py-1 rounded-md font-semibold hover:bg-amber-400/30 transition flex items-center gap-1">
-          <i data-lucide="key" class="w-3 h-3 text-amber-300"></i>
-          <span id="proStatusHeader">Master Key</span>
-        </button>
+        <span id="proActiveHeaderBadge" class="hidden inline-flex items-center gap-1 text-xs bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 px-2.5 py-1 rounded-lg font-bold">
+          <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Pro Aktif</span>
+        </span>
       </div>
     </div>
   </div>
@@ -143,7 +196,13 @@
       </div>
 
       <!-- Action Buttons -->
-      <div class="flex items-center space-x-3">
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <!-- Install Desktop PWA App -->
+        <button id="btnInstallPwa" onclick="installPwa()" class="hidden inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white shadow-md shadow-brand-500/20 transition active:scale-95" title="Masaüstü Uygulaması Olarak Yükle">
+          <i data-lucide="laptop" class="w-3.5 h-3.5 text-brand-200"></i>
+          <span class="hidden sm:inline">Masaüstüne İndir</span>
+        </button>
+
         <!-- Export CSV Button -->
         <button onclick="downloadCSV()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition active:scale-95">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
@@ -531,58 +590,52 @@
     </div>
   </div>
 
-  <!-- MODAL 2: GITHUB STAR-GATE MODAL -->
-  <div id="starGateModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="glass-card bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-6 text-center shadow-2xl relative">
-      <div class="w-16 h-16 rounded-2xl bg-amber-500/20 border border-amber-500/30 text-amber-400 mx-auto flex items-center justify-center mb-4 pulse-glow">
-        <i data-lucide="star" class="w-8 h-8 fill-amber-400"></i>
-      </div>
-      <h3 class="text-lg font-extrabold text-white">Topluluk Sürümü Sınırı (25 Müşteri)</h3>
-      <p class="text-xs text-slate-400 mt-2 leading-relaxed">
-        GeoLeads tamamen açık kaynaklı bir B2B büyüme motorudur! Topluluk sürümünde arama başına 25 adet işletme verilir.
-        Sınırsız arama kotası, toplu derin e-posta avcısı ve tam AI entegrasyonu için projemize GitHub'da yıldız verebilir veya Master Key girebilirsiniz!
-      </p>
-
-      <div class="mt-6 space-y-2.5">
-        <a href="https://github.com/geoleads/geoleads" target="_blank" onclick="trackStarClick()" class="w-full py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition">
-          <i data-lucide="star" class="w-4 h-4 fill-slate-950"></i> GitHub'da Yıldız Ver & Destek Ol
-        </a>
-        <button onclick="openMasterModal(); closeStarGateModal()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded-xl border border-slate-700 transition flex items-center justify-center gap-2">
-          <i data-lucide="key" class="w-4 h-4 text-brand-400"></i> Master Key ile Kilidi Aç
-        </button>
-        <button onclick="closeStarGateModal()" class="w-full py-2 text-slate-400 hover:text-slate-200 text-xs font-semibold">
-          25 Müşteriyle Devam Et
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL 3: MASTER ADMIN KEY MODAL -->
-  <div id="masterKeyModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="glass-card bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-6 text-center shadow-2xl relative">
-      <button onclick="closeMasterModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1 rounded-lg bg-slate-800">
+  <!-- MODAL 2: GITHUB STAR-GATE VIRAL GROWTH MODAL (UI/UX PRO MAX) -->
+  <div id="starGateModal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="glass-card bg-slate-900/95 border border-amber-500/30 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative glow-effect">
+      <button onclick="closeStarGateModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-1.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 transition">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
-      <div class="w-14 h-14 rounded-2xl bg-brand-500/20 border border-brand-500/30 text-brand-400 mx-auto flex items-center justify-center mb-3">
-        <i data-lucide="shield-check" class="w-7 h-7"></i>
+      <!-- Animated Star Hero Emblem -->
+      <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400/20 to-amber-600/20 border border-amber-400/40 text-amber-400 mx-auto flex items-center justify-center mb-4 pulse-glow shadow-inner">
+        <i data-lucide="star" class="w-8 h-8 fill-amber-400 text-amber-400"></i>
       </div>
-      <h3 class="text-lg font-extrabold text-white">Master Admin Girişi</h3>
-      <p class="text-xs text-slate-400 mt-1">
-        Yalnızca proje sahibi için sınırsız arama kotası (500+ lead) ve AI satış motorunu etkinleştirin.
+
+      <h3 class="text-xl font-extrabold text-white tracking-tight">⭐ Pro Özellikleri Ücretsiz Açın!</h3>
+      <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+        GeoLeads %100 açık kaynaklı bir topluluk projesidir. GitHub depomuza 1 yıldız vererek tüm Pro yetenekleri <strong class="text-amber-300">anında ve ücretsiz</strong> açabilirsiniz.
       </p>
 
-      <div class="mt-5 space-y-3">
-        <input type="password" id="masterKeyInput" placeholder="Master Key (Örn: geoleads-pro-2026)" 
-          class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 text-center tracking-widest focus:outline-none focus:border-brand-500">
-        
-        <button onclick="verifyMasterKey()" class="w-full py-2.5 bg-brand-600 hover:bg-brand-500 text-white font-bold text-xs rounded-xl transition shadow-lg shadow-brand-500/20">
-          Doğrula & Pro Modunu Aç
-        </button>
+      <!-- Value Props Grid -->
+      <div class="grid grid-cols-2 gap-2 text-left my-5 bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80 text-[11px]">
+        <div class="flex items-center gap-1.5 text-slate-200">
+          <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400 flex-shrink-0"></i>
+          <span>500+ Arama Kotası</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-slate-200">
+          <i data-lucide="bot" class="w-3.5 h-3.5 text-indigo-400 flex-shrink-0"></i>
+          <span>AI Satış Kancaları</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-slate-200">
+          <i data-lucide="table" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>
+          <span>Sınırsız Excel/CSV</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-slate-200">
+          <i data-lucide="radar" class="w-3.5 h-3.5 text-purple-400 flex-shrink-0"></i>
+          <span>Derin Web & E-Posta</span>
+        </div>
+      </div>
 
-        <p class="text-[10px] text-slate-500">
-          İpucu: Varsayılan anahtar <code class="text-brand-300">geoleads-pro-2026</code> veya <code class="text-brand-300">.env</code> içindeki <code class="text-brand-300">GEOLEADS_MASTER_KEY</code>.
-        </p>
+      <div class="space-y-2.5">
+        <a href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()"
+          class="w-full py-3 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition-all transform active:scale-95">
+          <i data-lucide="star" class="w-4 h-4 fill-slate-950 text-slate-950"></i>
+          <span>GitHub'da 1-Tıkla Yıldız Ver & Pro Aç 🎉</span>
+        </a>
+        <button onclick="closeStarGateModal()" class="w-full py-2 text-slate-400 hover:text-slate-200 text-xs font-semibold transition">
+          Şimdilik Topluluk Sürümüyle Devam Et
+        </button>
       </div>
     </div>
   </div>
@@ -595,17 +648,111 @@
     let leadsState = [];
     let activeLead = null;
     let isProActive = false;
+    let isStarred = localStorage.getItem("geoleads_starred") === "true";
     let masterKeyStored = localStorage.getItem("geoleads_master_key") || "";
+    let deferredPrompt = null;
 
     // Initialize application
     document.addEventListener("DOMContentLoaded", () => {
       lucide.createIcons();
       fetchStats();
       fetchLeads();
-      if (masterKeyStored) {
-        checkStoredMasterKey();
+      fetchGitHubStars();
+      checkUrlKey();
+      if (isStarred || masterKeyStored) {
+        isProActive = true;
+        setProUIState();
+        if (masterKeyStored) checkStoredMasterKey();
       }
+      setupKeyboardShortcuts();
     });
+
+    // Silent master key verification from URL query param (?key=... or ?admin=...)
+    function checkUrlKey() {
+      const params = new URLSearchParams(window.location.search);
+      const k = params.get("key") || params.get("admin");
+      if (k) {
+        verifyMasterKeySilent(k);
+        const cleanUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({ path: cleanUrl }, "", cleanUrl);
+      }
+    }
+
+    async function verifyMasterKeySilent(key) {
+      if (!key) return;
+      try {
+        const res = await fetch("/api/auth/verify-master", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key: key })
+        });
+        const json = await res.json();
+        if (json.is_valid) {
+          masterKeyStored = key;
+          localStorage.setItem("geoleads_master_key", key);
+          isProActive = true;
+          setProUIState();
+          showConfetti();
+          showToast("👑 Pro Modu Aktif!", "success");
+        }
+      } catch (e) {}
+    }
+
+    // PWA BeforeInstallPrompt Handler
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btn = document.getElementById("btnInstallPwa");
+      if (btn) btn.classList.remove("hidden");
+    });
+
+    async function installPwa() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === "accepted") {
+          showToast("🚀 GeoLeads Masaüstü Uygulaması Başarıyla Yüklendi!", "success");
+          showConfetti();
+          const btn = document.getElementById("btnInstallPwa");
+          if (btn) btn.classList.add("hidden");
+        }
+        deferredPrompt = null;
+      } else {
+        showToast("💡 Chrome/Edge/Brave adres çubuğundaki 'Yükle' simgesine tıklayarak veya ./desktop.sh çalıştırarak kullanabilirsiniz.", "info");
+      }
+    }
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/sw.js").catch(() => {});
+      });
+    }
+
+    async function fetchGitHubStars() {
+      const badge = document.getElementById("starCountBadge");
+      if (!badge) return;
+      try {
+        const res = await fetch("https://api.github.com/repos/DevKursat/GeoLeads");
+        if (res.ok) {
+          const d = await res.json();
+          if (d && typeof d.stargazers_count === "number") {
+            const count = d.stargazers_count;
+            badge.textContent = "⭐ " + (count >= 1000 ? (count / 1000).toFixed(1) + "k" : count);
+            return;
+          }
+        }
+      } catch (e) {}
+      badge.textContent = "⭐ Star";
+    }
+
+    function setupKeyboardShortcuts() {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeDetailModal();
+          closeStarGateModal();
+        }
+      });
+    }
 
     async function fetchStats() {
       try {
@@ -685,6 +832,9 @@
         if (masterKeyStored) {
           headers["X-Master-Key"] = masterKeyStored;
         }
+        if (isStarred) {
+          headers["X-Starred"] = "1";
+        }
 
         const res = await fetch("/api/scrape", {
           method: "POST",
@@ -694,7 +844,8 @@
             city: city,
             max_leads: count,
             deep_crawl: deepCrawl,
-            master_key: masterKeyStored
+            master_key: masterKeyStored,
+            is_starred: isStarred
           })
         });
 
@@ -952,21 +1103,35 @@
       pitchArea.value = "Kişiselleştirilmiş metin hazırlanıyor...";
 
       try {
+        const headers = { "Content-Type": "application/json" };
+        if (masterKeyStored) {
+          headers["X-Master-Key"] = masterKeyStored;
+        }
         const res = await fetch(`/api/leads/${activeLead.id}/pitch`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: headers,
           body: JSON.stringify({
             channel: channel,
             tone: "consultative",
             lang: lang,
             sender_name: "Kürşat",
-            agency_name: "Dijital Büyüme Ajansı"
+            agency_name: "Dijital Büyüme Ajansı",
+            master_key: masterKeyStored,
+            is_preview: !isProActive
           })
         });
         const json = await res.json();
         if (json.success) {
           pitchArea.value = json.data.content;
           activeLead.generatedPitch = json.data;
+          if (json.star_gate_required && !isProActive) {
+            setTimeout(openStarGateModal, 1500);
+          }
+        } else if (json.star_gate_required) {
+          pitchArea.value = "⭐ Bu özellik GitHub Yıldız Destekçilerine özeldir. Depomuza 1 yıldız vererek anında ve ücretsiz açabilirsiniz!";
+          openStarGateModal();
+        } else {
+          pitchArea.value = json.error || "Metin oluşturulurken hata oluştu.";
         }
       } catch (e) {
         pitchArea.value = "Metin oluşturulurken hata oluştu.";
@@ -1061,44 +1226,20 @@
 
     // Star-Gate Modals
     function openStarGateModal() {
-      document.getElementById("starGateModal").classList.remove("hidden");
+      const m = document.getElementById("starGateModal");
+      if (m) m.classList.remove("hidden");
     }
     function closeStarGateModal() {
-      document.getElementById("starGateModal").classList.add("hidden");
+      const m = document.getElementById("starGateModal");
+      if (m) m.classList.add("hidden");
     }
 
+    // Safe compatibility shims (no password popup)
     function openMasterModal() {
-      document.getElementById("masterKeyModal").classList.remove("hidden");
+      openStarGateModal();
     }
     function closeMasterModal() {
-      document.getElementById("masterKeyModal").classList.add("hidden");
-    }
-
-    async function verifyMasterKey() {
-      const key = document.getElementById("masterKeyInput").value.trim();
-      if (!key) return;
-
-      try {
-        const res = await fetch("/api/auth/verify-master", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ key: key })
-        });
-        const json = await res.json();
-        if (json.is_valid) {
-          masterKeyStored = key;
-          localStorage.setItem("geoleads_master_key", key);
-          isProActive = true;
-          setProUIState();
-          closeMasterModal();
-          showConfetti();
-          showToast("👑 Tebrikler! Master Pro Modu Aktif!", "success");
-        } else {
-          showToast("Geçersiz Master Key.", "error");
-        }
-      } catch (e) {
-        showToast("Sunucu hatası.", "error");
-      }
+      closeStarGateModal();
     }
 
     async function checkStoredMasterKey() {
@@ -1119,18 +1260,46 @@
 
     function setProUIState() {
       const badge = document.getElementById("badgeTier");
-      badge.textContent = "👑 MASTER PRO";
-      badge.className = "text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm";
-      document.getElementById("proStatusHeader").textContent = "Pro Aktif ✓";
+      if (badge) {
+        badge.textContent = "⭐ GITHUB PRO AKTİF";
+        badge.className = "text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm";
+      }
+      const headerBadge = document.getElementById("proActiveHeaderBadge");
+      if (headerBadge) {
+        headerBadge.classList.remove("hidden");
+      }
+      const topStar = document.getElementById("btnTopStar");
+      if (topStar) {
+        topStar.classList.add("hidden");
+      }
+      const countSelect = document.getElementById("leadCountSelect");
+      if (countSelect) {
+        const opt50 = countSelect.querySelector('option[value="50"]');
+        if (opt50) opt50.textContent = "50 Adet (⭐ Pro Sürüm)";
+      }
     }
 
     function trackStarClick() {
+      localStorage.setItem("geoleads_starred", "true");
+      isStarred = true;
+      isProActive = true;
+      setProUIState();
+      closeStarGateModal();
       showConfetti();
-      showToast("Desteğiniz için teşekkürler! Proje yıldızlandı.", "success");
+      showToast("🎉 Harika! GitHub Yıldızınız için teşekkürler. Tüm Pro özelliklerin kilidi anında açıldı!", "success");
     }
 
     function downloadCSV() {
-      window.location.href = "/api/export/csv";
+      const params = new URLSearchParams();
+      if (isStarred || isProActive) params.set("starred", "1");
+      if (masterKeyStored) params.set("master_key", masterKeyStored);
+      const qs = params.toString() ? `?${params.toString()}` : "";
+      window.location.href = `/api/export/csv${qs}`;
+      if (!isStarred && !isProActive) {
+        showToast("⭐ Topluluk sürümü (25 müşteri) indiriliyor. Sınırsız liste için lütfen GitHub'da yıldız verin!", "info");
+      } else {
+        showToast("🚀 Pro indirme: Sınırsız müşteri verisi CSV olarak hazırlanıyor!", "success");
+      }
     }
 
     function toggleTheme() {

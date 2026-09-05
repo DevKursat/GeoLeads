@@ -5,6 +5,7 @@ to each business's specific gaps, category, city, and metrics.
 Supports Gemini, OpenAI, Ollama, and high-converting built-in offline templates.
 """
 import json
+import ssl
 import urllib.request
 import urllib.parse
 from typing import Dict, Any, Optional
@@ -187,43 +188,132 @@ class PitchGenerator:
             "primary_gap": lead.primary_gap
         }
 
+    def _build_wa_link(self, lead: Lead, message: str) -> str:
+        if not lead.whatsapp:
+            return ""
+        encoded_msg = urllib.parse.quote(message)
+        if "wa.me/" in lead.whatsapp:
+            phone_num = lead.whatsapp.split("wa.me/")[-1].split("?")[0]
+            return f"https://wa.me/{phone_num}?text={encoded_msg}"
+        return f"{lead.whatsapp}&text={encoded_msg}"
+
     def _generate_gemini(self, lead: Lead, channel: str, tone: str, lang: str, sender: str, agency: str) -> Optional[Dict[str, Any]]:
-        # Calls Gemini REST endpoint
+        if not GEMINI_API_KEY:
+            return None
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}"
         prompt = (
-            f"Write a high-converting {tone} {channel} sales pitch for {lead.name} located in {lead.city}. "
+            f"Act as an elite B2B sales copywriter. Write a high-converting {tone} {channel} sales pitch for {lead.name} located in {lead.city}. "
             f"Business category: {lead.category}. "
             f"Primary gap: {lead.primary_gap}. "
-            f"Rating: {lead.rating}, Reviews: {lead.review_count}. "
-            f"Language: {lang}. Sender name: {sender}, Agency: {agency}. "
-            f"Format as JSON with 'subject' and 'content' keys."
+            f"Rating: {lead.rating or 'N/A'}, Reviews: {lead.review_count}. "
+            f"Language: {'Turkish' if lang == 'tr' else 'English'}. Sender name: {sender}, Agency: {agency}. "
+            f"Respond ONLY with valid JSON having 'subject' and 'content' keys."
         )
         body = json.dumps({"contents": [{"parts": [{"text": prompt}]}]}).encode("utf-8")
         req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
-        with urllib.request.urlopen(req, timeout=8) as resp:
+        ctx = ssl._create_unverified_context()
+        with urllib.request.urlopen(req, timeout=10, context=ctx) as resp:
             data = json.loads(resp.read().decode())
             text = data["candidates"][0]["content"]["parts"][0]["text"]
-            # Extract JSON from response
             cleaned = text.strip().replace("```json", "").replace("```", "").strip()
             parsed = json.loads(cleaned)
+            content = parsed.get("content", "")
             return {
                 "provider": "gemini",
                 "channel": channel,
                 "tone": tone,
                 "language": lang,
                 "subject": parsed.get("subject", f"{lead.name} Dijital Büyüme"),
-                "content": parsed.get("content", ""),
-                "whatsapp_direct_url": f"{lead.whatsapp}?text={urllib.parse.quote(parsed.get('content', ''))}" if lead.whatsapp else "",
+                "content": content,
+                "whatsapp_direct_url": self._build_wa_link(lead, content),
                 "primary_gap": lead.primary_gap
             }
 
     def _generate_openai(self, lead: Lead, channel: str, tone: str, lang: str, sender: str, agency: str) -> Optional[Dict[str, Any]]:
-        # OpenAI API implementation
-        return None
+        if not OPENAI_API_KEY:
+            return None
+        url = "https://api.openai.com/v1/chat/completions"
+        prompt = (
+            f"Write a high-converting {tone} {channel} sales pitch for {lead.name} in {lead.city}. "
+            f"Sector: {lead.category}. Primary gap: {lead.primary_gap}. "
+            f"Rating: {lead.rating or 'N/A'}, Reviews: {lead.review_count}. "
+            f"Language: {'Turkish' if lang == 'tr' else 'English'}. Sender: {sender}, Agency: {agency}. "
+            f"Output JSON with keys 'subject' and 'content'."
+        )
+        payload = {
+            "model": "gpt-4o-mini",
+            "messages": [
+                {"role": "system", "content": "You are an elite B2B sales copywriter and agency growth specialist."},
+                {"role": "user", "content": prompt}
+            ],
+            "response_format": {"type": "json_object"},
+            "temperature": 0.7
+        }
+        ctx = ssl._create_unverified_context()
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {OPENAI_API_KEY}"
+            }
+        )
+        with urllib.request.urlopen(req, timeout=10, context=ctx) as resp:
+            data = json.loads(resp.read().decode())
+            content_str = data["choices"][0]["message"]["content"]
+            parsed = json.loads(content_str)
+            content = parsed.get("content", "")
+            return {
+                "provider": "openai",
+                "channel": channel,
+                "tone": tone,
+                "language": lang,
+                "subject": parsed.get("subject", f"{lead.name} İnceleme & Teklif"),
+                "content": content,
+                "whatsapp_direct_url": self._build_wa_link(lead, content),
+                "primary_gap": lead.primary_gap
+            }
 
     def _generate_ollama(self, lead: Lead, channel: str, tone: str, lang: str, sender: str, agency: str) -> Optional[Dict[str, Any]]:
-        # Ollama local endpoint
-        return None
+        base_url = (OLLAMA_BASE_URL or "http://localhost:11434").rstrip("/")
+        url = f"{base_url}/api/chat"
+        prompt = (
+            f"Write a high-converting {tone} {channel} sales pitch for {lead.name} in {lead.city}. "
+            f"Sector: {lead.category}. Primary gap: {lead.primary_gap}. "
+            f"Rating: {lead.rating or 'N/A'}, Reviews: {lead.review_count}. "
+            f"Language: {'Turkish' if lang == 'tr' else 'English'}. Sender: {sender}, Agency: {agency}. "
+            f"Output JSON with keys 'subject' and 'content'."
+        )
+        payload = {
+            "model": "llama3",
+            "messages": [
+                {"role": "system", "content": "You are an expert sales copywriter. Respond in JSON with keys 'subject' and 'content'."},
+                {"role": "user", "content": prompt}
+            ],
+            "stream": False,
+            "format": "json"
+        }
+        ctx = ssl._create_unverified_context()
+        req = urllib.request.Request(
+            url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"}
+        )
+        with urllib.request.urlopen(req, timeout=12, context=ctx) as resp:
+            data = json.loads(resp.read().decode())
+            content_str = data.get("message", {}).get("content", "{}")
+            parsed = json.loads(content_str)
+            content = parsed.get("content", "")
+            return {
+                "provider": "ollama",
+                "channel": channel,
+                "tone": tone,
+                "language": lang,
+                "subject": parsed.get("subject", f"{lead.name} Yerel Büyüme"),
+                "content": content,
+                "whatsapp_direct_url": self._build_wa_link(lead, content),
+                "primary_gap": lead.primary_gap
+            }
 
 
 pitch_generator = PitchGenerator()

@@ -100,11 +100,22 @@ class GapDetector:
             ))
             raw_score += 15
 
+        # 6. If business has strong fundamentals, provide high-value scaling gap
+        if not gaps:
+            gaps.append(SalesGap(
+                code="GENERAL_DIGITAL_GROWTH",
+                title="Pazar Liderliği & Reklam Skalalama",
+                description="İşletmenin temel dijital varlığı mevcut. Bir sonraki aşama yerel arama reklamları ve yapay zeka CRM otomasyonudur.",
+                severity=OpportunitySeverity.LOW,
+                pitch_angle=f"{lead.name} olarak dijital altyapınız güçlü. Yerel hedefli reklamlar ve yapay zeka müşteri karşılama ile inbound müşteri sayınızı 2 katına çıkarabiliriz.",
+                suggested_solution="Google Ads yerel arama reklamları, yapay zeka WhatsApp asistanı ve CRM satış hunisi optimizasyonu."
+            ))
+
         # Normalize score between 10 and 100
         final_score = min(100, max(15, raw_score))
 
         # Determine primary gap
-        primary_gap = gaps[0].code if gaps else "GENERAL_DIGITAL_GROWTH"
+        primary_gap = gaps[0].code
 
         return final_score, gaps, primary_gap
 

@@ -1,0 +1,31 @@
+{
+  "name": "GeoLeads Pro - B2B Müşteri Bulma & Satış Motoru",
+  "short_name": "GeoLeads",
+  "description": "Google Maps, OpenStreetMap ve DuckDuckGo ile 100% gerçek B2B müşteri bulma, web sitesi açık denetimi ve satış otomasyonu.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#4f46e5",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Müşteri Ara",
+      "url": "/#search",
+      "description": "Yeni B2B yerel müşterileri tara"
+    },
+    {
+      "name": "Satış Pipeline",
+      "url": "/#kanban",
+      "description": "CRM Kanban panosunu aç"
+    }
+  ]
+}

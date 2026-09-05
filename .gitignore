@@ -31,9 +31,11 @@ ENV/
 *.sqlite3
 geoleads.db
 
-# Environment variables
+# Environment variables & secrets
 .env
 .env.local
+.master_key
+*.master_key
 
 # Node / Frontend
 node_modules/

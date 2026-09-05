@@ -2,6 +2,11 @@
 Unit tests for AI Pitch Generator.
 """
 import unittest
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from app.models import Lead
 from app.services.pitch_generator import PitchGenerator
 
@@ -48,6 +53,21 @@ class TestPitchGenerator(unittest.TestCase):
         self.assertEqual(res["language"], "en")
         self.assertIn("Kadıköy Estetik Diş", res["content"])
         self.assertIn("Apex Media", res["content"])
+
+    def test_edge_case_lead_missing_optional_fields(self):
+        bare_lead = Lead(name="", city="")
+        res = self.generator.generate_pitch(bare_lead)
+        self.assertIsNotNone(res["content"])
+        self.assertEqual(res["whatsapp_direct_url"], "")
+
+    def test_openai_and_ollama_fallback_gracefully(self):
+        self.generator.provider = "openai"
+        res = self.generator.generate_pitch(self.lead)
+        self.assertIsNotNone(res["content"])
+
+        self.generator.provider = "ollama"
+        res2 = self.generator.generate_pitch(self.lead)
+        self.assertIsNotNone(res2["content"])
 
 
 if __name__ == "__main__":

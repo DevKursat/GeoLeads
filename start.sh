@@ -24,7 +24,7 @@ cd "$(dirname "$0")/backend"
 echo "[✓] GeoLeads hazır!"
 echo "[*] Web arayüzü başlatılıyor: http://localhost:$PORT"
 echo "========================================================"
-echo " Master Admin Key: geoleads-pro-2026"
+echo " GitHub Repo: https://github.com/DevKursat/GeoLeads"
 echo "========================================================"
 
 python3 server.py "$PORT"
