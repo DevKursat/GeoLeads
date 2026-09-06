@@ -307,6 +307,23 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertIn('id="auditSSLStatus"', html)
         self.assertIn('id="auditMobileStatus"', html)
 
+    def test_command_palette_elements(self):
+        status, body, headers = simulate_request("GET", "/")
+        self.assertEqual(status, 200)
+        html = body.decode("utf-8")
+
+        # Command Palette Modal & Input
+        self.assertIn('id="commandPaletteModal"', html)
+        self.assertIn('id="commandPaletteInput"', html)
+        self.assertIn('id="commandPaletteList"', html)
+
+        # Functions & Keyboard Hotkey
+        self.assertIn("toggleCommandPalette", html)
+        self.assertIn("openCommandPalette", html)
+        self.assertIn("closeCommandPalette", html)
+        self.assertIn("COMMAND_ACTIONS", html)
+        self.assertIn("handleCommandPaletteKeydown", html)
+
 
 if __name__ == "__main__":
     unittest.main()
