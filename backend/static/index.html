@@ -3710,11 +3710,28 @@
       }
     }
 
-    // Global Command Palette Keydown Listener (Cmd+K / Ctrl+K)
+    // Global Command Palette & Modal Keydown Listener (Cmd+K / Ctrl+K / Escape / Queue Navigation)
     window.addEventListener("keydown", (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         toggleCommandPalette();
+      } else if (e.key === "Escape") {
+        closeCommandPalette();
+        closeOutreachQueue();
+        closeLeadModal();
+        closeAboutModal();
+        closeStarGateModal();
+      } else if (!document.getElementById("outreachQueueModal")?.classList.contains("hidden")) {
+        const tag = (document.activeElement?.tagName || "").toLowerCase();
+        if (tag !== "input" && tag !== "textarea") {
+          if (e.key === "]" || e.key === "ArrowRight") {
+            e.preventDefault();
+            nextQueueLead();
+          } else if (e.key === "[" || e.key === "ArrowLeft") {
+            e.preventDefault();
+            prevQueueLead();
+          }
+        }
       }
     });
 

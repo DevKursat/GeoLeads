@@ -44,6 +44,17 @@ Geleneksel Google Maps API'leri sorgu başına fahiş faturalar çıkarır veya 
 ## 🔥 Temel Özellikler
 
 - 🌐 **%100 Gerçek Canlı Veri (Sıfır Mock / Sentetik Veri Yok):** OpenStreetMap Overpass (5 yedekli döner ayna), Google Maps genel arama ayrıştırıcısı, DuckDuckGo & Bing yerel işletme ayrıştırıcıları ile tamamen gerçek işletmeler.
+- 🎯 **Sektörel Satış Kampanya Motoru:**
+  - 💻 **Yazılım & Web Satışı:** KOBİ'ler, klinikler, ajanslar ve dükkanlar için web sitesi ve müşteri otomasyonu teklifleri.
+  - 💇‍♀️ **Saç Boyası & Salon Tedariği:** Kuaför salonlarına toptan saç boyası, bakım ürünleri ve ücretsiz deneme/numune kiti teklifleri.
+  - 👔 **Buharlı Ütü & Silter / Tekstil:** Tekstil atölyeleri ve konfeksiyonlar için Silter tipi sanayi buharlı ütü sistemleri, merkezi kazan tesisatı ve yedek parça teklifleri.
+  - ✨ **Özel Ürün / Hizmet:** Dilediğiniz ürün veya sektöre özel anında kanca ve çözüm üreten serbest kampanya modu.
+- ⚡ **Hızlı Satış & Ulaşım Sırası (Rapid Outreach Queue):** Taranan müşterileri kuyruğa alır; 1-tıkla WhatsApp veya e-posta açar, CRM durumunu anında 'İletişime Geçildi' yapıp sıradaki müşteriye geçer.
+- 🔄 **3 Aşamalı Satış Döngüsü (Cadence Sequence):**
+  - **Adım 1:** İlk Kanca & Zafiyet Tespiti
+  - **Adım 2:** Takip & Somut Vaka Çalışması Kanıtı (Gün 3)
+  - **Adım 3:** Düşük Baskılı Dosya Kapatma / FOMO Ayrılış Mesajı (Gün 7)
+- 📊 **Finansal ROI & Payback Hesaplayıcı:** Müşteri/sipariş tutarı, amortisman süresi ve getiri oranıyla satış metnine finansal ikna kancası enjekte eder.
 - 🕷️ **Derin E-Posta & WhatsApp Avcısı:** Web sitelerinin ana sayfası ve `/iletisim`, `/contact`, `/about` sayfalarını tarar; resim/spam e-postalarını eler, net iletişim kanallarını çıkarır.
 - ⚡ **Satış Fırsatı Skoru (0 - 100):** Hangi işletmenin dijital hizmete daha çok ihtiyacı olduğunu otomatik puanlar.
 - 🤖 **Çoklu AI Desteği & Hazır Şablonlar:** 
@@ -51,7 +62,7 @@ Geleneksel Google Maps API'leri sorgu başına fahiş faturalar çıkarır veya 
   - OpenAI API
   - Yerel Ollama (Llama 3 / Mistral)
   - **API Anahtarsız Çevrimdışı Yüksek Dönüşümlü Satış Şablonları** (Kutudan çıktığı an çalışır!).
-- 📊 **UI/UX Pro Max Arayüz:** Modern Dark/Light tema, cam efekti kartlar (glassmorphism), mikro animasyonlar, filtreler ve çift mod (Tablo & Kanban Pano).
+- 📊 **UI/UX Pro Max Arayüz:** Modern Dark/Light tema, cam efekti kartlar (glassmorphism), `Cmd+K` Komut Paleti, mikro animasyonlar, filtreler ve çift mod (Tablo & Kanban Pano).
 - 🖥️ **PWA & Native Desktop Launcher:** Masaüstü kısayolu, bağımsız pencere modu ve çevrimdışı önbellek desteği.
 - 📁 **Excel & CSV Dışa Aktarma:** Türkçe karakterleri (ç, ş, ğ, ö, ü, İ) bozulmadan açan UTF-8 BOM destekli dışa aktarım.
 
@@ -168,7 +179,7 @@ GeoLeads, kapsamlı bir test süitine sahiptir:
 python3 -m unittest discover -s backend/tests -p "test_*.py" -v
 ```
 
-Sonuç: **Tüm 39 test başarıyla geçmektedir.**
+Sonuç: **Tüm 57 test başarıyla geçmektedir (0 Hata).**
 
 ---
 
