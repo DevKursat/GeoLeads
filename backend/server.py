@@ -19,7 +19,7 @@ if __name__ == "__main__":
     if HAS_FASTAPI:
         try:
             import uvicorn
-            print(f"🚀 Starting GeoLeads with FastAPI & Uvicorn on http://0.0.0.0:{port}")
+            print(f" Starting GeoLeads with FastAPI & Uvicorn on http://0.0.0.0:{port}")
             uvicorn.run("app.main:app", host="0.0.0.0", port=port, log_level="info")
             sys.exit(0)
         except Exception:

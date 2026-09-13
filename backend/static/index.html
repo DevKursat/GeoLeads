@@ -121,6 +121,15 @@
     * {
       -webkit-tap-highlight-color: transparent;
     }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+      width: 100%;
+    }
     body {
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -215,25 +224,28 @@
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300 flex flex-col selection:bg-brand-500 selection:text-white">
 
   <!-- Top Announcement / Star-Gate Banner -->
-  <div class="bg-slate-900 dark:bg-slate-950 border-b border-slate-800 text-slate-300 text-xs py-2 px-4 shadow-sm flex items-center justify-between z-40">
+  <div id="topAnnouncementBanner" class="bg-slate-900 dark:bg-slate-950 border-b border-slate-800 text-slate-300 text-xs py-1.5 px-4 shadow-sm z-40">
     <div class="container mx-auto flex items-center justify-between flex-wrap gap-2">
       <div class="flex items-center space-x-2">
-        <span class="bg-white/20 text-white text-[11px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
-          <i data-lucide="sparkles" class="w-3 h-3 text-amber-300"></i> Açık Kaynak & B2B
+        <span class="bg-white/10 text-slate-200 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider flex items-center gap-1">
+          <i data-lucide="sparkles" class="w-3 h-3 text-amber-400"></i> Açık Kaynak
         </span>
-        <span class="font-medium hidden sm:inline">Projeyi beğendiyseniz GitHub'da yıldız vererek organik büyümeyi destekleyin!</span>
-        <span class="font-medium sm:hidden">GitHub'da bize yıldız verin!</span>
+        <span class="font-medium text-xs hidden sm:inline text-slate-300">Sıfır maliyetli Google Maps dizininden B2B müşteri ve satış fırsatı keşfi.</span>
+        <span class="font-medium text-xs sm:hidden text-slate-300">B2B Müşteri Keşfi</span>
       </div>
-      <div class="flex items-center space-x-2.5">
-        <a id="btnTopStar" href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()" class="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1 rounded-lg text-xs font-black shadow-sm transition-all active:scale-95">
+      <div class="flex items-center space-x-2">
+        <a id="btnTopStar" href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()" class="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 px-2.5 py-1 rounded-lg text-xs font-bold shadow-sm transition-all active:scale-95">
           <i data-lucide="star" class="w-3.5 h-3.5 fill-slate-950 text-slate-950"></i>
-          <span>GitHub'da Yıldız Ver & Pro Aç</span>
+          <span>GitHub'da Yıldız Ver</span>
           <span id="starCountBadge" class="bg-amber-500/30 text-slate-950 text-[10px] px-1.5 py-0.5 rounded font-black ml-0.5">Star</span>
         </a>
         <span id="proActiveHeaderBadge" class="hidden inline-flex items-center gap-1 text-xs bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 px-2.5 py-1 rounded-lg font-bold">
           <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
           <span>Pro Aktif</span>
         </span>
+        <button onclick="document.getElementById('topAnnouncementBanner').style.display='none'" class="text-slate-400 hover:text-white p-1 rounded transition" title="Kapat" aria-label="Duyuruyu Kapat">
+          <i data-lucide="x" class="w-3.5 h-3.5"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -256,7 +268,7 @@
       </div>
 
       <!-- Quick Metrics Pill -->
-      <div class="hidden md:flex items-center space-x-6 text-xs bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 px-4 py-2 rounded-full">
+      <div class="hidden xl:flex items-center space-x-5 text-xs bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3.5 py-1.5 rounded-full flex-shrink-0">
         <div class="flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
           <span class="text-slate-500 dark:text-slate-400">Toplam:</span>
@@ -328,42 +340,37 @@
   <main class="container mx-auto px-4 sm:px-6 py-8 flex-1 max-w-7xl">
 
     <!-- Search Engine Card -->
-    <div class="glass-card rounded-3xl p-6 sm:p-8 mb-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative overflow-hidden">
+    <div class="glass-card rounded-2xl p-5 sm:p-6 mb-6 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
 <!-- Clean background without AI gradient blur blobs -->
 
-      <div class="max-w-3xl mb-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 border border-brand-500/20 text-brand-400 mb-3">
-          <i data-lucide="radar" class="w-3.5 h-3.5 animate-pulse"></i>
-          <span>Sıfır Maliyetli Google Maps & Web Derin Tarayıcı</span>
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-5 pb-5 border-b border-slate-200/80 dark:border-slate-800/80">
+        <div>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-brand-500/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 mb-1">
+            <i data-lucide="crosshair" class="w-3 h-3"></i>
+            <span>B2B Satış Fırsatı & Harita Motoru</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+            Ne Satıyorsunuz? Müşterilerinizi Anında Bulun
+          </h1>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Hedef sektörünüzü seçin; Google Haritalar dizininden gerçek işletmeleri ve iletişim kanallarını anında keşfedin.
+          </p>
         </div>
-        <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-          Ne Satıyorsunuz? Yeni Müşterilerinizi Anında Bulun
-        </h1>
-        <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">
-          Yazılım, saç boyası, sanayi tipi buharlı ütü veya özel ürününüzü seçin; gerçek hedef işletmeleri bulun ve 1-tıkla kişiselleştirilmiş WhatsApp/E-Posta teklifleriyle iletişime geçin.
-        </p>
+        <span id="activeCampaignBadge" class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl bg-brand-600/10 text-brand-600 dark:text-brand-300 border border-brand-500/20 self-start md:self-auto flex-shrink-0">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-brand-500"></i>
+          <span id="activeCampaignBadgeText">Yazılım & Web Satışı</span>
+        </span>
       </div>
 
       <form id="searchForm" onsubmit="handleSearch(event)" class="space-y-4">
-        <!-- KAMPANYA & SATIŞ AMACI (NE SATIYORSUNUZ?) -->
-        <div class="p-4 rounded-2xl bg-slate-100/90 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/90 shadow-sm">
-          <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
-            <div class="flex items-center gap-2">
-              <span class="p-1.5 rounded-lg bg-brand-500/10 text-brand-500 dark:text-brand-400 border border-brand-500/20">
-                <i data-lucide="target" class="w-4 h-4"></i>
-              </span>
-              <div>
-                <span class="text-xs font-black text-slate-900 dark:text-white uppercase tracking-wider block">
-                  Kampanya & Satış Amacı • Ne Satıyorsunuz?
-                </span>
-                <span class="text-[11px] text-slate-500 dark:text-slate-400">
-                  Ürününüzü seçin; hedef sektörü ve hazır satış teklifi kancalarını otomatik uyarlayalım.
-                </span>
-              </div>
-            </div>
-            <span id="activeCampaignBadge" class="inline-flex items-center gap-1.5 text-[11px] font-extrabold px-3 py-1 rounded-full bg-brand-600/15 text-brand-500 dark:text-brand-400 border border-brand-500/30">
-              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
-              <span id="activeCampaignBadgeText">Yazılım & Web Satışı</span>
+        <!-- KAMPANYA SEÇİMİ -->
+        <div class="p-3.5 rounded-xl bg-slate-100/80 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800/80">
+          <div class="flex items-center gap-2 mb-2.5">
+            <span class="p-1 rounded-md bg-brand-500/10 text-brand-500 dark:text-brand-400">
+              <i data-lucide="target" class="w-3.5 h-3.5"></i>
+            </span>
+            <span class="text-xs font-bold text-slate-900 dark:text-white">
+              Kampanya & Satış Amacı
             </span>
           </div>
 
@@ -545,43 +552,34 @@
       </div>
     </div>
 
-    <!-- View Mode Selector, Search Filter & Sorting Controls -->
-    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
-      <!-- Tabs (Table vs Kanban) -->
-      <div class="inline-flex p-1 bg-slate-100 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
-        <button id="tabTableBtn" onclick="switchView('table')" class="touch-target flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold transition-all bg-brand-600 text-white shadow-md">
-          <i data-lucide="table" class="w-4 h-4"></i>
-          <span>Müşteri Tablosu</span>
-        </button>
-        <button id="tabKanbanBtn" onclick="switchView('kanban')" class="touch-target flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-extrabold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">
-          <i data-lucide="kanban" class="w-4 h-4"></i>
-          <span>Satış Pipeline CRM</span>
-          <span id="kanbanCountBadge" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] px-2 py-0.5 rounded-full ml-1 font-black">0</span>
-        </button>
-      </div>
-
-      <!-- Quick Outreach Queue Trigger Button -->
-      <button onclick="openOutreachQueue()" id="btnTableOutreachQueue" class="touch-target flex items-center gap-2 px-4 py-2 rounded-2xl text-xs font-black transition-all bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm active:scale-95" title="Taranan Müşterilere 1-Tıkla Sıralı WhatsApp Satış Akışı Başlat">
-        <i data-lucide="zap" class="w-4 h-4 text-amber-300"></i>
-        <span>Hızlı Satış Sırası</span>
-      </button>
-
-      <!-- Live Filters & Column Sort Bar -->
-      <div class="flex items-center gap-3 flex-wrap">
-        <!-- Live in-table search filter -->
-        <div class="relative flex-1 sm:flex-initial">
-          <input type="text" id="tableSearchFilter" oninput="applyFilters()" placeholder="Sonuçlarda anlık ara..." 
-            class="touch-target w-full sm:w-64 bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 transition-all">
-          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-slate-500"></i>
-          <button type="button" id="clearSearchFilterBtn" onclick="clearSearchFilter()" class="hidden absolute right-2.5 top-2.5 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">
-            <i data-lucide="x" class="w-4 h-4"></i>
+    <!-- View Mode Selector, Search Filter & Toolbar -->
+    <div class="space-y-3 mb-5">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <!-- View Switcher Tabs -->
+        <div class="inline-flex p-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl self-start">
+          <button id="tabTableBtn" onclick="switchView('table')" class="touch-target flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all bg-brand-600 text-white shadow-sm">
+            <i data-lucide="table" class="w-3.5 h-3.5"></i>
+            <span>Müşteri Tablosu</span>
+          </button>
+          <button id="tabKanbanBtn" onclick="switchView('kanban')" class="touch-target flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all">
+            <i data-lucide="kanban" class="w-3.5 h-3.5"></i>
+            <span>Pipeline CRM</span>
+            <span id="kanbanCountBadge" class="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-[10px] px-1.5 py-0.2 rounded-full font-bold ml-1">0</span>
           </button>
         </div>
 
-        <!-- Sort Dropdown -->
-        <div class="flex items-center gap-1.5">
-          <label for="sortBySelect" class="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline font-bold">Sırala:</label>
-          <select id="sortBySelect" onchange="applyFilters()" class="touch-target bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500 font-semibold">
+        <!-- Right Controls: In-table Search + Sort + Queue Button -->
+        <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+          <div class="relative flex-1 sm:w-60 min-w-0">
+            <input type="text" id="tableSearchFilter" oninput="applyFilters()" placeholder="Sonuçlarda anlık ara..." 
+              class="touch-target w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl pl-8 pr-7 py-1.5 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-500">
+            <i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-400"></i>
+            <button type="button" id="clearSearchFilterBtn" onclick="clearSearchFilter()" class="hidden absolute right-2 top-2 text-slate-400 hover:text-slate-200">
+              <i data-lucide="x" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <select id="sortBySelect" onchange="applyFilters()" class="touch-target bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 rounded-xl px-2.5 py-1.5 focus:outline-none focus:border-brand-500 font-medium">
             <option value="score_desc">Fırsat Skoru (Yüksekten Düşüğe)</option>
             <option value="score_asc">Fırsat Skoru (Düşükten Yükseğe)</option>
             <option value="rating_desc">Google Puanı (En Yüksek)</option>
@@ -591,82 +589,59 @@
             <option value="name_desc">İşletme Adı (Z - A)</option>
           </select>
 
-          <!-- Interactive Sort Quick Toggles (Pro UX) -->
-          <div class="flex items-center gap-1" id="sortToggleGroup">
-            <button type="button" onclick="toggleSort('score')" id="btnSort_score" title="Fırsat Skoruna Göre Sırala"
-              class="sort-toggle-btn touch-target px-2.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 bg-brand-600/15 text-brand-700 dark:text-brand-300 border border-brand-500/30 active:scale-95 shadow-sm">
-              <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-500"></i>
-              <span>Skor</span>
-            </button>
-            <button type="button" onclick="toggleSort('rating')" id="btnSort_rating" title="Google Puanına Göre Sırala"
-              class="sort-toggle-btn touch-target px-2.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 active:scale-95 shadow-sm">
-              <i data-lucide="star" class="w-3.5 h-3.5 text-amber-400"></i>
-              <span>Puan</span>
-            </button>
-            <button type="button" onclick="toggleSort('name')" id="btnSort_name" title="İşletme Adına Göre Sırala"
-              class="sort-toggle-btn touch-target px-2.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 active:scale-95 shadow-sm">
-              <i data-lucide="arrow-down-a-z" class="w-3.5 h-3.5 text-slate-500"></i>
-              <span>İsim</span>
-            </button>
-          </div>
-        </div>
+          <!-- Hidden legacy opportunity filter to keep any scripts fully functional -->
+          <select id="opportunityFilter" onchange="applyFilters()" class="hidden">
+            <option value="all">Tüm Satış Fırsatları</option>
+          </select>
 
-        <!-- Opportunity Filter -->
-        <select id="opportunityFilter" onchange="applyFilters()" class="touch-target bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500 font-semibold">
-          <option value="all">Tüm Satış Fırsatları</option>
-          <option value="high">Yüksek Fırsat (70+ Puan)</option>
-          <option value="missing_website">Web Sitesi Olmayanlar</option>
-          <option value="no_ssl">Güvensiz SSL Olanlar</option>
-          <option value="low_rating">Düşük Google Puanlılar</option>
-        </select>
+          <button onclick="openOutreachQueue()" id="btnTableOutreachQueue" class="touch-target flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm active:scale-95 whitespace-nowrap flex-shrink-0" title="Taranan Müşterilere 1-Tıkla Sıralı WhatsApp Satış Akışı Başlat">
+            <i data-lucide="zap" class="w-3.5 h-3.5 text-white"></i>
+            <span>Hızlı Satış Sırası</span>
+          </button>
+        </div>
       </div>
-    </div>
 
-    <!-- Laser-Targeting Filter Pills with Smooth Horizontal Scroll -->
-    <div class="relative mb-6">
-      <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2">
-        <span class="text-[11px] font-bold text-slate-600 dark:text-slate-400 whitespace-nowrap flex items-center gap-1.5 mr-1">
-          <i data-lucide="filter" class="w-3.5 h-3.5 text-brand-400"></i> Hızlı Filtrele:
-        </span>
-        <button onclick="setFilterPill('all')" id="pill_all" class="filter-pill active touch-target px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all bg-brand-600 text-white shadow-md flex items-center gap-1.5">
-          <span>Tümü</span>
-          <span id="pillCount_all" class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-black">0</span>
-        </button>
-        <button onclick="setFilterPill('has_email')" id="pill_has_email" class="filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1.5">
-          <i data-lucide="mail" class="w-3.5 h-3.5 text-brand-400"></i>
-          <span>Sadece E-postası Olanlar</span>
-          <span id="pillCount_has_email" class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-1.5 py-0.2 rounded-full font-black">0</span>
-        </button>
-        <button onclick="setFilterPill('has_whatsapp')" id="pill_has_whatsapp" class="filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1.5">
-          <i data-lucide="message-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
-          <span>Sadece WhatsApp Olanlar</span>
-          <span id="pillCount_has_whatsapp" class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-1.5 py-0.2 rounded-full font-black">0</span>
-        </button>
-        <button onclick="setFilterPill('high_score')" id="pill_high_score" class="filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1.5">
-          <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
-          <span>Yüksek Fırsat Skoru (70+)</span>
-          <span id="pillCount_high_score" class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-1.5 py-0.2 rounded-full font-black">0</span>
-        </button>
-        <button onclick="setFilterPill('no_website')" id="pill_no_website" class="filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1.5">
-          <i data-lucide="globe" class="w-3.5 h-3.5 text-rose-400"></i>
-          <span>Web Sitesi Olmayanlar</span>
-          <span id="pillCount_no_website" class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-1.5 py-0.2 rounded-full font-black">0</span>
-        </button>
-        <button onclick="setFilterPill('no_ssl')" id="pill_no_ssl" class="filter-pill touch-target px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1.5">
-          <i data-lucide="shield-alert" class="w-3.5 h-3.5 text-rose-400"></i>
-          <span>SSL Açığı Olanlar</span>
-          <span id="pillCount_no_ssl" class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-1.5 py-0.2 rounded-full font-black">0</span>
-        </button>
-
-        <span id="filterMatchCount" class="ml-auto text-[11px] font-bold text-slate-500 dark:text-slate-400 whitespace-nowrap hidden sm:inline"></span>
+      <!-- Filter Pills Row -->
+      <div class="flex items-center justify-between gap-2 overflow-x-auto custom-scrollbar pb-1">
+        <div class="flex items-center gap-1.5 flex-nowrap">
+          <button onclick="setFilterPill('all')" id="pill_all" class="filter-pill active touch-target px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all bg-brand-600 text-white shadow-sm flex items-center gap-1">
+            <span>Tümü</span>
+            <span id="pillCount_all" class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-semibold">0</span>
+          </button>
+          <button onclick="setFilterPill('has_email')" id="pill_has_email" class="filter-pill touch-target px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1">
+            <i data-lucide="mail" class="w-3 h-3 text-brand-400"></i>
+            <span>E-posta Olanlar</span>
+            <span id="pillCount_has_email" class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-500 px-1.5 py-0.2 rounded-full font-semibold">0</span>
+          </button>
+          <button onclick="setFilterPill('has_whatsapp')" id="pill_has_whatsapp" class="filter-pill touch-target px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1">
+            <i data-lucide="message-circle" class="w-3 h-3 text-emerald-400"></i>
+            <span>WhatsApp Olanlar</span>
+            <span id="pillCount_has_whatsapp" class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-500 px-1.5 py-0.2 rounded-full font-semibold">0</span>
+          </button>
+          <button onclick="setFilterPill('high_score')" id="pill_high_score" class="filter-pill touch-target px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1">
+            <i data-lucide="zap" class="w-3 h-3 text-amber-400"></i>
+            <span>Yüksek Fırsat (70+)</span>
+            <span id="pillCount_high_score" class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-500 px-1.5 py-0.2 rounded-full font-semibold">0</span>
+          </button>
+          <button onclick="setFilterPill('no_website')" id="pill_no_website" class="filter-pill touch-target px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1">
+            <i data-lucide="globe" class="w-3 h-3 text-rose-400"></i>
+            <span>Web Yok</span>
+            <span id="pillCount_no_website" class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-500 px-1.5 py-0.2 rounded-full font-semibold">0</span>
+          </button>
+          <button onclick="setFilterPill('no_ssl')" id="pill_no_ssl" class="filter-pill touch-target px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center gap-1">
+            <i data-lucide="shield-alert" class="w-3 h-3 text-rose-400"></i>
+            <span>SSL Açığı</span>
+            <span id="pillCount_no_ssl" class="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-500 px-1.5 py-0.2 rounded-full font-semibold">0</span>
+          </button>
         </div>
+        <span id="filterMatchCount" class="text-[11px] text-slate-500 whitespace-nowrap flex-shrink-0 hidden md:inline"></span>
       </div>
     </div>
 
     <!-- VIEW 1: DATA TABLE -->
-    <div id="tableView" class="glass-card rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden mb-8">
-      <div class="overflow-x-auto custom-scrollbar">
-        <table class="w-full text-left border-collapse text-xs">
+    <div id="tableView" class="glass-card rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden mb-8">
+      <div class="w-full overflow-x-auto custom-scrollbar">
+        <table class="w-full text-left border-collapse text-xs min-w-[760px]">
           <thead>
             <tr class="border-b border-slate-200 dark:border-slate-800 bg-slate-100/90 dark:bg-slate-900/90 text-slate-600 dark:text-slate-400 font-extrabold tracking-wider uppercase text-[11px] select-none">
               <th onclick="toggleSort('name')" class="py-4 px-4 cursor-pointer hover:text-slate-900 dark:hover:text-white transition-colors" title="İşletme Adına göre sırala">
@@ -2187,22 +2162,22 @@
 
         // Contact badges
         const emailsHtml = (l.emails && l.emails.length > 0) 
-          ? `<div class="inline-flex items-center gap-1.5 text-[11px] text-brand-600 dark:text-brand-300 font-mono"><i data-lucide="mail" class="w-3 h-3"></i> <span class="truncate max-w-[170px]">${l.emails[0]}</span></div>`
-          : `<div class="text-[11px] text-slate-500">E-posta yok</div>`;
+          ? `<div class="inline-flex items-center gap-1.5 text-[11px] text-brand-600 dark:text-brand-300 font-mono truncate max-w-[160px]" title="${escapeHtml(l.emails[0])}"><i data-lucide="mail" class="w-3 h-3 flex-shrink-0"></i> <span class="truncate">${escapeHtml(l.emails[0])}</span></div>`
+          : `<div class="text-[11px] text-slate-400">E-posta yok</div>`;
 
         const phoneHtml = l.phone 
-          ? `<div class="inline-flex items-center gap-1.5 text-[11px] text-slate-800 dark:text-slate-200 font-mono"><i data-lucide="phone" class="w-3 h-3 text-slate-400"></i> ${l.phone}</div>`
-          : `<div class="text-[11px] text-slate-500">Telefon yok</div>`;
+          ? `<div class="inline-flex items-center gap-1.5 text-[11px] text-slate-800 dark:text-slate-200 font-mono truncate max-w-[150px]" title="${escapeHtml(l.phone)}"><i data-lucide="phone" class="w-3 h-3 text-slate-400 flex-shrink-0"></i> <span>${escapeHtml(l.phone)}</span></div>`
+          : `<div class="text-[11px] text-slate-400">Telefon yok</div>`;
 
         // Web status
-        let webHtml = `<span class="text-[11px] text-rose-400 font-semibold flex items-center gap-1"><i data-lucide="x-circle" class="w-3 h-3"></i> Web Yok</span>`;
+        let webHtml = `<span class="text-[11px] text-rose-400 font-semibold flex items-center gap-1"><i data-lucide="x-circle" class="w-3 h-3 flex-shrink-0"></i> Web Yok</span>`;
         if (l.has_website) {
           const sslBadge = l.has_ssl 
             ? `<span class="text-[10px] text-emerald-400 font-bold">HTTPS</span>` 
             : `<span class="text-[10px] text-amber-400 font-bold">SSL Yok</span>`;
           webHtml = `
-            <div>
-              <a href="${l.website}" target="_blank" class="text-[11px] text-blue-400 hover:underline truncate max-w-[140px] block font-mono font-semibold">${l.website.replace('https://','').replace('http://','')}</a>
+            <div class="truncate max-w-[150px]">
+              <a href="${l.website}" target="_blank" class="text-[11px] text-blue-400 hover:underline truncate block font-mono font-semibold" title="${escapeHtml(l.website)}">${escapeHtml(l.website.replace('https://','').replace('http://',''))}</a>
               ${sslBadge}
             </div>
           `;
@@ -2212,28 +2187,28 @@
         const primaryGapTitle = (l.gaps && l.gaps.length > 0) ? l.gaps[0].title : "Genel Büyüme";
 
         tr.innerHTML = `
-          <td class="py-3.5 px-4">
-            <div class="font-bold text-slate-900 dark:text-slate-100 text-xs truncate max-w-[220px]" title="${escapeHtml(l.name)}">${escapeHtml(l.name)}</div>
-            <div class="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5">
-              <span>${escapeHtml(l.category)}</span> • <span>${escapeHtml(l.city)}</span>
-              ${l.rating ? `<span class="text-amber-400 ml-1 font-bold inline-flex items-center gap-0.5"><i data-lucide="star" class="w-2.5 h-2.5 fill-amber-400"></i> ${l.rating} (${l.review_count})</span>` : ''}
+          <td class="py-3 px-4 min-w-0">
+            <div class="font-bold text-slate-900 dark:text-slate-100 text-xs truncate max-w-[190px] sm:max-w-[240px]" title="${escapeHtml(l.name)}">${escapeHtml(l.name)}</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5 truncate max-w-[240px]">
+              <span class="truncate">${escapeHtml(l.category)}</span> • <span>${escapeHtml(l.city)}</span>
+              ${l.rating ? `<span class="text-amber-400 ml-1 font-bold inline-flex items-center gap-0.5 flex-shrink-0"><i data-lucide="star" class="w-2.5 h-2.5 fill-amber-400"></i> ${l.rating}</span>` : ''}
             </div>
           </td>
-          <td class="py-3.5 px-4">
+          <td class="py-3 px-4 min-w-0">
             <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-extrabold border ${scoreBg}">
-              <i data-lucide="zap" class="w-3 h-3"></i> ${l.opportunity_score}/100
+              <i data-lucide="zap" class="w-3 h-3 flex-shrink-0"></i> ${l.opportunity_score}/100
             </div>
-            <div class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 max-w-[160px] truncate" title="${primaryGapTitle}">${primaryGapTitle}</div>
+            <div class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 max-w-[140px] truncate" title="${escapeHtml(primaryGapTitle)}">${escapeHtml(primaryGapTitle)}</div>
           </td>
-          <td class="py-3.5 px-4 space-y-1">
+          <td class="py-3 px-4 min-w-0 space-y-1">
             ${phoneHtml}
             ${emailsHtml}
           </td>
-          <td class="py-3.5 px-4">
+          <td class="py-3 px-4 min-w-0">
             ${webHtml}
           </td>
-          <td class="py-3.5 px-4">
-            <select onchange="updateLeadStage(${l.id}, this.value)" class="touch-target bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-[11px] text-slate-800 dark:text-slate-300 rounded-xl px-2.5 py-1.5 font-bold focus:outline-none">
+          <td class="py-3 px-4 min-w-0">
+            <select onchange="updateLeadStage(${l.id}, this.value)" class="touch-target bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-[11px] text-slate-800 dark:text-slate-300 rounded-lg px-2 py-1.5 font-bold focus:outline-none max-w-[130px]">
               <option value="NEW" ${l.crm_stage === 'NEW' ? 'selected' : ''}>Yeni Bulunan</option>
               <option value="ENRICHED" ${l.crm_stage === 'ENRICHED' ? 'selected' : ''}>İncelendi</option>
               <option value="CONTACTED" ${l.crm_stage === 'CONTACTED' ? 'selected' : ''}>İletişim Kuruldu</option>
@@ -2242,27 +2217,28 @@
               <option value="LOST" ${l.crm_stage === 'LOST' ? 'selected' : ''}>Olumsuz</option>
             </select>
           </td>
-          <td class="py-3.5 px-4 text-right">
-            <div class="flex items-center justify-end gap-1.5 flex-wrap sm:flex-nowrap">
+          <td class="py-3 px-4 text-right whitespace-nowrap min-w-0">
+            <div class="inline-flex items-center justify-end gap-1 flex-nowrap">
               ${(l.whatsapp || isMobileNumber(l.phone)) ? `
-                <button onclick="quickWhatsAppOutreach(${l.id})" class="touch-target px-2.5 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/30 text-[11px] font-bold transition flex items-center gap-1 shadow-sm active:scale-95" title="1-Tıkla Hazır Teklif ile WhatsApp Aç & İletişim Kuruldu Yap">
+                <button onclick="quickWhatsAppOutreach(${l.id})" class="touch-target px-2 py-1 rounded-lg bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-400 border border-emerald-500/25 text-[11px] font-bold transition inline-flex items-center gap-1 active:scale-95 whitespace-nowrap" title="1-Tıkla WhatsApp Aç & İletişim Kuruldu Yap">
                   <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-                  <span class="hidden md:inline">WhatsApp</span>
+                  <span class="hidden xl:inline">WhatsApp</span>
                 </button>
               ` : ''}
               ${(l.emails && l.emails.length > 0) ? `
-                <button onclick="quickEmailOutreach(${l.id})" class="touch-target px-2.5 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 text-[11px] font-bold transition flex items-center gap-1 shadow-sm active:scale-95" title="1-Tıkla Hazır Teklif ile E-Posta Aç & İletişim Kuruldu Yap">
+                <button onclick="quickEmailOutreach(${l.id})" class="touch-target px-2 py-1 rounded-lg bg-indigo-600/15 hover:bg-indigo-600/25 text-indigo-400 border border-indigo-500/25 text-[11px] font-bold transition inline-flex items-center gap-1 active:scale-95 whitespace-nowrap" title="1-Tıkla E-Posta Aç & İletişim Kuruldu Yap">
                   <i data-lucide="mail" class="w-3.5 h-3.5"></i>
-                  <span class="hidden md:inline">E-Posta</span>
+                  <span class="hidden xl:inline">E-Posta</span>
                 </button>
               ` : ''}
               ${l.phone ? `
-                <a href="tel:${l.phone.replace(/\s+/g, '')}" onclick="markLeadContactedDirect(${l.id})" class="touch-target p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-white border border-slate-300 dark:border-slate-700 transition flex items-center justify-center active:scale-95" title="Hemen Ara">
+                <a href="tel:${l.phone.replace(/\s+/g, '')}" onclick="markLeadContactedDirect(${l.id})" class="touch-target p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 transition inline-flex items-center justify-center active:scale-95" title="Hemen Ara">
                   <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
                 </a>
               ` : ''}
-              <button onclick="openLeadModal(${l.id})" class="touch-target px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-extrabold transition flex items-center gap-1.5 shadow-md shadow-brand-500/20 active:scale-95" title="Kapsamlı Denetim Raporu & Pitch Stüdyosu">
-                <i data-lucide="wand-2" class="w-3.5 h-3.5"></i> Detay & Pitch
+              <button onclick="openLeadModal(${l.id})" class="touch-target px-2.5 py-1 rounded-lg bg-brand-600 hover:bg-brand-500 text-white text-[11px] font-bold transition inline-flex items-center gap-1 shadow-sm active:scale-95 whitespace-nowrap" title="Kapsamlı Denetim Raporu & Pitch Stüdyosu">
+                <i data-lucide="wand-2" class="w-3.5 h-3.5"></i>
+                <span>Detay</span>
               </button>
             </div>
           </td>

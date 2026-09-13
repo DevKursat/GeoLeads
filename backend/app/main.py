@@ -247,7 +247,7 @@ class GeoLeadsRequestHandler(BaseHTTPRequestHandler):
                     roi_metrics=roi_metrics
                 )
                 if not has_full_access:
-                    pitch["content"] += "\n\n[⭐ GeoLeads Topluluk Önizlemesi - Sınırsız AI ve Otomatik CRM için GitHub'da Yıldız Verin]"
+                    pitch["content"] += "\n\n[ GeoLeads Topluluk Önizlemesi - Sınırsız AI ve Otomatik CRM için GitHub'da Yıldız Verin]"
 
                 self._send_json(200, {
                     "success": True,
@@ -495,7 +495,7 @@ def create_fastapi_app():
             roi_metrics=payload.get("roi_metrics")
         )
         if not has_full_access:
-            pitch["content"] += "\n\n[⭐ GeoLeads Topluluk Önizlemesi - Sınırsız AI ve Otomatik CRM için GitHub'da Yıldız Verin]"
+            pitch["content"] += "\n\n[ GeoLeads Topluluk Önizlemesi - Sınırsız AI ve Otomatik CRM için GitHub'da Yıldız Verin]"
         return {"success": True, "is_pro": has_full_access, "star_gate_required": not has_full_access, "data": pitch}
 
     @fastapi_app.get("/api/export/csv")

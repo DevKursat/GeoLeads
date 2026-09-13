@@ -116,7 +116,7 @@ def launch_native_app_window(url: str, title: str = "GeoLeads Pro"):
 
 def main():
     print("=" * 60)
-    print("      🎯 GeoLeads Pro - Masaüstü Uygulaması Başlatıcı      ")
+    print("       GeoLeads Pro - Masaüstü Uygulaması Başlatıcı      ")
     print("=" * 60)
 
     port = find_available_port(8000)
@@ -130,13 +130,13 @@ def main():
     if not wait_for_server(port, timeout=10.0):
         print("[!] Sunucu zamanında yanıt vermedi, yine de pencere açılıyor...")
 
-    print(f"[✓] GeoLeads hazır: {url}")
+    print(f"[] GeoLeads hazır: {url}")
     print("[*] Masaüstü arayüzü açılıyor...")
 
     try:
         launch_native_app_window(url, title="GeoLeads Pro - B2B Müşteri Bulma & Satış Motoru")
     except KeyboardInterrupt:
-        print("\n[✓] GeoLeads Masaüstü kapatıldı.")
+        print("\n[] GeoLeads Masaüstü kapatıldı.")
     except Exception as e:
         print(f"[!] Hata: {e}")
 

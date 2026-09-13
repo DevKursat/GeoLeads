@@ -86,7 +86,7 @@ class PitchGenerator:
         biz_name = lead.name or "İşletme Yetkilisi"
         city = lead.city or "bölgenizdeki"
         category = lead.category or "sektör"
-        rating_str = f"{lead.rating}★ ({lead.review_count} yorum)" if lead.rating else "yeni profil"
+        rating_str = f"{lead.rating} ({lead.review_count} yorum)" if lead.rating else "yeni profil"
         tone_lower = (tone or "consultative").lower()
         p_type = (product_pitch_type or "general").strip().lower()
 
@@ -163,7 +163,7 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"{biz_name} için İş Birliği & Çözüm Fikri"
                         message = (
-                            f"Selamlar {biz_name} ekibi! 👋\n\n"
+                            f"Selamlar {biz_name} ekibi! \n\n"
                             f"Ben {sender}, {agency}'ndan yazıyorum. {city} bölgesinde {category} profilinize rastladım ve işlerinizi çok beğendim.\n\n"
                             f"Küçük ama çok etkili bir çözüm fark ettik: {hook_data['hook']}\n\n"
                             f"Bunu sizin için çok kolay çözebiliriz: {hook_data['solution']}\n\n"
@@ -176,7 +176,7 @@ class PitchGenerator:
                             f"Merhaba {biz_name} Ekibi,\n\n"
                             f"Umarım haftanız harika geçiyordur! Ben {sender}, {agency}'ndan ulaşıyorum.\n\n"
                             f"{city} bölgesinde {category} araştırması yaparken başarılı profilinizi inceledim. Sizin için işletmenize değer katacak pratik bir fırsat gördük:\n\n"
-                            f"💡 Tespitimiz: {hook_data['hook']}\n\n"
+                            f" Tespitimiz: {hook_data['hook']}\n\n"
                             f"Çözüm önerimiz: {hook_data['solution']}\n\n"
                             f"{hook_data['cta']}\n\n"
                             f"Müsait olduğunuzda kısa bir dönüş yaparsanız detayları hemen paylaşmaktan mutluluk duyarım.\n\n"
@@ -188,11 +188,11 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"ACİL: {biz_name} Yerel Müşteri Kaybı Uyarısı"
                         message = (
-                            f"{biz_name} Yetkilisine Önemli Not ⚠️\n\n"
+                            f"{biz_name} Yetkilisine Önemli Not \n\n"
                             f"Ben {sender}, {agency}'ndan ulaşıyorum. {city} bölgesinde {category} aramalarında rakiplerinizin öne geçmesine sebep olan kritik bir kayıp noktası var:\n\n"
-                            f"🚨 Kritik Açık: {hook_data['hook']}\n\n"
+                            f" Kritik Açık: {hook_data['hook']}\n\n"
                             f"Hemen harekete geçilmezse bölgenizdeki potansiyel müşteri kaybı katlanarak sürecek.\n\n"
-                            f"⚡ Hızlı Çözümümüz: {hook_data['solution']}\n\n"
+                            f" Hızlı Çözümümüz: {hook_data['solution']}\n\n"
                             f"{hook_data['cta']}\n\n"
                             f"{sender} | {agency}"
                         )
@@ -201,9 +201,9 @@ class PitchGenerator:
                         message = (
                             f"Sayın {biz_name} Yetkilisi,\n\n"
                             f"Ben {sender}, {agency} kurucusuyum. {city} bölgesindeki {category} pazarını analiz ederken işletmenizin doğrudan müşteri kaybettiği somut bir açık tespit ettik:\n\n"
-                            f"⚠️ Kritik Teşhis: {hook_data['hook']}\n\n"
+                            f" Kritik Teşhis: {hook_data['hook']}\n\n"
                             f"Bu açık yüzünden her ay onlarca yerel müşteri doğrudan rakip firmalara kaptırılıyor. Zaman kaybetmeden müdahale edilmesi kritik önem taşıyor.\n\n"
-                            f"🎯 24 Saatte Çözüm: {hook_data['solution']}\n\n"
+                            f" 24 Saatte Çözüm: {hook_data['solution']}\n\n"
                             f"{hook_data['cta']}\n\n"
                             f"Cevabınızı bekliyorum.\n\n"
                             f"{sender}\n"
@@ -214,8 +214,8 @@ class PitchGenerator:
                         message = (
                             f"Merhaba {biz_name} yetkilisi,\n\n"
                             f"Ben {sender}, {agency}'ndan ulaşıyorum. {city} bölgesinde {category} araması yaparken profilinizi inceledim.\n\n"
-                            f"💡 Önemli bir fırsat fark ettim: {hook_data['hook']}\n\n"
-                            f"🎯 Sunduğumuz çözüm: {hook_data['solution']}\n\n"
+                            f" Önemli bir fırsat fark ettim: {hook_data['hook']}\n\n"
+                            f" Sunduğumuz çözüm: {hook_data['solution']}\n\n"
                             f"{hook_data['cta']}\n\n"
                             f"İyi çalışmalar dilerim!"
                         )
@@ -227,7 +227,7 @@ class PitchGenerator:
                             f"Ben {sender}, {agency} kurucusuyum.\n\n"
                             f"{city} bölgesinde {category} hizmetleri arayan potansiyel müşterilerin davranışlarını incelerken profilinize rastladık. "
                             f"Mevcut durumunuzu incelediğimizde dikkat çeken bir nokta oldu:\n\n"
-                            f"📌 Tespit: {hook_data['hook']}\n\n"
+                            f" Tespit: {hook_data['hook']}\n\n"
                             f"Bu durum her ay bölgenizden gelebilecek onlarca yeni müşterinin rakiplere yönelmesine yol açıyor.\n\n"
                             f"Biz bu sorunu şu şekilde çözüyoruz: {hook_data['solution']}\n\n"
                             f"{hook_data['cta']}\n\n"
@@ -240,10 +240,10 @@ class PitchGenerator:
                 if tone_lower in ("friendly", "samimi"):
                     if channel == "whatsapp":
                         message = (
-                            f"Hey {biz_name} team! 👋\n\n"
+                            f"Hey {biz_name} team! \n\n"
                             f"This is {sender} from {agency}. I came across your place while searching for great {category} spots in {city}.\n\n"
-                            f"💡 Quick helpful observation: {hook_data['hook']}\n\n"
-                            f"🎯 We can get this sorted for you super fast: {hook_data['solution']}\n\n"
+                            f" Quick helpful observation: {hook_data['hook']}\n\n"
+                            f" We can get this sorted for you super fast: {hook_data['solution']}\n\n"
                             f"Would you be open to checking out a quick preview we put together?\n\n"
                             f"Cheers,\n{sender}"
                         )
@@ -254,7 +254,7 @@ class PitchGenerator:
                             f"Hi {biz_name} Team,\n\n"
                             f"Hope your week is off to a great start! I'm {sender} from {agency}.\n\n"
                             f"While researching top {category} businesses in {city}, I noticed an opportunity that could immediately boost your bookings:\n\n"
-                            f"💡 Observation: {hook_data['hook']}\n\n"
+                            f" Observation: {hook_data['hook']}\n\n"
                             f"How we help: {hook_data['solution']}\n\n"
                             f"Would you like me to send over a 2-minute overview?\n\n"
                             f"Best regards,\n{sender}\n{agency}"
@@ -262,10 +262,10 @@ class PitchGenerator:
                 elif tone_lower in ("urgency", "direct", "aciliyet"):
                     if channel == "whatsapp":
                         message = (
-                            f"Urgent note for {biz_name} team ⚠️\n\n"
+                            f"Urgent note for {biz_name} team \n\n"
                             f"This is {sender} from {agency}. You are currently losing {city} {category} inquiries to local competitors due to one critical bottleneck:\n\n"
-                            f"🚨 Issue: {hook_data['hook']}\n\n"
-                            f"⚡ Immediate fix: {hook_data['solution']}\n\n"
+                            f" Issue: {hook_data['hook']}\n\n"
+                            f" Immediate fix: {hook_data['solution']}\n\n"
                             f"Can I share the 2-minute fix before your competitors widen the lead?\n\n"
                             f"{sender} | {agency}"
                         )
@@ -275,9 +275,9 @@ class PitchGenerator:
                         message = (
                             f"Attention: {biz_name} Leadership,\n\n"
                             f"This is {sender} from {agency}. While auditing {category} providers in {city}, we uncovered a critical conversion bottleneck:\n\n"
-                            f"⚠️ Bottleneck: {hook_data['hook']}\n\n"
+                            f" Bottleneck: {hook_data['hook']}\n\n"
                             f"Every week this remains unaddressed, potential clients choose competing businesses in {city}.\n\n"
-                            f"🎯 Turnaround Plan: {hook_data['solution']}\n\n"
+                            f" Turnaround Plan: {hook_data['solution']}\n\n"
                             f"Reply 'YES' to receive the implementation steps today.\n\n"
                             f"Regards,\n{sender}\n{agency}"
                         )
@@ -286,8 +286,8 @@ class PitchGenerator:
                         message = (
                             f"Hi {biz_name} team,\n\n"
                             f"This is {sender} from {agency}. I noticed your business while analyzing top {category} places in {city}.\n\n"
-                            f"💡 Quick observation: We noticed a key opportunity to increase your inbound leads ({hook_data['hook']}).\n\n"
-                            f"🎯 We can solve this: {hook_data['solution']}\n\n"
+                            f" Quick observation: We noticed a key opportunity to increase your inbound leads ({hook_data['hook']}).\n\n"
+                            f" We can solve this: {hook_data['solution']}\n\n"
                             f"Would you be open to seeing a quick 2-minute mockup we built for you?\n\n"
                             f"Best regards,\n{sender}"
                         )
@@ -298,7 +298,7 @@ class PitchGenerator:
                             f"Hi {biz_name} Team,\n\n"
                             f"I came across your profile while reviewing {category} providers in {city}.\n\n"
                             f"While your location and reputation look strong ({rating_str}), there is a clear bottleneck costing you new inquiries each week:\n\n"
-                            f"🔍 Key Finding: {hook_data['hook']}\n\n"
+                            f" Key Finding: {hook_data['hook']}\n\n"
                             f"Solution: {hook_data['solution']}\n\n"
                             f"Would you like me to send over a quick 2-minute overview video on how to implement this?\n\n"
                             f"Best,\n"
@@ -325,11 +325,11 @@ class PitchGenerator:
                 if lang == "tr":
                     pb_str = f"tahmini {payback} günde" if payback else "kısa sürede"
                     pct_str = f" ve %{roi_pct} net getiri" if roi_pct else ""
-                    roi_text = f"\n\n📊 Finansal ROI Analizi: Ortalama {deal_val} tutarındaki bu yatırım, işletmenize sağlayacağı ciro ve verimlilik artışıyla {pb_str} kendini amorti eder{pct_str} sağlar."
+                    roi_text = f"\n\n Finansal ROI Analizi: Ortalama {deal_val} tutarındaki bu yatırım, işletmenize sağlayacağı ciro ve verimlilik artışıyla {pb_str} kendini amorti eder{pct_str} sağlar."
                 else:
                     pb_str = f"in an estimated {payback} days" if payback else "rapidly"
                     pct_str = f" with an estimated {roi_pct}% ROI" if roi_pct else ""
-                    roi_text = f"\n\n📊 Financial ROI Analysis: An average investment of {deal_val} pays for itself {pb_str}{pct_str} through increased revenue and efficiency."
+                    roi_text = f"\n\n Financial ROI Analysis: An average investment of {deal_val} pays for itself {pb_str}{pct_str} through increased revenue and efficiency."
                 message = message.strip() + roi_text
                 # Recompute whatsapp_url with updated message
                 if lead.whatsapp:
@@ -376,9 +376,9 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"{biz_name} için Profesyonel Saç Boyası & Salon Tedariği"
                         message = (
-                            f"Selamlar {biz_name} ekibi! 👋\n\n"
+                            f"Selamlar {biz_name} ekibi! \n\n"
                             f"Ben {sender}, {agency}'ndan ulaşıyorum. {city} bölgesindeki salonunuzu inceledim ve tarzınızı çok beğendim.\n\n"
-                            f"Kuaför ve güzellik salonlarına doğrudan profesyonel toptan saç boyası, oksidan ve salon sarf malzemeleri tedariği sağlıyoruz. Salonlara özel avantajlı toptan fiyat listemiz ve ilk sipariş öncesi salonunuzda test edebilmeniz için ücretsiz numune / deneme setimiz bulunuyor. 🎨📦\n\n"
+                            f"Kuaför ve güzellik salonlarına doğrudan profesyonel toptan saç boyası, oksidan ve salon sarf malzemeleri tedariği sağlıyoruz. Salonlara özel avantajlı toptan fiyat listemiz ve ilk sipariş öncesi salonunuzda test edebilmeniz için ücretsiz numune / deneme setimiz bulunuyor. \n\n"
                             f"Salon toptan fiyat listemizi ve renk kartelamızı WhatsApp'tan iletmemi ister misiniz?\n\n"
                             f"Görüşmek dileğiyle, bol kazançlar!"
                         )
@@ -400,7 +400,7 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"ACİL: {biz_name} Salon Maliyet Avantajı & Toptan Saç Boyası"
                         message = (
-                            f"{biz_name} Salon Yetkilisine Önemli Not ⚠️\n\n"
+                            f"{biz_name} Salon Yetkilisine Önemli Not \n\n"
                             f"Ben {sender}, {agency}'ndan ulaşıyorum. {city} bölgesinde salonların artan saç boyası ve kozmetik tedarik maliyetlerini doğrudan toptan fabrika fiyatlarıyla %25-35 oranında düşürüyoruz.\n\n"
                             f"Yüksek pigmentli, kalıcı profesyonel saç boyası serimizi salonunuzda test etmeniz için ücretsiz numune kiti gönderiyoruz. Aynı gün kargo ve hızlı sevkiyat sağlıyoruz.\n\n"
                             f"Bugün deneme kitinizi ve kuaför özel toptan iskonto listesini gönderebilir miyim?\n\n"
@@ -411,7 +411,7 @@ class PitchGenerator:
                         message = (
                             f"Sayın {biz_name} Yetkilisi,\n\n"
                             f"Ben {sender}, {agency} kurucusuyum. {city} bölgesindeki kuaför salonlarının en büyük gider kalemi olan saç boyası ve salon sarf malzemelerinde aracısız toptan tedarik modeli sunuyoruz.\n\n"
-                            f"🎯 Salonunuza Kazandırdıklarımız:\n"
+                            f" Salonunuza Kazandırdıklarımız:\n"
                             f"1. Doğrudan toptan fiyatlandırma ile anında %30'a varan maliyet tasarrufu\n"
                             f"2. Ücretsiz tester/numune setiyle sıfır riskli deneme imkanı\n"
                             f"3. Sürekli stok garantisi ve aynı gün teslimat\n\n"
@@ -435,7 +435,7 @@ class PitchGenerator:
                             f"Sayın {biz_name} Yetkilisi,\n\n"
                             f"Ben {sender}, {agency}'ndan ulaşıyorum.\n\n"
                             f"{city} bölgesinde kuaförlük sektöründeki başarılı çalışmalarınızı memnuniyetle takip ediyoruz. Salonunuzun hizmet kalitesini ve karlılığını artıracak profesyonel saç boyası ve salon tedarik çözümlerimizle yanınızdayız.\n\n"
-                            f"📌 Çözüm ve Avantajlarımız:\n"
+                            f" Çözüm ve Avantajlarımız:\n"
                             f"• Kuaför salonlarına özel toptan fiyat avantajı ve esnek koli bazlı sipariş imkanı\n"
                             f"• Üstün beyaz kapatma gücü ve yoğun pigmentli geniş renk serileri\n"
                             f"• Ön deneme için adrese teslim Ücretsiz Numune / Tester Paketi\n"
@@ -449,9 +449,9 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"{biz_name} için Buharlı Ütü & Tesisat Çözümleri"
                         message = (
-                            f"Selamlar {biz_name} atölye ekibi! 👋\n\n"
+                            f"Selamlar {biz_name} atölye ekibi! \n\n"
                             f"Ben {sender}, {agency}'ndan yazıyorum. {city} bölgesindeki tekstil/dikim işletmenizi inceledim.\n\n"
-                            f"Tekstil atölyeleri, konfeksiyon ve terziler için Silter tipi sanayi tipi buharlı ütü makineleri, merkezi buhar kazanı tesisat kurulumu ve yedek parça desteği sunuyoruz. Ütüleme hızınızı ve buhar veriminizi en üst seviyeye çıkarıyoruz. 👔⚡\n\n"
+                            f"Tekstil atölyeleri, konfeksiyon ve terziler için Silter tipi sanayi tipi buharlı ütü makineleri, merkezi buhar kazanı tesisat kurulumu ve yedek parça desteği sunuyoruz. Ütüleme hızınızı ve buhar veriminizi en üst seviyeye çıkarıyoruz. \n\n"
                             f"Atölyenize uygun tesisat ve ütü makinesi çözümlerimizi, güncel kampanya fiyat listemizi WhatsApp'tan göndereyim mi?\n\n"
                             f"Bereketli işler dilerim!"
                         )
@@ -473,7 +473,7 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"ACİL: {biz_name} Atölye Buhar & Ütü Tesisatı"
                         message = (
-                            f"{biz_name} Atölye Yetkilisine Acil Not ⚠️\n\n"
+                            f"{biz_name} Atölye Yetkilisine Acil Not \n\n"
                             f"Ben {sender}, {agency}'ndan ulaşıyorum. Ütü arızaları ve yetersiz buhar basıncı tekstil atölyelerinde teslimat gecikmelerine ve ciddi iş kaybına yol açar.\n\n"
                             f"Silter tipi sanayi tipi buharlı ütü makineleri, yüksek basınçlı buhar kazanları ve sıfır arıza garantili tesisat kurulumu sağlıyoruz. 24 saatte hızlı montaj, yerinde teknik servis ve orijinal yedek parça güvencesi sunuyoruz.\n\n"
                             f"Atölyenizin ihtiyacına özel ütü & tesisat teklifini hemen iletebilir miyim?\n\n"
@@ -484,7 +484,7 @@ class PitchGenerator:
                         message = (
                             f"Sayın {biz_name} Yetkilisi,\n\n"
                             f"Ben {sender}, {agency} teknik koordinatörüyüm. {city} bölgesinde tekstil imalatında yaşanan ütü aksamaları üretim bandını doğrudan yavaşlatmaktadır.\n\n"
-                            f"⚡ Atölyeniz İçin Hızlı Çözümümüz:\n"
+                            f" Atölyeniz İçin Hızlı Çözümümüz:\n"
                             f"• Yüksek kapasiteli Silter tipi sanayi buharlı ütü sistemleri ve paskaralar\n"
                             f"• Profesyonel merkezi buhar tesisatı kurulumu ve hat montajı\n"
                             f"• Anında orijinal yedek parça temini ve periyodik bakım garantisi\n\n"
@@ -508,7 +508,7 @@ class PitchGenerator:
                             f"Sayın {biz_name} Yetkilisi,\n\n"
                             f"Ben {sender}, {agency}'ndan ulaşıyorum.\n\n"
                             f"{city} bölgesinde tekstil ve konfeksiyon sektöründe faaliyet gösteren işletmenizin üretim kalitesini artıracak sanayi tipi buharlı ütü ve buhar tesisatı çözümlerimizi sunmak isteriz.\n\n"
-                            f"🔧 Hizmet Kapsamımız:\n"
+                            f" Hizmet Kapsamımız:\n"
                             f"• Silter tipi sanayi buharlı ütüler, vakumlu paskaralar ve otomatik su beslemeli buhar kazanları\n"
                             f"• Atölye içi komple buhar tesisatı projelendirme ve profesyonel montaj\n"
                             f"• Orijinal yedek parça, teflon altlıklar ve periyodik teknik bakım desteği\n"
@@ -522,9 +522,9 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"{biz_name} için Özel Web & Yazılım Çözümü"
                         message = (
-                            f"Selamlar {biz_name} ekibi! 👋\n\n"
+                            f"Selamlar {biz_name} ekibi! \n\n"
                             f"Ben {sender}, {agency}'ndan ulaşıyorum. {city} bölgesinde {category} profilinize rastladım ve işlerinizi çok beğendim.\n\n"
-                            f"İşletmelere özel web sitesi, mobil randevu/sipariş yazılımları ve müşteri yönetim (CRM) otomasyonları geliştiriyoruz. Manuel iş yükünü sıfırlayıp dijitalden gelen müşteri sayısını katlıyoruz. 💻🚀\n\n"
+                            f"İşletmelere özel web sitesi, mobil randevu/sipariş yazılımları ve müşteri yönetim (CRM) otomasyonları geliştiriyoruz. Manuel iş yükünü sıfırlayıp dijitalden gelen müşteri sayısını katlıyoruz. \n\n"
                             f"İşletmeniz için hazırladığımız 1 dakikalık canlı yazılım demosunu WhatsApp'tan iletmemi ister misiniz?\n\n"
                             f"Görüşmek dileğiyle!"
                         )
@@ -534,7 +534,7 @@ class PitchGenerator:
                             f"Merhaba {biz_name} Ekibi,\n\n"
                             f"Umarım haftanız harika geçiyordur! Ben {sender}, {agency}'ndan ulaşıyorum.\n\n"
                             f"{city} bölgesinde {category} sektöründeki çalışmalarınızı inceledik. İşletmenizin dijital süreçlerini hızlandıracak ve yeni müşteri akışını otomatikleştirecek yazılım altyapıları sunuyoruz.\n\n"
-                            f"🚀 Sunduğumuz Yazılım Çözümleri:\n"
+                            f" Sunduğumuz Yazılım Çözümleri:\n"
                             f"• Hızlı, mobil uyumlu ve modern web sitesi / web uygulaması\n"
                             f"• 7/24 randevu alma, sipariş ve müşteri takip (CRM) yazılımı\n"
                             f"• Google Haritalar ve yerel aramalardan gelen müşterileri yakalayan akıllı otomasyon\n\n"
@@ -545,7 +545,7 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"ACİL: {biz_name} Dijital Yazılım & Müşteri Kaybı Uyarısı"
                         message = (
-                            f"{biz_name} Yetkilisine Önemli Not ⚠️\n\n"
+                            f"{biz_name} Yetkilisine Önemli Not \n\n"
                             f"Ben {sender}, {agency}'ndan ulaşıyorum. {city} bölgesinde rakipleriniz modern web ve otomasyon yazılımlarıyla dijital müşterileri toplarken işletmeniz müşteri kaybediyor.\n\n"
                             f"48 saatte kurulan modern web yazılımı, WhatsApp randevu otomasyonu ve CRM entegrasyonuyla müşteri kaybını anında durduruyoruz.\n\n"
                             f"Sizin için hazırladığımız hızlı dönüşüm taslağını WhatsApp'tan incelemeniz için gönderebilir miyim?\n\n"
@@ -557,7 +557,7 @@ class PitchGenerator:
                             f"Sayın {biz_name} Yetkilisi,\n\n"
                             f"Ben {sender}, {agency} kurucusuyum. {city} pazarında {category} araması yapan potansiyel müşterilerin büyük bölümü randevu ve iletişimini dijital yazılımlar üzerinden tamamlamaktadır.\n\n"
                             f"Mevcut altyapınızın yetersizliği nedeniyle her hafta onlarca müşteri rakip firmalara geçmektedir.\n\n"
-                            f"🎯 48 Saatte Kurulan Yazılım Paketimiz:\n"
+                            f" 48 Saatte Kurulan Yazılım Paketimiz:\n"
                             f"• Mobil uyumlu akıllı web portalı\n"
                             f"• Otomatik müşteri rezervasyon ve bildirim sistemi\n"
                             f"• Yerel Google SEO ve dönüşüm hunisi\n\n"
@@ -580,7 +580,7 @@ class PitchGenerator:
                             f"Sayın {biz_name} Yetkilisi,\n\n"
                             f"Ben {sender}, {agency}'ndan ulaşıyorum.\n\n"
                             f"{city} bölgesinde {category} hizmetleri sunan işletmenizin dijitalleşme süreçlerini hızlandırmak ve operasyonel verimliliğinizi artırmak adına özel yazılım çözümleri geliştiriyoruz.\n\n"
-                            f"💡 Yazılım ve Otomasyon Kapsamımız:\n"
+                            f" Yazılım ve Otomasyon Kapsamımız:\n"
                             f"• Mobil öncelikli kurumsal web arayüzleri ve müşteri portalları\n"
                             f"• Online randevu, fiyat teklifi ve sipariş yönetim otomasyonları\n"
                             f"• WhatsApp & SMS entegrasyonlu akıllı müşteri takip sistemleri (CRM)\n"
@@ -606,7 +606,7 @@ class PitchGenerator:
                         f"Sayın {biz_name} Yetkilisi,\n\n"
                         f"Ben {sender}, {agency}'ndan ulaşıyorum.\n\n"
                         f"{city} bölgesindeki başarılı ticari faaliyetlerinizi memnuniyetle takip ediyoruz. İşletmenizin ihtiyaçlarına tam uyum sağlayan kurumsal '{prod}' çözümlerimizle hizmetinizdeyiz.\n\n"
-                        f"📦 Sunduğumuz Kurumsal Avantajlar:\n"
+                        f" Sunduğumuz Kurumsal Avantajlar:\n"
                         f"• Doğrudan üretici/toptan fiyatlandırma ve esnek ödeme koşulları\n"
                         f"• Yüksek kalite standartları ve kesintisiz tedarik garantisi\n"
                         f"• Hızlı teslimat ve satış sonrası tam kurumsal destek\n\n"
@@ -619,7 +619,7 @@ class PitchGenerator:
                 if channel == "whatsapp":
                     subject = f"Wholesale Professional Hair Dye & Salon Supplies for {biz_name}"
                     message = (
-                        f"Hi {biz_name} team! 👋\n\n"
+                        f"Hi {biz_name} team! \n\n"
                         f"This is {sender} from {agency}. We supply salons in {city} with wholesale premium professional hair dye, hair care products, and salon essentials. We offer exclusive salon tier pricing and a free sample trial kit for your stylists to test out.\n\n"
                         f"Would you like me to send over our wholesale catalog and shade chart via WhatsApp?\n\n"
                         f"Best regards,\n{sender}"
@@ -641,7 +641,7 @@ class PitchGenerator:
                 if channel == "whatsapp":
                     subject = f"Industrial Steam Iron & Boiler Installation for {biz_name}"
                     message = (
-                        f"Hello {biz_name} team! 👋\n\n"
+                        f"Hello {biz_name} team! \n\n"
                         f"This is {sender} from {agency}. We provide textile workshops and tailors in {city} with industrial steam iron systems (Silter type), central boiler setup, pipeline installation, and genuine spare parts.\n\n"
                         f"Would you like me to share our machinery catalog and workshop installation packages on WhatsApp?\n\n"
                         f"Best regards,\n{sender}"
@@ -663,7 +663,7 @@ class PitchGenerator:
                 if channel == "whatsapp":
                     subject = f"Custom Software & Automation for {biz_name}"
                     message = (
-                        f"Hi {biz_name} team! 👋\n\n"
+                        f"Hi {biz_name} team! \n\n"
                         f"This is {sender} from {agency}. We build custom software, web apps, client booking/order systems, and workflow automations tailored for businesses in {city}.\n\n"
                         f"Would you be open to checking out a quick 1-minute live demo we built for your sector?\n\n"
                         f"Best regards,\n{sender}"
@@ -728,10 +728,10 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"Re: {biz_name} için kuaför salonu toptan boya tedariği"
                         message = (
-                            f"Selamlar {biz_name} ekibi! 👋\n\n"
+                            f"Selamlar {biz_name} ekibi! \n\n"
                             f"Ben {sender}, {agency}'ndan. Birkaç gün önce ilettiğim toptan kuaför saç boyası ve salon sarf malzemeleriyle ilgili kısa bir referans ve vaka çalışması paylaşmak istedim.\n\n"
-                            f"📊 Örnek Sonuç: Benzer ölçekteki bir kuaför salonumuz doğrudan toptan tedarik modelimize geçtikten sonra aylık boya ve sarf malzeme maliyetini %32 düşürürken, renk pigmenti ve beyaz kapatma kalitesinden ödün vermedi.\n\n"
-                            f"🎨 Salonunuzda ücretsiz test edebilmeniz için hazırladığımız tester / numune kitini gönderebileceğimiz adresi iletmeniz yeterli olur mu?\n\n"
+                            f" Örnek Sonuç: Benzer ölçekteki bir kuaför salonumuz doğrudan toptan tedarik modelimize geçtikten sonra aylık boya ve sarf malzeme maliyetini %32 düşürürken, renk pigmenti ve beyaz kapatma kalitesinden ödün vermedi.\n\n"
+                            f" Salonunuzda ücretsiz test edebilmeniz için hazırladığımız tester / numune kitini gönderebileceğimiz adresi iletmeniz yeterli olur mu?\n\n"
                             f"Kolaylıklar ve bol kazançlar dilerim!"
                         )
                     else:
@@ -751,9 +751,9 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"Re: {biz_name} için sanayi tipi ütü ve buhar sistemleri"
                         message = (
-                            f"Selamlar {biz_name} yetkilisi! 👋\n\n"
+                            f"Selamlar {biz_name} yetkilisi! \n\n"
                             f"Ben {sender}, {agency}'ndan. Atölyeniz için ilettiğim Silter tipi sanayi buharlı ütü sistemleri ve merkezi tesisat desteği hakkında kısa bir referans aktarmak istedim.\n\n"
-                            f"⚙️ Örnek Vaka: Benzer bir tekstil atölyesinde kurduğumuz merkezi buhar hattı ve yüksek basınçlı ütü sistemi sayesinde günlük ütüleme hızı %40 arttı ve kireç kaynaklı makine duruşları tamamen önlendi.\n\n"
+                            f" Örnek Vaka: Benzer bir tekstil atölyesinde kurduğumuz merkezi buhar hattı ve yüksek basınçlı ütü sistemi sayesinde günlük ütüleme hızı %40 arttı ve kireç kaynaklı makine duruşları tamamen önlendi.\n\n"
                             f"Atölyenizdeki mevcut ütü ve kazan durumuna göre hazırladığımız keşif & tasarruf tablosunu WhatsApp'tan paylaşmamı ister misiniz?\n\n"
                             f"İyi çalışmalar dilerim!"
                         )
@@ -773,9 +773,9 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"Re: {biz_name} için yazılım & müşteri otomasyonu"
                         message = (
-                            f"Selamlar {biz_name} ekibi! 👋\n\n"
+                            f"Selamlar {biz_name} ekibi! \n\n"
                             f"Ben {sender}, {agency}'ndan. Birkaç gün önce {city} bölgesindeki işletmeniz için önerdiğim akıllı randevu ve müşteri kazanım sistemi hakkında hızlı bir referans paylaşmak istedim.\n\n"
-                            f"📈 Gerçek Sonuç: Benzer bir yerel işletmede kurduğumuz tek tıkla WhatsApp ve harita entegrasyonu sayesinde ilk 30 günde gelen müşteri aramaları ve randevu talepleri %45 arttı.\n\n"
+                            f" Gerçek Sonuç: Benzer bir yerel işletmede kurduğumuz tek tıkla WhatsApp ve harita entegrasyonu sayesinde ilk 30 günde gelen müşteri aramaları ve randevu talepleri %45 arttı.\n\n"
                             f"Sistemimizin {biz_name} için nasıl çalışacağını gösteren 2 dakikalık interaktif demo linkini iletmemi ister misiniz?\n\n"
                             f"Görüşmek üzere!"
                         )
@@ -795,7 +795,7 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"Re: {biz_name} için {prod} teklifi"
                         message = (
-                            f"Selamlar {biz_name} yetkilisi! 👋\n\n"
+                            f"Selamlar {biz_name} yetkilisi! \n\n"
                             f"Ben {sender}, {agency}'ndan. Birkaç gün önce paylaştığım '{prod}' çözümümüzle ilgili kısa bir ekleme yapmak istedim.\n\n"
                             f"Bölgenizdeki iş ortaklarımıza doğrudan toptan/kurumsal fiyat avantajı, hızlı tedarik ve test garantisi sunuyoruz.\n\n"
                             f"1 sayfalık ürün/hizmet özetimizi ve referans listemizi incelemeniz için WhatsApp'tan göndereyim mi?\n\n"
@@ -818,9 +818,9 @@ class PitchGenerator:
                     if channel == "whatsapp":
                         subject = f"Re: {biz_name} dijital büyüme analizi"
                         message = (
-                            f"Selamlar {biz_name} yetkilisi! 👋\n\n"
+                            f"Selamlar {biz_name} yetkilisi! \n\n"
                             f"Ben {sender}, {agency}'ndan. Geçen gün {city} bölgesindeki profilinizi incelerken fark ettiğimiz açıkla ilgili ({gap_key}) kısa bir referans aktarmak istedim.\n\n"
-                            f"🎯 Benzer bir işletmede uyguladığımız 1 haftalık optimizasyon sonrasında Google arama görünürlüğü ve gelen müşteri çağrıları 2.4 katına çıktı.\n\n"
+                            f" Benzer bir işletmede uyguladığımız 1 haftalık optimizasyon sonrasında Google arama görünürlüğü ve gelen müşteri çağrıları 2.4 katına çıktı.\n\n"
                             f"{biz_name} için de hazırladığımız 2 dakikalık aksiyon planını incelemek ister misiniz?\n\n"
                             f"Görüşmek dileğiyle!"
                         )
@@ -844,7 +844,7 @@ class PitchGenerator:
                             f"Merhaba {biz_name} yetkilisi,\n\n"
                             f"Ben {sender}, {agency}'ndan. Çok yoğun bir salon temposunda çalıştığınızı biliyorum, o yüzden gelen kutunuzu daha fazla meşgul etmek istemem.\n\n"
                             f"Salonunuz için toptan saç boyası tedariği ve ücretsiz deneme kiti dosyanızı şimdilik arşive kaldırıyorum. İleride kaliteli ürünleri doğrudan toptan fiyatla temin etmek isterseniz bu mesaja istediğiniz zaman dönebilirsiniz.\n\n"
-                            f"Salonunuza bol kazançlı ve bereketli günler dilerim! 🙏"
+                            f"Salonunuza bol kazançlı ve bereketli günler dilerim! "
                         )
                     else:
                         subject = f"İzninizle dosyanızı arşive kaldırıyorum: {biz_name} Salon Tedariği"
@@ -862,7 +862,7 @@ class PitchGenerator:
                             f"Merhaba {biz_name} yetkilisi,\n\n"
                             f"Ben {sender}, {agency}'ndan. Atölyenizin yoğun imalat ve teslimat temposunu çok iyi biliyorum, bu nedenle vaktinizi daha fazla almayacağım.\n\n"
                             f"Silter sanayi tipi buharlı ütü ve buhar kazanı tesisatı dosyanızı şimdilik kapatıyorum. İleride yeni ütü ihtiyacı, arıza, bakım veya orijinal yedek parça gerektiğinde bana bu numaradan her zaman ulaşabilirsiniz.\n\n"
-                            f"Atölyenize bol iş ve kazançlı üretimler dilerim! 🤝"
+                            f"Atölyenize bol iş ve kazançlı üretimler dilerim! "
                         )
                     else:
                         subject = f"İzninizle dosyanızı arşive kaldırıyorum: {biz_name} Buharlı Ütü & Tesisat"
@@ -880,7 +880,7 @@ class PitchGenerator:
                             f"Merhaba {biz_name} yetkilisi,\n\n"
                             f"Ben {sender}, {agency}'ndan. Çok meşgul olduğunuzu anlıyorum, bu yüzden gelen kutunuzu daha fazla meşgul etmemek adına dosyanızı kapatıyorum.\n\n"
                             f"İleride {biz_name} için web sitesi, akıllı randevu veya müşteri otomasyonu kurmak isterseniz bu mesaja her zaman dönüş yapabilirsiniz.\n\n"
-                            f"İşletmenize bol kazançlar dilerim! 🙌"
+                            f"İşletmenize bol kazançlar dilerim! "
                         )
                     else:
                         subject = f"İzninizle dosyanızı arşive kaldırıyorum: {biz_name} Müşteri Otomasyonu"
@@ -931,9 +931,9 @@ class PitchGenerator:
                 if channel == "whatsapp":
                     subject = f"Quick follow-up for {biz_name}"
                     message = (
-                        f"Hey {biz_name} team! 👋\n\n"
+                        f"Hey {biz_name} team! \n\n"
                         f"This is {sender} from {agency}. Following up on my previous note regarding growth opportunities for {biz_name} in {city}.\n\n"
-                        f"📊 Recent Result: A similar business we supported saw a 45% increase in local inquiries within 30 days of addressing this gap.\n\n"
+                        f" Recent Result: A similar business we supported saw a 45% increase in local inquiries within 30 days of addressing this gap.\n\n"
                         f"Would you like me to share a quick 2-minute breakdown?\n\n"
                         f"Best regards!"
                     )
