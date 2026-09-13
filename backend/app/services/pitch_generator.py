@@ -28,7 +28,9 @@ class PitchGenerator:
         custom_sender_name: str = "Kürşat",
         custom_agency_name: str = "Dijital Büyüme Ajansı",
         product_pitch_type: str = "general", # 'software' | 'hair_dye' | 'steam_iron' | 'custom' | 'general'
-        product_name: str = ""
+        product_name: str = "",
+        sequence_step: int = 1,        # 1: Initial Hook, 2: Day 3 Follow-up, 3: Day 7 Break-up Call
+        roi_metrics: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         """
         Generates personalized sales pitch.
@@ -63,7 +65,10 @@ class PitchGenerator:
                 pass
 
         # High-converting offline template engine (100% reliable, zero external API key required)
-        return self._generate_template(lead, channel, tone, lang, custom_sender_name, custom_agency_name, p_type, p_name)
+        return self._generate_template(
+            lead, channel, tone, lang, custom_sender_name, custom_agency_name,
+            p_type, p_name, sequence_step=sequence_step, roi_metrics=roi_metrics
+        )
 
     def _generate_template(
         self,
@@ -74,7 +79,9 @@ class PitchGenerator:
         sender: str,
         agency: str,
         product_pitch_type: str = "general",
-        product_name: str = ""
+        product_name: str = "",
+        sequence_step: int = 1,
+        roi_metrics: Optional[Dict[str, Any]] = None
     ) -> Dict[str, Any]:
         biz_name = lead.name or "İşletme Yetkilisi"
         city = lead.city or "bölgenizdeki"
@@ -83,8 +90,21 @@ class PitchGenerator:
         tone_lower = (tone or "consultative").lower()
         p_type = (product_pitch_type or "general").strip().lower()
 
+        # 0. Multi-Step Outreach Sequence Handling (Step 2: Follow-up, Step 3: Break-up)
+        if sequence_step in (2, 3):
+            subject, message = self._build_sequence_pitch(
+                lead=lead,
+                p_type=p_type,
+                product_name=product_name,
+                channel=channel,
+                tone_lower=tone_lower,
+                lang=lang,
+                sender=sender,
+                agency=agency,
+                step=sequence_step
+            )
         # 1. Product-Tailored Pitch Modes
-        if p_type in ("hair_dye", "steam_iron", "software", "custom"):
+        elif p_type in ("hair_dye", "steam_iron", "software", "custom"):
             subject, message = self._build_product_pitch_content(
                 lead=lead,
                 p_type=p_type,
@@ -296,6 +316,30 @@ class PitchGenerator:
             else:
                 whatsapp_url = f"{lead.whatsapp}&text={encoded_msg}"
 
+        # Apply ROI Calculation Hook if provided
+        if roi_metrics and isinstance(roi_metrics, dict):
+            deal_val = str(roi_metrics.get("deal_value") or "").strip()
+            payback = str(roi_metrics.get("payback_days") or "").strip()
+            roi_pct = str(roi_metrics.get("roi_percent") or "").strip()
+            if deal_val:
+                if lang == "tr":
+                    pb_str = f"tahmini {payback} günde" if payback else "kısa sürede"
+                    pct_str = f" ve %{roi_pct} net getiri" if roi_pct else ""
+                    roi_text = f"\n\n📊 Finansal ROI Analizi: Ortalama {deal_val} tutarındaki bu yatırım, işletmenize sağlayacağı ciro ve verimlilik artışıyla {pb_str} kendini amorti eder{pct_str} sağlar."
+                else:
+                    pb_str = f"in an estimated {payback} days" if payback else "rapidly"
+                    pct_str = f" with an estimated {roi_pct}% ROI" if roi_pct else ""
+                    roi_text = f"\n\n📊 Financial ROI Analysis: An average investment of {deal_val} pays for itself {pb_str}{pct_str} through increased revenue and efficiency."
+                message = message.strip() + roi_text
+                # Recompute whatsapp_url with updated message
+                if lead.whatsapp:
+                    encoded_msg = urllib.parse.quote(message)
+                    if "wa.me/" in lead.whatsapp:
+                        phone_num = lead.whatsapp.split("wa.me/")[-1].split("?")[0]
+                        whatsapp_url = f"https://wa.me/{phone_num}?text={encoded_msg}"
+                    else:
+                        whatsapp_url = f"{lead.whatsapp}&text={encoded_msg}"
+
         return {
             "provider": "offline-pro-templates",
             "channel": channel,
@@ -306,7 +350,9 @@ class PitchGenerator:
             "whatsapp_direct_url": whatsapp_url,
             "primary_gap": lead.primary_gap,
             "product_pitch_type": p_type,
-            "product_name": product_name
+            "product_name": product_name,
+            "sequence_step": sequence_step,
+            "roi_metrics": roi_metrics
         }
 
     def _build_product_pitch_content(
@@ -655,6 +701,268 @@ class PitchGenerator:
                         f"• Dedicated account support and trial packages\n\n"
                         f"Reply to this email if you would like to receive our complete specification catalog.\n\n"
                         f"Best regards,\n{sender}\n{agency}"
+                    )
+
+        return subject, message
+
+    def _build_sequence_pitch(
+        self,
+        lead: Lead,
+        p_type: str,
+        product_name: str,
+        channel: str,
+        tone_lower: str,
+        lang: str,
+        sender: str,
+        agency: str,
+        step: int
+    ) -> tuple:
+        biz_name = lead.name or "İşletme Yetkilisi"
+        city = lead.city or "bölgenizdeki"
+        prod = product_name.strip() if product_name else "çözümümüz"
+
+        if lang == "tr":
+            if step == 2:
+                # Step 2: Follow-up (Social proof, case study, value drop)
+                if p_type == "hair_dye":
+                    if channel == "whatsapp":
+                        subject = f"Re: {biz_name} için kuaför salonu toptan boya tedariği"
+                        message = (
+                            f"Selamlar {biz_name} ekibi! 👋\n\n"
+                            f"Ben {sender}, {agency}'ndan. Birkaç gün önce ilettiğim toptan kuaför saç boyası ve salon sarf malzemeleriyle ilgili kısa bir referans ve vaka çalışması paylaşmak istedim.\n\n"
+                            f"📊 Örnek Sonuç: Benzer ölçekteki bir kuaför salonumuz doğrudan toptan tedarik modelimize geçtikten sonra aylık boya ve sarf malzeme maliyetini %32 düşürürken, renk pigmenti ve beyaz kapatma kalitesinden ödün vermedi.\n\n"
+                            f"🎨 Salonunuzda ücretsiz test edebilmeniz için hazırladığımız tester / numune kitini gönderebileceğimiz adresi iletmeniz yeterli olur mu?\n\n"
+                            f"Kolaylıklar ve bol kazançlar dilerim!"
+                        )
+                    else:
+                        subject = f"Takip: {biz_name} İçin Salon Maliyet Tasarrufu & Örnek Vaka Analizi ({city})"
+                        message = (
+                            f"Merhaba {biz_name} Ekibi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Geçtiğimiz günlerde salonunuz için toptan profesyonel saç boyası ve sarf malzemesi tedariği konusunda kısa bir not paylaşmıştım.\n\n"
+                            f"Kuaförlerimizin en çok memnun kaldığı somut kazanımlar:\n"
+                            f"• Ortalama %30 maliyet tasarrufu sağlayan doğrudan salon toptan iskontoları\n"
+                            f"• Yoğun salon temposunda aynı gün kargoyla sıfır stok riski\n"
+                            f"• %100 beyaz kapatan, amonyaksız zengin renk serileri\n\n"
+                            f"Salonunuzda bizzat deneyebilmeniz için Ücretsiz Numune / Tester Paketimizi kargolamaktan memnuniyet duyarız.\n\n"
+                            f"Bu e-postayı salon teslimat adresinizle yanıtlamanız yeterlidir.\n\n"
+                            f"Saygılarımla,\n{sender}\n{agency}"
+                        )
+                elif p_type == "steam_iron":
+                    if channel == "whatsapp":
+                        subject = f"Re: {biz_name} için sanayi tipi ütü ve buhar sistemleri"
+                        message = (
+                            f"Selamlar {biz_name} yetkilisi! 👋\n\n"
+                            f"Ben {sender}, {agency}'ndan. Atölyeniz için ilettiğim Silter tipi sanayi buharlı ütü sistemleri ve merkezi tesisat desteği hakkında kısa bir referans aktarmak istedim.\n\n"
+                            f"⚙️ Örnek Vaka: Benzer bir tekstil atölyesinde kurduğumuz merkezi buhar hattı ve yüksek basınçlı ütü sistemi sayesinde günlük ütüleme hızı %40 arttı ve kireç kaynaklı makine duruşları tamamen önlendi.\n\n"
+                            f"Atölyenizdeki mevcut ütü ve kazan durumuna göre hazırladığımız keşif & tasarruf tablosunu WhatsApp'tan paylaşmamı ister misiniz?\n\n"
+                            f"İyi çalışmalar dilerim!"
+                        )
+                    else:
+                        subject = f"Takip: {biz_name} İçin Sanayi Tipi Ütü Verimliliği & Vaka Özeti ({city})"
+                        message = (
+                            f"Sayın {biz_name} Yetkilisi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Atölyenizdeki ütüleme performansı, merkezi buhar tesisatı ve Silter sanayi tipi sistemlerle ilgili ilettiğim teklifimize istinaden yazıyorum.\n\n"
+                            f"Atölyelere Sağladığımız Somut Katma Değer:\n"
+                            f"• Yüksek basınçlı kuru buhar ile %40 daha hızlı ütüleme ve sıfır leke garantisi\n"
+                            f"• Enerji tasarruflu rezistans teknolojisiyle elektrik faturalarında %25 düşüş\n"
+                            f"• Orijinal Silter yedek parça ve yerinde hızlı teknik servis desteği\n\n"
+                            f"Atölyeniz için en uygun kapasiteyi ve amortisman tablosunu incelemek isterseniz kısa bir yanıt vermeniz yeterlidir.\n\n"
+                            f"Saygılarımla,\n{sender}\n{agency}"
+                        )
+                elif p_type == "software":
+                    if channel == "whatsapp":
+                        subject = f"Re: {biz_name} için yazılım & müşteri otomasyonu"
+                        message = (
+                            f"Selamlar {biz_name} ekibi! 👋\n\n"
+                            f"Ben {sender}, {agency}'ndan. Birkaç gün önce {city} bölgesindeki işletmeniz için önerdiğim akıllı randevu ve müşteri kazanım sistemi hakkında hızlı bir referans paylaşmak istedim.\n\n"
+                            f"📈 Gerçek Sonuç: Benzer bir yerel işletmede kurduğumuz tek tıkla WhatsApp ve harita entegrasyonu sayesinde ilk 30 günde gelen müşteri aramaları ve randevu talepleri %45 arttı.\n\n"
+                            f"Sistemimizin {biz_name} için nasıl çalışacağını gösteren 2 dakikalık interaktif demo linkini iletmemi ister misiniz?\n\n"
+                            f"Görüşmek üzere!"
+                        )
+                    else:
+                        subject = f"Takip: {biz_name} İçin Müşteri Kazanım Otomasyonu & Örnek Vaka ({city})"
+                        message = (
+                            f"Merhaba {biz_name} Ekibi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Geçtiğimiz günlerde işletmenizin yerel müşteri akışını otomatikleştirecek yazılım ve web çözümlerimiz hakkında kısa bir inceleme notu paylaşmıştım.\n\n"
+                            f"Danışanlarımıza kazandırdığımız temel metrikler:\n"
+                            f"• Google Harita ve web üzerinden gelen ziyaretçilerin %40+ daha fazla randevuya dönüşmesi\n"
+                            f"• 7/24 otomatik WhatsApp karşılama ile mesai dışı müşteri kayıplarının sıfırlanması\n"
+                            f"• Hızlı, modern ve Google sıralama uyumlu dijital altyapı\n\n"
+                            f"İşletmenize özel hazırladığımız canlı demo linkini ve yol haritasını incelemek ister misiniz?\n\n"
+                            f"Saygılarımla,\n{sender}\n{agency}"
+                        )
+                elif p_type == "custom":
+                    if channel == "whatsapp":
+                        subject = f"Re: {biz_name} için {prod} teklifi"
+                        message = (
+                            f"Selamlar {biz_name} yetkilisi! 👋\n\n"
+                            f"Ben {sender}, {agency}'ndan. Birkaç gün önce paylaştığım '{prod}' çözümümüzle ilgili kısa bir ekleme yapmak istedim.\n\n"
+                            f"Bölgenizdeki iş ortaklarımıza doğrudan toptan/kurumsal fiyat avantajı, hızlı tedarik ve test garantisi sunuyoruz.\n\n"
+                            f"1 sayfalık ürün/hizmet özetimizi ve referans listemizi incelemeniz için WhatsApp'tan göndereyim mi?\n\n"
+                            f"İyi çalışmalar dilerim!"
+                        )
+                    else:
+                        subject = f"Takip: {biz_name} İçin {prod} Çözüm Detayları & Referanslar"
+                        message = (
+                            f"Sayın {biz_name} Yetkilisi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Geçtiğimiz günlerde firmanız için paylaştığım '{prod}' konulu iş birliği teklifimize istinaden ulaşıyorum.\n\n"
+                            f"Sektördeki iş ortaklarımıza sağladığımız temel avantajlar:\n"
+                            f"• Doğrudan kurumsal fiyatlandırma ile anında maliyet avantajı\n"
+                            f"• Kesintisiz tedarik ve garantili hizmet güvencesi\n"
+                            f"• İhtiyaca özel esnek sipariş ve uygulama modelleri\n\n"
+                            f"Konuyla ilgili detaylı ürün/hizmet dokümanımızı incelemek isterseniz bu e-postayı yanıtlamanız yeterlidir.\n\n"
+                            f"Saygılarımla,\n{sender}\n{agency}"
+                        )
+                else:  # general gap-based follow-up
+                    gap_key = getattr(lead, "primary_gap", "MISSING_WEBSITE")
+                    if channel == "whatsapp":
+                        subject = f"Re: {biz_name} dijital büyüme analizi"
+                        message = (
+                            f"Selamlar {biz_name} yetkilisi! 👋\n\n"
+                            f"Ben {sender}, {agency}'ndan. Geçen gün {city} bölgesindeki profilinizi incelerken fark ettiğimiz açıkla ilgili ({gap_key}) kısa bir referans aktarmak istedim.\n\n"
+                            f"🎯 Benzer bir işletmede uyguladığımız 1 haftalık optimizasyon sonrasında Google arama görünürlüğü ve gelen müşteri çağrıları 2.4 katına çıktı.\n\n"
+                            f"{biz_name} için de hazırladığımız 2 dakikalık aksiyon planını incelemek ister misiniz?\n\n"
+                            f"Görüşmek dileğiyle!"
+                        )
+                    else:
+                        subject = f"Takip: {biz_name} İçin Yerel Sıralama & Müşteri Artış Örneği ({city})"
+                        message = (
+                            f"Sayın {biz_name} Yetkilisi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Birkaç gün önce işletmenizin Google Haritalar görünürlüğü ve müşteri dönüşüm açığı hakkında bir analiz notu iletmiştim.\n\n"
+                            f"Bölgenizdeki benzer işletmelerle gerçekleştirdiğimiz çalışmalarda:\n"
+                            f"• Yerel arama ve harita sıralamalarında ilk 3 pozisyona yükselme\n"
+                            f"• Doğrudan arama ve yol tarifi alan müşteri sayısında %60+ artış sağladık.\n\n"
+                            f"{biz_name} için hazırladığımız kısa büyüme planını bu e-postayı 'Evet' olarak yanıtlayarak hemen inceleyebilirsiniz.\n\n"
+                            f"Saygılarımla,\n{sender}\n{agency}"
+                        )
+            else:
+                # Step 3: Break-up (Respectful goodbye, low pressure, file closing)
+                if p_type == "hair_dye":
+                    if channel == "whatsapp":
+                        subject = f"{biz_name} kuaför tedarik dosyasını kapatıyorum"
+                        message = (
+                            f"Merhaba {biz_name} yetkilisi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Çok yoğun bir salon temposunda çalıştığınızı biliyorum, o yüzden gelen kutunuzu daha fazla meşgul etmek istemem.\n\n"
+                            f"Salonunuz için toptan saç boyası tedariği ve ücretsiz deneme kiti dosyanızı şimdilik arşive kaldırıyorum. İleride kaliteli ürünleri doğrudan toptan fiyatla temin etmek isterseniz bu mesaja istediğiniz zaman dönebilirsiniz.\n\n"
+                            f"Salonunuza bol kazançlı ve bereketli günler dilerim! 🙏"
+                        )
+                    else:
+                        subject = f"İzninizle dosyanızı arşive kaldırıyorum: {biz_name} Salon Tedariği"
+                        message = (
+                            f"Sayın {biz_name} Yetkilisi,\n\n"
+                            f"Ben {sender}, {agency} kurucusuyum. Daha önce ilettiğim toptan saç boyası ve salon sarf malzemeleri tedariği teklifimizle ilgili bir dönüş alamadığımız için dosyanızı kapatıyorum.\n\n"
+                            f"Salonunuzun yoğunluğunu çok iyi anlıyorum. İlerleyen süreçte boya maliyetlerini düşürmek ve salon marjınızı artırmak isterseniz bu e-postayı dilediğiniz zaman yanıtlayabilirsiniz.\n\n"
+                            f"İşlerinizde başarılar ve bol müşteriler dilerim.\n\n"
+                            f"Saygılarımla,\n{sender}\n{agency}"
+                        )
+                elif p_type == "steam_iron":
+                    if channel == "whatsapp":
+                        subject = f"{biz_name} sanayi ütü dosyasını kapatıyorum"
+                        message = (
+                            f"Merhaba {biz_name} yetkilisi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Atölyenizin yoğun imalat ve teslimat temposunu çok iyi biliyorum, bu nedenle vaktinizi daha fazla almayacağım.\n\n"
+                            f"Silter sanayi tipi buharlı ütü ve buhar kazanı tesisatı dosyanızı şimdilik kapatıyorum. İleride yeni ütü ihtiyacı, arıza, bakım veya orijinal yedek parça gerektiğinde bana bu numaradan her zaman ulaşabilirsiniz.\n\n"
+                            f"Atölyenize bol iş ve kazançlı üretimler dilerim! 🤝"
+                        )
+                    else:
+                        subject = f"İzninizle dosyanızı arşive kaldırıyorum: {biz_name} Buharlı Ütü & Tesisat"
+                        message = (
+                            f"Sayın {biz_name} Yetkilisi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Tekstil atölyeniz için ilettiğim sanayi tipi buharlı ütü sistemleri ve merkezi kazan tesisatı teklifimiz hakkında dosyanızı kapatıyorum.\n\n"
+                            f"Üretim süreçlerinizin yoğunluğunu tahmin edebiliyorum. İleride atölyenizde buhar basıncı yükseltme, yeni tezgah kurulumu veya Silter teknik servis ihtiyacı doğarsa bu e-postayı dilediğiniz zaman yanıtlayabilirsiniz.\n\n"
+                            f"Çalışmalarınızda başarılar dilerim.\n\n"
+                            f"Saygılarımla,\n{sender}\n{agency}"
+                        )
+                elif p_type == "software":
+                    if channel == "whatsapp":
+                        subject = f"{biz_name} yazılım dosyasını kapatıyorum"
+                        message = (
+                            f"Merhaba {biz_name} yetkilisi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Çok meşgul olduğunuzu anlıyorum, bu yüzden gelen kutunuzu daha fazla meşgul etmemek adına dosyanızı kapatıyorum.\n\n"
+                            f"İleride {biz_name} için web sitesi, akıllı randevu veya müşteri otomasyonu kurmak isterseniz bu mesaja her zaman dönüş yapabilirsiniz.\n\n"
+                            f"İşletmenize bol kazançlar dilerim! 🙌"
+                        )
+                    else:
+                        subject = f"İzninizle dosyanızı arşive kaldırıyorum: {biz_name} Müşteri Otomasyonu"
+                        message = (
+                            f"Sayın {biz_name} Yetkilisi,\n\n"
+                            f"Ben {sender}, {agency} kurucusuyum. İşletmeniz için ilettiğim dijital yazılım ve müşteri kazanım otomasyonu dosyasını şimdilik kapatıyorum.\n\n"
+                            f"Zamanlamanın şu an uygun olmadığını anlıyorum. İlerleyen dönemde işletmenizi dijitalde büyütmek ve müşteri kayıplarını önlemek isterseniz bu e-postayı dilediğiniz zaman yanıtlayabilirsiniz.\n\n"
+                            f"Başarılar ve bol kazançlar dilerim.\n\n"
+                            f"Saygılarımla,\n{sender}\n{agency}"
+                        )
+                elif p_type == "custom":
+                    if channel == "whatsapp":
+                        subject = f"{biz_name} için {prod} dosyasını kapatıyorum"
+                        message = (
+                            f"Merhaba {biz_name} yetkilisi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Vaktinizi almamak adına '{prod}' ile ilgili dosyanızı kapatıyorum. İleride kurumsal tedarik veya avantajlı fiyat tekliflerimizden yararlanmak isterseniz buradayım.\n\n"
+                            f"İşlerinizde başarılar dilerim!"
+                        )
+                    else:
+                        subject = f"İzninizle dosyanızı arşive kaldırıyorum: {biz_name} ({prod})"
+                        message = (
+                            f"Sayın {biz_name} Yetkilisi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. '{prod}' ile ilgili ilettiğim kurumsal teklif dosyanızı şimdilik kapatıyorum.\n\n"
+                            f"İleride profesyonel iş birliği veya tedarik maliyetlerini optimize etme ihtiyacı duyduğunuzda kapımız her zaman açık.\n\n"
+                            f"Saygılarımla,\n{sender}\n{agency}"
+                        )
+                else:  # general break-up
+                    if channel == "whatsapp":
+                        subject = f"{biz_name} dosyasını arşive alıyorum"
+                        message = (
+                            f"Merhaba {biz_name} yetkilisi,\n\n"
+                            f"Ben {sender}, {agency}'ndan. Zamanınızın kıymetli olduğunu biliyorum. Gelen kutunuzu daha fazla meşgul etmemek adına dosyanızı arşive kaldırıyorum.\n\n"
+                            f"{city} bölgesinde Google aramalarından daha fazla müşteri çekmek ve cironuzu artırmak istediğinizde bana her zaman buradan ulaşabilirsiniz.\n\n"
+                            f"Başarılar ve bol kazançlar dilerim!"
+                        )
+                    else:
+                        subject = f"İzninizle dosyanızı arşive kaldırıyorum: {biz_name}"
+                        message = (
+                            f"Sayın {biz_name} Yetkilisi,\n\n"
+                            f"Ben {sender}, {agency} kurucusuyum. İşletmenizin yerel arama ve harita büyümesiyle ilgili ilettiğim incelememize istinaden dosyanızı kapatıyorum.\n\n"
+                            f"Yoğun temponuzu anlıyorum. İleride bölgenizdeki yerel rakiplerinizin önüne geçmek ve düzenli müşteri akışı sağlamak isterseniz bu e-postayı dilediğiniz an yanıtlayabilirsiniz.\n\n"
+                            f"Saygılarımla,\n{sender}\n{agency}"
+                        )
+        else:
+            # English versions
+            if step == 2:
+                # Step 2: English follow-up
+                if channel == "whatsapp":
+                    subject = f"Quick follow-up for {biz_name}"
+                    message = (
+                        f"Hey {biz_name} team! 👋\n\n"
+                        f"This is {sender} from {agency}. Following up on my previous note regarding growth opportunities for {biz_name} in {city}.\n\n"
+                        f"📊 Recent Result: A similar business we supported saw a 45% increase in local inquiries within 30 days of addressing this gap.\n\n"
+                        f"Would you like me to share a quick 2-minute breakdown?\n\n"
+                        f"Best regards!"
+                    )
+                else:
+                    subject = f"Following up: Growth case study for {biz_name} ({city})"
+                    message = (
+                        f"Hi {biz_name} Team,\n\n"
+                        f"This is {sender} from {agency}. I wanted to quickly follow up on my earlier note regarding customer conversion bottlenecks in {city}.\n\n"
+                        f"In our recent engagements with peer businesses, resolving these issues led to a 45% increase in qualified inbound leads within 30 days.\n\n"
+                        f"Would you like me to send over our quick 1-page case study?\n\n"
+                        f"Best regards,\n{sender}\n{agency}"
+                    )
+            else:
+                # Step 3: English break-up
+                if channel == "whatsapp":
+                    subject = f"Closing your file for {biz_name}"
+                    message = (
+                        f"Hi {biz_name} team,\n\n"
+                        f"This is {sender} from {agency}. I know you are super busy, so I'll go ahead and close your file to avoid cluttering your inbox.\n\n"
+                        f"If you ever want to scale your inbound customer stream in {city}, feel free to reply here anytime.\n\n"
+                        f"Wishing you continued success!"
+                    )
+                else:
+                    subject = f"Closing out your file: {biz_name}"
+                    message = (
+                        f"Dear {biz_name} Team,\n\n"
+                        f"This is {sender} from {agency}. I assume the timing isn't right, so I am closing your file and won't reach out further.\n\n"
+                        f"If your priorities shift and you wish to explore growing your local customer pipeline in {city}, you can reply to this email anytime.\n\n"
+                        f"All the best with your business,\n{sender}\n{agency}"
                     )
 
         return subject, message

@@ -324,6 +324,61 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertIn("COMMAND_ACTIONS", html)
         self.assertIn("handleCommandPaletteKeydown", html)
 
+    def test_outreach_queue_and_roi_calculator_elements(self):
+        status, body, headers = simulate_request("GET", "/")
+        self.assertEqual(status, 200)
+        html = body.decode("utf-8")
+
+        # Outreach Queue Modal & Actions
+        self.assertIn('id="outreachQueueModal"', html)
+        self.assertIn('id="btnTopOutreachQueue"', html)
+        self.assertIn('id="btnTableOutreachQueue"', html)
+        self.assertIn("openOutreachQueue", html)
+        self.assertIn("closeOutreachQueue", html)
+        self.assertIn("queueActionWhatsApp", html)
+        self.assertIn("queueActionEmail", html)
+        self.assertIn("nextQueueLead", html)
+
+        # Sequence Step Buttons in Tab 3 Studio
+        self.assertIn('id="sequenceStepButtons"', html)
+        self.assertIn('id="step_btn_1"', html)
+        self.assertIn('id="step_btn_2"', html)
+        self.assertIn('id="step_btn_3"', html)
+        self.assertIn("setStudioSequenceStep", html)
+
+        # ROI & Payback Calculator Widget
+        self.assertIn('id="roiDealValue"', html)
+        self.assertIn('id="roiPaybackDays"', html)
+        self.assertIn('id="roiPercent"', html)
+        self.assertIn("applyRoiToPitch", html)
+        self.assertIn("clearRoiFromPitch", html)
+
+    def test_pitch_endpoint_with_sequence_and_roi(self):
+        lead = Lead(name="ROI Test Klinik", city="Kadıköy", category="Diş")
+        saved = db.save_or_update_lead(lead)
+        roi = {
+            "deal_value": "30.000 TL",
+            "payback_days": "20",
+            "roi_percent": "200"
+        }
+        status, body, headers = simulate_request(
+            "POST",
+            f"/api/leads/{saved.id}/pitch",
+            headers={"x-starred": "1"},
+            body={
+                "channel": "whatsapp",
+                "product_pitch_type": "software",
+                "sequence_step": 2,
+                "roi_metrics": roi
+            }
+        )
+        self.assertEqual(status, 200)
+        data = json.loads(body.decode("utf-8"))
+        self.assertTrue(data["success"])
+        self.assertEqual(data["data"]["sequence_step"], 2)
+        self.assertIn("30.000 TL", data["data"]["content"])
+        self.assertIn("Finansal ROI Analizi", data["data"]["content"])
+
 
 if __name__ == "__main__":
     unittest.main()

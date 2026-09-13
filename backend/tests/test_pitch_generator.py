@@ -170,6 +170,102 @@ class TestPitchGenerator(unittest.TestCase):
         self.assertIn("Organic Olive Oil", res_en["content"])
         self.assertIn("Organic Olive Oil", res_en["subject"])
 
+    def test_multi_step_sequence_followup_and_breakup(self):
+        # Step 2: Follow-up 1 (Case Study & Social Proof)
+        res_step2_tr = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="whatsapp",
+            product_pitch_type="hair_dye",
+            sequence_step=2
+        )
+        self.assertEqual(res_step2_tr["sequence_step"], 2)
+        self.assertIn("vaka çalışması", res_step2_tr["content"].lower())
+        self.assertIn("tester", res_step2_tr["content"].lower())
+
+        res_step2_iron = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="email",
+            product_pitch_type="steam_iron",
+            sequence_step=2
+        )
+        self.assertIn("buhar", res_step2_iron["content"].lower())
+        self.assertIn("silter", res_step2_iron["content"].lower())
+
+        res_step2_sw = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="whatsapp",
+            product_pitch_type="software",
+            sequence_step=2
+        )
+        self.assertIn("demo", res_step2_sw["content"].lower())
+
+        # Step 3: Follow-up 2 (Respectful Break-up / File Close)
+        res_step3_tr = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="whatsapp",
+            product_pitch_type="hair_dye",
+            sequence_step=3
+        )
+        self.assertEqual(res_step3_tr["sequence_step"], 3)
+        self.assertIn("arşive kaldırıyorum", res_step3_tr["content"].lower())
+        self.assertIn("kapatıyorum", res_step3_tr["subject"].lower())
+
+        res_step3_iron = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="email",
+            product_pitch_type="steam_iron",
+            sequence_step=3
+        )
+        self.assertIn("dosyanızı kapatıyorum", res_step3_iron["content"].lower())
+        self.assertIn("arşive kaldırıyorum", res_step3_iron["subject"].lower())
+
+        # Step 2 and 3 English
+        res_step2_en = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="whatsapp",
+            lang="en",
+            sequence_step=2
+        )
+        self.assertIn("following up", res_step2_en["content"].lower())
+
+        res_step3_en = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="email",
+            lang="en",
+            sequence_step=3
+        )
+        self.assertIn("closing your file", res_step3_en["content"].lower())
+        self.assertIn("closing out your file", res_step3_en["subject"].lower())
+
+    def test_roi_metrics_injection(self):
+        roi = {
+            "deal_value": "15.000 TL",
+            "payback_days": "45",
+            "roi_percent": "180"
+        }
+        res_tr = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="whatsapp",
+            lang="tr",
+            roi_metrics=roi
+        )
+        self.assertIn("Finansal ROI Analizi", res_tr["content"])
+        self.assertIn("15.000 TL", res_tr["content"])
+        self.assertIn("45 günde", res_tr["content"])
+        self.assertIn("%180", res_tr["content"])
+        self.assertIn("wa.me/905329998877", res_tr["whatsapp_direct_url"])
+
+        res_en = self.generator.generate_pitch(
+            lead=self.lead,
+            channel="email",
+            lang="en",
+            roi_metrics=roi
+        )
+        self.assertIn("Financial ROI Analysis", res_en["content"])
+        self.assertIn("15.000 TL", res_en["content"])
+        self.assertIn("180% ROI", res_en["content"])
+
 
 if __name__ == "__main__":
     unittest.main()
+
