@@ -151,15 +151,7 @@
       box-shadow: 0 12px 25px -5px rgba(15, 23, 42, 0.08);
     }
 
-    .glow-effect {
-      box-shadow: 0 0 35px -5px rgba(99, 102, 241, 0.35);
-    }
-    .glow-amber {
-      box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.35);
-    }
-    .glow-emerald {
-      box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.35);
-    }
+    /* Glow effects removed for clean Linear/Vercel B2B style */
 
     /* Custom Scrollbar */
     .custom-scrollbar::-webkit-scrollbar {
@@ -190,13 +182,7 @@
       animation: shimmer 1.6s infinite;
     }
 
-    @keyframes pulse-glow {
-      0%, 100% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.03); opacity: 1; }
-    }
-    .pulse-glow {
-      animation: pulse-glow 3s infinite ease-in-out;
-    }
+/* Pulse-glow removed for clean B2B style */
 
     
     /* Horizontal Scroll Fade Indicator */
@@ -229,7 +215,7 @@
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300 flex flex-col selection:bg-brand-500 selection:text-white">
 
   <!-- Top Announcement / Star-Gate Banner -->
-  <div class="bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 text-white text-xs py-2 px-4 shadow-md flex items-center justify-between z-40">
+  <div class="bg-slate-900 dark:bg-slate-950 border-b border-slate-800 text-slate-300 text-xs py-2 px-4 shadow-sm flex items-center justify-between z-40">
     <div class="container mx-auto flex items-center justify-between flex-wrap gap-2">
       <div class="flex items-center space-x-2">
         <span class="bg-white/20 text-white text-[11px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider flex items-center gap-1">
@@ -242,7 +228,7 @@
         <a id="btnTopStar" href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()" class="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-slate-950 px-3 py-1 rounded-lg text-xs font-black shadow-sm transition-all active:scale-95">
           <i data-lucide="star" class="w-3.5 h-3.5 fill-slate-950 text-slate-950"></i>
           <span>GitHub'da Yıldız Ver & Pro Aç</span>
-          <span id="starCountBadge" class="bg-amber-500/30 text-slate-950 text-[10px] px-1.5 py-0.2 rounded font-black ml-0.5">⭐ Star</span>
+          <span id="starCountBadge" class="bg-amber-500/30 text-slate-950 text-[10px] px-1.5 py-0.5 rounded font-black ml-0.5">Star</span>
         </a>
         <span id="proActiveHeaderBadge" class="hidden inline-flex items-center gap-1 text-xs bg-emerald-400/20 text-emerald-300 border border-emerald-400/30 px-2.5 py-1 rounded-lg font-bold">
           <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
@@ -257,7 +243,7 @@
     <div class="container mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <!-- Logo -->
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center shadow-lg shadow-brand-500/25 text-white font-black text-xl flex-shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-brand-600 flex items-center justify-center shadow-sm text-white font-black text-xl flex-shrink-0">
           <i data-lucide="crosshair" class="w-6 h-6"></i>
         </div>
         <div>
@@ -299,10 +285,10 @@
       <!-- Action Buttons -->
       <div class="flex items-center space-x-2 sm:space-x-3">
         <!-- Command Palette Button (Ctrl+K / Cmd+K) -->
-        <button onclick="toggleCommandPalette()" class="touch-target hidden lg:inline-flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 transition-all active:scale-95 shadow-sm" title="Hızlı Komut Paleti (⌘K / Ctrl+K)" aria-label="Hızlı Komut Paleti">
+        <button onclick="toggleCommandPalette()" class="touch-target hidden lg:inline-flex items-center gap-2 text-xs font-semibold px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 transition-all active:scale-95 shadow-sm" title="Hızlı Komut Paleti (Ctrl+K / Cmd+K)" aria-label="Hızlı Komut Paleti">
           <i data-lucide="command" class="w-4 h-4 text-brand-500"></i>
           <span class="hidden xl:inline">Komutlar</span>
-          <kbd class="text-[10px] bg-slate-200 dark:bg-slate-900/90 text-slate-600 dark:text-slate-400 px-1.5 py-0.5 rounded font-mono border border-slate-300 dark:border-slate-700">⌘K</kbd>
+          <kbd class="text-[10px] bg-slate-200 dark:bg-slate-900/90 text-slate-600 dark:text-slate-400 px-1.5 py-0.5 rounded font-mono border border-slate-300 dark:border-slate-700">Ctrl+K</kbd>
         </button>
 
         <!-- About Button -->
@@ -318,7 +304,7 @@
         </button>
 
         <!-- Rapid Outreach Queue Button -->
-        <button onclick="openOutreachQueue()" id="btnTopOutreachQueue" class="touch-target inline-flex items-center gap-1.5 text-xs font-black px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/20 transition-all active:scale-95" title="Hızlı Satış Sırası (1-Tıkla Toplu Outreach)">
+        <button onclick="openOutreachQueue()" id="btnTopOutreachQueue" class="touch-target inline-flex items-center gap-1.5 text-xs font-black px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm transition-all active:scale-95" title="Hızlı Satış Sırası (1-Tıkla Toplu Outreach)">
           <i data-lucide="zap" class="w-4 h-4 text-amber-300"></i>
           <span class="hidden sm:inline">Hızlı Satış Sırası</span>
         </button>
@@ -343,8 +329,7 @@
 
     <!-- Search Engine Card -->
     <div class="glass-card rounded-3xl p-6 sm:p-8 mb-8 border border-slate-200 dark:border-slate-800 shadow-2xl relative overflow-hidden">
-      <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="absolute -left-16 -top-16 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Clean background without AI gradient blur blobs -->
 
       <div class="max-w-3xl mb-6">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 border border-brand-500/20 text-brand-400 mb-3">
@@ -386,42 +371,42 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5" id="campaignPresetButtons">
             <!-- 1. Yazılım & Web Satışı -->
             <button type="button" onclick="selectCampaignPreset('software', this)" id="preset_software" aria-label="Yazılım Satışı Kampanyası"
-              class="campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-brand-600 text-white border-brand-400 shadow-md shadow-brand-500/20 ring-2 ring-brand-400/40">
-              <div class="flex items-center gap-2 font-black text-xs">
-                <i data-lucide="code-2" class="w-4 h-4 text-brand-200"></i>
-                <span>Yazılım Satışı</span>
+              class="campaign-preset-chip min-w-0 touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-brand-600 text-white border-brand-400 shadow-sm ring-1 ring-brand-400">
+              <div class="flex items-center gap-2 font-black text-xs truncate">
+                <i data-lucide="code-2" class="w-4 h-4 text-brand-200 flex-shrink-0"></i>
+                <span class="truncate">Yazılım Satışı</span>
               </div>
-              <p class="text-[11px] opacity-90 mt-1 leading-snug">Hedef: KOBİ'ler, Klinikler, Ajanslar, Dükkanlar</p>
+              <p class="text-[11px] opacity-90 mt-1 leading-snug break-words">Hedef: KOBİ'ler, Klinikler, Ajanslar, Dükkanlar</p>
             </button>
 
             <!-- 2. Saç Boyası & Kozmetik -->
             <button type="button" onclick="selectCampaignPreset('hair_dye', this)" id="preset_hair_dye" aria-label="Saç Boyası ve Kuaför Kampanyası"
-              class="campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
-              <div class="flex items-center gap-2 font-black text-xs">
-                <i data-lucide="scissors" class="w-4 h-4 text-pink-500"></i>
-                <span>Saç Boyası / Kuaför</span>
+              class="campaign-preset-chip min-w-0 touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
+              <div class="flex items-center gap-2 font-black text-xs truncate">
+                <i data-lucide="scissors" class="w-4 h-4 text-pink-500 flex-shrink-0"></i>
+                <span class="truncate">Saç Boyası / Kuaför</span>
               </div>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">Hedef: Kuaförler, Güzellik Merkezleri, Berberler</p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug break-words">Hedef: Kuaförler, Güzellik Merkezleri, Berberler</p>
             </button>
 
             <!-- 3. Buharlı Ütü & Silter / Tekstil -->
             <button type="button" onclick="selectCampaignPreset('steam_iron', this)" id="preset_steam_iron" aria-label="Buharlı Ütü ve Silter Kampanyası"
-              class="campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
-              <div class="flex items-center gap-2 font-black text-xs">
-                <i data-lucide="factory" class="w-4 h-4 text-blue-500"></i>
-                <span>Buharlı Ütü & Silter / Tekstil</span>
+              class="campaign-preset-chip min-w-0 touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
+              <div class="flex items-center gap-2 font-black text-xs truncate">
+                <i data-lucide="factory" class="w-4 h-4 text-blue-500 flex-shrink-0"></i>
+                <span class="truncate">Buharlı Ütü & Silter</span>
               </div>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">Hedef: Tekstil Atölyeleri, Terziler, Konfeksiyon</p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug break-words">Hedef: Tekstil Atölyeleri, Terziler, Konfeksiyon</p>
             </button>
 
             <!-- 4. Özel Ürün / Hizmet -->
             <button type="button" onclick="selectCampaignPreset('custom', this)" id="preset_custom" aria-label="Özel Ürün ve Hizmet Kampanyası"
-              class="campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
-              <div class="flex items-center gap-2 font-black text-xs">
-                <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
-                <span>Özel Ürün / Hizmet</span>
+              class="campaign-preset-chip min-w-0 touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200">
+              <div class="flex items-center gap-2 font-black text-xs truncate">
+                <i data-lucide="sparkles" class="w-4 h-4 text-amber-500 flex-shrink-0"></i>
+                <span class="truncate">Özel Ürün / Hizmet</span>
               </div>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug">Serbest Giriş: İstediğiniz ürün & sektörü arayın</p>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 leading-snug break-words">Serbest Giriş: İstediğiniz ürün & sektörü arayın</p>
             </button>
           </div>
 
@@ -475,7 +460,7 @@
           <!-- Submit Button -->
           <div class="sm:col-span-3 flex items-end">
             <button type="submit" id="searchSubmitBtn" 
-              class="touch-target w-full bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 text-white font-extrabold text-sm rounded-xl px-4 flex items-center justify-center gap-2 shadow-lg shadow-brand-500/25 transition-all active:scale-95">
+              class="touch-target w-full bg-brand-600 hover:bg-brand-500 text-white font-extrabold text-sm rounded-xl px-4 flex items-center justify-center gap-2 shadow-sm transition-all active:scale-95">
               <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i>
               <span>Müşterileri Bul</span>
             </button>
@@ -527,8 +512,8 @@
               <select id="leadCountSelect" class="touch-target bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500">
                 <option value="15">15 Adet (Hızlı)</option>
                 <option value="25" selected>25 Adet (Topluluk Sınırı)</option>
-                <option value="50">50 Adet (👑 Pro)</option>
-                <option value="100">100 Adet (👑 Pro)</option>
+                <option value="50">50 Adet (Pro)</option>
+                <option value="100">100 Adet (Pro)</option>
               </select>
             </div>
 
@@ -540,7 +525,7 @@
           </div>
 
           <div class="text-[11px] text-slate-500 dark:text-slate-400">
-            <span>⚡ Canlı Google Maps & Overpass Dizin Taraması</span>
+            <span>Canlı Google Maps & Overpass Dizin Taraması</span>
           </div>
         </div>
       </form>
@@ -555,7 +540,7 @@
           <span id="progressPercent" class="font-extrabold text-slate-700 dark:text-slate-300">15%</span>
         </div>
         <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-          <div id="progressBarFill" class="h-full bg-gradient-to-r from-brand-500 via-indigo-500 to-emerald-400 w-0 transition-all duration-300"></div>
+          <div id="progressBarFill" class="h-full bg-brand-500 w-0 transition-all duration-300"></div>
         </div>
       </div>
     </div>
@@ -576,7 +561,7 @@
       </div>
 
       <!-- Quick Outreach Queue Trigger Button -->
-      <button onclick="openOutreachQueue()" id="btnTableOutreachQueue" class="touch-target flex items-center gap-2 px-4 py-2 rounded-2xl text-xs font-black transition-all bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/20 active:scale-95" title="Taranan Müşterilere 1-Tıkla Sıralı WhatsApp Satış Akışı Başlat">
+      <button onclick="openOutreachQueue()" id="btnTableOutreachQueue" class="touch-target flex items-center gap-2 px-4 py-2 rounded-2xl text-xs font-black transition-all bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm active:scale-95" title="Taranan Müşterilere 1-Tıkla Sıralı WhatsApp Satış Akışı Başlat">
         <i data-lucide="zap" class="w-4 h-4 text-amber-300"></i>
         <span>Hızlı Satış Sırası</span>
       </button>
@@ -597,13 +582,13 @@
         <div class="flex items-center gap-1.5">
           <label for="sortBySelect" class="text-xs text-slate-500 dark:text-slate-400 hidden sm:inline font-bold">Sırala:</label>
           <select id="sortBySelect" onchange="applyFilters()" class="touch-target bg-slate-50 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 rounded-xl px-3 py-2 focus:outline-none focus:border-brand-500 font-semibold">
-            <option value="score_desc">⚡ Fırsat Skoru (Yüksekten Düşüğe)</option>
-            <option value="score_asc">⚡ Fırsat Skoru (Düşükten Yükseğe)</option>
-            <option value="rating_desc">★ Google Puanı (En Yüksek)</option>
-            <option value="rating_asc">★ Google Puanı (En Düşük)</option>
-            <option value="reviews_desc">💬 Yorum Sayısı (En Çok)</option>
-            <option value="name_asc">🔤 İşletme Adı (A - Z)</option>
-            <option value="name_desc">🔤 İşletme Adı (Z - A)</option>
+            <option value="score_desc">Fırsat Skoru (Yüksekten Düşüğe)</option>
+            <option value="score_asc">Fırsat Skoru (Düşükten Yükseğe)</option>
+            <option value="rating_desc">Google Puanı (En Yüksek)</option>
+            <option value="rating_asc">Google Puanı (En Düşük)</option>
+            <option value="reviews_desc">Yorum Sayısı (En Çok)</option>
+            <option value="name_asc">İşletme Adı (A - Z)</option>
+            <option value="name_desc">İşletme Adı (Z - A)</option>
           </select>
 
           <!-- Interactive Sort Quick Toggles (Pro UX) -->
@@ -773,7 +758,7 @@
         <div class="bg-slate-100/90 dark:bg-slate-900/80 border border-emerald-500/30 rounded-2xl p-3.5 flex flex-col min-h-[520px] shadow-sm">
           <div class="flex items-center justify-between pb-2.5 border-b border-emerald-500/20 mb-3">
             <span class="text-xs font-black text-emerald-400 flex items-center gap-1.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span> Satış Yapıldı 🎉
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span> Satış Yapıldı
             </span>
             <span id="badgeCount_WON" class="text-[11px] font-black bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full">0</span>
           </div>
@@ -800,7 +785,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div>
           <div class="flex items-center gap-2 mb-2">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-600 to-indigo-400 flex items-center justify-center text-white font-black text-sm">
+            <div class="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-black text-sm">
               <i data-lucide="crosshair" class="w-4 h-4"></i>
             </div>
             <span class="text-base font-extrabold text-slate-900 dark:text-white">Geo<span class="text-brand-400">Leads</span> Pro</span>
@@ -825,7 +810,7 @@
             <a href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()" class="touch-target inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs transition active:scale-95 shadow-sm">
               <i data-lucide="star" class="w-4 h-4 fill-slate-950 text-slate-950"></i>
               <span>Yıldız Ver</span>
-              <span id="footerStarCountBadge" class="bg-amber-500/30 text-slate-950 text-[10px] px-1.5 py-0.2 rounded font-black ml-0.5">⭐ Star</span>
+              <span id="footerStarCountBadge" class="bg-amber-500/30 text-slate-950 text-[10px] px-1.5 py-0.5 rounded font-black ml-0.5">Star</span>
             </a>
             <button onclick="copyRepoUrl()" class="touch-target p-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 hover:bg-brand-600/20 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/80 transition" title="Depo Bağlantısını Kopyala">
               <i data-lucide="copy" class="w-4 h-4"></i>
@@ -1003,27 +988,27 @@
           </h4>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-xs">
             <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 shadow-sm">
-              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">🌐 Web Sitesi Varlığı:</span>
+              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">Web Sitesi Varlığı:</span>
               <div id="auditWebStatus" class="font-extrabold text-slate-800 dark:text-slate-200">-</div>
             </div>
             <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 shadow-sm">
-              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">🔒 SSL Güvenlik:</span>
+              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">SSL Güvenlik:</span>
               <div id="auditSSLStatus" class="font-extrabold text-slate-800 dark:text-slate-200">-</div>
             </div>
             <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 shadow-sm">
-              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">📱 Mobil Uyumluluk:</span>
+              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">Mobil Uyumluluk:</span>
               <div id="auditMobileStatus" class="font-extrabold text-slate-800 dark:text-slate-200">-</div>
             </div>
             <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 shadow-sm">
-              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">⭐ Harita & Yorum İtibarı:</span>
+              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">Harita & Yorum İtibarı:</span>
               <div id="auditReputationStatus" class="font-extrabold text-amber-400">-</div>
             </div>
             <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 shadow-sm">
-              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">💬 Doğrudan WhatsApp:</span>
+              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">Doğrudan WhatsApp:</span>
               <div id="auditWhatsAppStatus" class="font-extrabold text-slate-800 dark:text-slate-200">-</div>
             </div>
             <div class="p-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 shadow-sm">
-              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">📧 Doğrulanmış E-Posta:</span>
+              <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 block mb-1">Doğrulanmış E-Posta:</span>
               <div id="auditEmailStatus" class="font-extrabold text-slate-800 dark:text-slate-200">-</div>
             </div>
           </div>
@@ -1151,7 +1136,7 @@
         </div>
 
         <!-- Collapsible Instant ROI & Payback Calculator Widget -->
-        <div class="bg-gradient-to-br from-slate-50 to-indigo-50/40 dark:from-slate-950/70 dark:to-indigo-950/20 border border-indigo-500/25 rounded-2xl p-3.5 shadow-sm">
+        <div class="bg-slate-100/80 dark:bg-slate-950/70 border border-slate-300 dark:border-slate-800 rounded-2xl p-3.5 shadow-sm">
           <div class="flex items-center justify-between cursor-pointer select-none" onclick="toggleRoiWidget()">
             <div class="flex items-center gap-2">
               <div class="w-7 h-7 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center">
@@ -1238,7 +1223,7 @@
             <option value="ENRICHED">İncelendi</option>
             <option value="CONTACTED">İletişime Geçildi</option>
             <option value="IN_DISCUSSION">Görüşmede</option>
-            <option value="WON">Satış Yapıldı (Won) 🎉</option>
+            <option value="WON">Satış Yapıldı (Won)</option>
             <option value="LOST">Olumsuz (Lost)</option>
           </select>
         </div>
@@ -1267,17 +1252,17 @@
   <!-- MODAL 2: GITHUB STAR-GATE VIRAL GROWTH MODAL                              -->
   <!-- ========================================================================= -->
   <div id="starGateModal" onclick="if(event.target === this) closeStarGateModal()" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="glass-card bg-white dark:bg-slate-900/95 border border-amber-500/40 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative glow-amber">
+    <div class="glass-card bg-white dark:bg-slate-900/98 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl relative">
       <button onclick="closeStarGateModal()" class="touch-target absolute right-4 top-4 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white p-2 rounded-xl bg-slate-100 dark:bg-slate-800/80 transition">
         <i data-lucide="x" class="w-4 h-4"></i>
       </button>
 
       <!-- Animated Star Hero Emblem -->
-      <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400/20 to-amber-600/20 border border-amber-400/40 text-amber-400 mx-auto flex items-center justify-center mb-4 pulse-glow shadow-inner">
+      <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-500 dark:text-amber-400 mx-auto flex items-center justify-center mb-4 shadow-sm">
         <i data-lucide="star" class="w-8 h-8 fill-amber-400 text-amber-400"></i>
       </div>
 
-      <h3 class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">⭐ Pro Özellikleri Ücretsiz Açın!</h3>
+      <h3 class="text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">Pro Özellikleri Ücretsiz Açın</h3>
       <p class="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
         GeoLeads %100 açık kaynaklı bir topluluk projesidir. GitHub depomuza 1 yıldız vererek tüm Pro yetenekleri <strong class="text-amber-300">anında ve ücretsiz</strong> açabilirsiniz.
       </p>
@@ -1304,9 +1289,9 @@
 
       <div class="space-y-2.5">
         <a href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="trackStarClick()"
-          class="touch-target w-full py-3 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 font-black text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 transition-all transform active:scale-95">
+          class="touch-target w-full py-3 bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm rounded-xl flex items-center justify-center gap-2 shadow-sm transition-all transform active:scale-95">
           <i data-lucide="star" class="w-4 h-4 fill-slate-950 text-slate-950"></i>
-          <span>GitHub'da 1-Tıkla Yıldız Ver & Pro Aç 🎉</span>
+          <span>GitHub'da Yıldız Ver & Pro Sürümü Aç</span>
         </a>
         <button onclick="closeStarGateModal()" class="touch-target w-full py-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 text-xs font-semibold transition">
           Şimdilik Topluluk Sürümüyle Devam Et
@@ -1328,7 +1313,7 @@
 
       <!-- Modal Hero Header -->
       <div class="flex items-start gap-4 mb-6">
-        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-amber-400 flex-shrink-0 flex items-center justify-center shadow-lg shadow-brand-500/25 text-white">
+        <div class="w-14 h-14 rounded-2xl bg-brand-600 flex-shrink-0 flex items-center justify-center shadow-sm text-white">
           <i data-lucide="crosshair" class="w-7 h-7"></i>
         </div>
         <div>
@@ -1402,21 +1387,21 @@
         </div>
 
         <!-- Section 3: Prominent Star on GitHub CTA Card with Celebration Animation -->
-        <div id="aboutStarCtaCard" class="bg-gradient-to-br from-amber-500/15 via-indigo-600/15 to-purple-600/15 border-2 border-amber-400/40 rounded-2xl p-5 relative overflow-hidden shadow-xl transition-all duration-300">
+        <div id="aboutStarCtaCard" class="bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 rounded-2xl p-5 relative overflow-hidden shadow-sm transition-all duration-300">
           <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="space-y-1 text-center sm:text-left">
               <div class="flex items-center justify-center sm:justify-start gap-2">
-                <span class="text-amber-400 animate-bounce">⭐</span>
+                <i data-lucide="star" class="w-5 h-5 fill-amber-400 text-amber-400 flex-shrink-0"></i>
                 <h4 id="aboutStarTitle" class="text-base font-extrabold text-slate-900 dark:text-white">GitHub'da Projeye Yıldız Verin</h4>
-                <span id="aboutStarCountBadge" class="bg-amber-400/30 text-amber-800 dark:text-amber-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-amber-400/40">⭐ Star</span>
+                <span id="aboutStarCountBadge" class="bg-amber-400/30 text-amber-800 dark:text-amber-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-amber-400/40">Star</span>
               </div>
               <p id="aboutStarDesc" class="text-xs text-slate-600 dark:text-slate-300 max-w-sm">
                 Açık kaynak topluluğumuzu destekleyin, GitHub arama sıralamasında zirveye çıkmamıza yardımcı olun ve tüm Pro yetenekleri anında açın!
               </p>
             </div>
-            <a id="aboutStarBtn" href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="celebrateStarFromAbout(event)" class="touch-target w-full sm:w-auto px-5 py-3 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-amber-500/30 transition transform active:scale-95 flex-shrink-0">
+            <a id="aboutStarBtn" href="https://github.com/DevKursat/GeoLeads" target="_blank" onclick="celebrateStarFromAbout(event)" class="touch-target w-full sm:w-auto px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm transition transform active:scale-95 flex-shrink-0">
               <i data-lucide="star" class="w-4 h-4 fill-slate-950 text-slate-950"></i>
-              <span>Yıldız Ver & Kutla 🎉</span>
+              <span>Yıldız Ver & Pro'yu Başlat</span>
             </a>
           </div>
         </div>
@@ -1521,20 +1506,20 @@
 
         <!-- Progress Bar -->
         <div class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mt-3">
-          <div id="queueProgressBar" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 w-0 transition-all duration-300"></div>
+          <div id="queueProgressBar" class="h-full bg-emerald-500 w-0 transition-all duration-300"></div>
         </div>
       </div>
 
       <!-- Active Queue Lead Card -->
       <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800/80 mb-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2.5">
-          <div>
+          <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2 flex-wrap">
               <span id="queueLeadCategory" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-600 dark:text-brand-300 border border-brand-500/30">Kategori</span>
-              <span id="queueLeadScore" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30">⚡ Skor: -</span>
+              <span id="queueLeadScore" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-amber-500/30">Skor: -</span>
               <span id="queueLeadGap" class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-600 dark:text-rose-300 border border-rose-500/30">Açık: -</span>
             </div>
-            <h4 id="queueLeadName" class="text-lg font-black text-slate-900 dark:text-white mt-1">İşletme Adı</h4>
+            <h4 id="queueLeadName" class="text-lg font-black text-slate-900 dark:text-white mt-1 truncate">İşletme Adı</h4>
             <div class="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400 mt-0.5 flex-wrap">
               <span id="queueLeadCity" class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Şehir</span>
               <span id="queueLeadPhone" class="flex items-center gap-1 font-mono"><i data-lucide="phone" class="w-3.5 h-3.5"></i> Tel</span>
@@ -1706,11 +1691,11 @@
 
       // Update preset buttons styling
       document.querySelectorAll(".campaign-preset-chip").forEach(b => {
-        b.className = "campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200";
+        b.className = "campaign-preset-chip min-w-0 touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-white dark:bg-slate-950/80 hover:bg-slate-50 dark:hover:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200";
       });
       const targetBtn = btnEl || document.getElementById(`preset_${campaignKey}`);
       if (targetBtn) {
-        targetBtn.className = "campaign-preset-chip touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-brand-600 text-white border-brand-400 shadow-md shadow-brand-500/20 ring-2 ring-brand-400/40";
+        targetBtn.className = "campaign-preset-chip min-w-0 touch-target text-left p-3 rounded-xl border transition-all duration-200 bg-brand-600 text-white border-brand-400 shadow-sm ring-1 ring-brand-400";
       }
 
       // Update badge
@@ -1743,7 +1728,7 @@
       // Render dynamic sub chips
       renderCampaignSubChips(conf.subChips);
 
-      showToast(`🎯 Kampanya ayarlandı: ${conf.badge}`, "info");
+      showToast(`Kampanya seçildi: ${conf.badge}`, "info");
     }
 
     function renderCampaignSubChips(subChips) {
@@ -1920,7 +1905,7 @@
           isProActive = true;
           setProUIState();
           showConfetti();
-          showToast("👑 Pro Modu Aktif!", "success");
+          showToast("Pro Modu Aktif!", "success");
         }
       } catch (e) {}
     }
@@ -1938,14 +1923,14 @@
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
         if (outcome === "accepted") {
-          showToast("🚀 GeoLeads Masaüstü Uygulaması Başarıyla Yüklendi!", "success");
+          showToast("GeoLeads Masaüstü Uygulaması Başarıyla Yüklendi!", "success");
           showConfetti();
           const btn = document.getElementById("btnInstallPwa");
           if (btn) btn.classList.add("hidden");
         }
         deferredPrompt = null;
       } else {
-        showToast("💡 Chrome/Edge/Brave adres çubuğundaki 'Yükle' simgesine tıklayarak veya ./desktop.sh çalıştırarak kullanabilirsiniz.", "info");
+        showToast("Tarayıcı adres çubuğundaki Yükle simgesine tıklayarak veya ./desktop.sh çalıştırarak kullanabilirsiniz.", "info");
       }
     }
 
@@ -1968,13 +1953,13 @@
           const d = await res.json();
           if (d && typeof d.stargazers_count === "number") {
             const count = d.stargazers_count;
-            const formatted = "⭐ " + (count >= 1000 ? (count / 1000).toFixed(1) + "k" : count);
+            const formatted = (count >= 1000 ? (count / 1000).toFixed(1) + "k" : count) + " Star";
             badges.forEach(b => { if (b) b.textContent = formatted; });
             return;
           }
         }
       } catch (e) {}
-      badges.forEach(b => { if (b) b.textContent = "⭐ Star"; });
+      badges.forEach(b => { if (b) b.textContent = "Star"; });
     }
 
     function setupKeyboardShortcuts() {
@@ -2039,7 +2024,7 @@
       }
 
       playAudioChime('chime');
-      showToast(`🔍 ${query} (${city}) aranıyor...`, "info");
+      showToast(`${query} (${city}) aranıyor...`, "info");
       
       // Trigger search
       await executeSearch(query, city);
@@ -2213,8 +2198,8 @@
         let webHtml = `<span class="text-[11px] text-rose-400 font-semibold flex items-center gap-1"><i data-lucide="x-circle" class="w-3 h-3"></i> Web Yok</span>`;
         if (l.has_website) {
           const sslBadge = l.has_ssl 
-            ? `<span class="text-[10px] text-emerald-400 font-bold">HTTPS ✓</span>` 
-            : `<span class="text-[10px] text-amber-400 font-bold">SSL Yok ⚠</span>`;
+            ? `<span class="text-[10px] text-emerald-400 font-bold">HTTPS</span>` 
+            : `<span class="text-[10px] text-amber-400 font-bold">SSL Yok</span>`;
           webHtml = `
             <div>
               <a href="${l.website}" target="_blank" class="text-[11px] text-blue-400 hover:underline truncate max-w-[140px] block font-mono font-semibold">${l.website.replace('https://','').replace('http://','')}</a>
@@ -2228,10 +2213,10 @@
 
         tr.innerHTML = `
           <td class="py-3.5 px-4">
-            <div class="font-bold text-slate-900 dark:text-slate-100 text-xs">${escapeHtml(l.name)}</div>
+            <div class="font-bold text-slate-900 dark:text-slate-100 text-xs truncate max-w-[220px]" title="${escapeHtml(l.name)}">${escapeHtml(l.name)}</div>
             <div class="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mt-0.5">
               <span>${escapeHtml(l.category)}</span> • <span>${escapeHtml(l.city)}</span>
-              ${l.rating ? `<span class="text-amber-400 ml-1 font-bold">★ ${l.rating} (${l.review_count})</span>` : ''}
+              ${l.rating ? `<span class="text-amber-400 ml-1 font-bold inline-flex items-center gap-0.5"><i data-lucide="star" class="w-2.5 h-2.5 fill-amber-400"></i> ${l.rating} (${l.review_count})</span>` : ''}
             </div>
           </td>
           <td class="py-3.5 px-4">
@@ -2313,7 +2298,7 @@
         card.innerHTML = `
           <div class="flex items-center justify-between">
             <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">${escapeHtml(l.category || 'İşletme')}</span>
-            <span class="text-[10px] font-extrabold text-amber-400 bg-amber-500/15 px-2 py-0.5 rounded-full border border-amber-500/25">⚡ ${l.opportunity_score}</span>
+            <span class="text-[10px] font-extrabold text-amber-400 bg-amber-500/15 px-2 py-0.5 rounded-full border border-amber-500/25">${l.opportunity_score}</span>
           </div>
           <div class="font-extrabold text-slate-900 dark:text-slate-100 text-xs truncate">${escapeHtml(l.name)}</div>
           <div class="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1">
@@ -2405,19 +2390,19 @@
       document.getElementById("modalPhone").textContent = lead.phone || "Bulunamadı";
       document.getElementById("modalEmails").textContent = (lead.emails && lead.emails.length > 0) ? lead.emails.join(", ") : "E-posta yok";
       document.getElementById("modalWebsite").textContent = lead.website || "Web sitesi yok";
-      document.getElementById("modalRating").textContent = lead.rating ? `★ ${lead.rating} (${lead.review_count} yorum)` : "Değerlendirme yok";
+      document.getElementById("modalRating").textContent = lead.rating ? `${lead.rating} (${lead.review_count} yorum)` : "Değerlendirme yok";
       document.getElementById("modalStageSelect").value = lead.crm_stage || "NEW";
       document.getElementById("modalMapsLink").href = lead.google_maps_url || "#";
 
       // Tab 1 Fields
       const phoneTypeBadge = document.getElementById("modalPhoneTypeBadge");
       if (phoneTypeBadge) {
-        phoneTypeBadge.textContent = isMobileNumber(lead.phone) ? "📱 Cep Telefonu (WhatsApp Uyumlu)" : (lead.phone ? "☎️ Sabit Santral Hattı" : "Telefon Bulunamadı");
+        phoneTypeBadge.textContent = isMobileNumber(lead.phone) ? "Cep Telefonu (WhatsApp Uyumlu)" : (lead.phone ? "Sabit Santral Hattı" : "Telefon Bulunamadı");
       }
 
       const emailCountBadge = document.getElementById("modalEmailCountBadge");
       if (emailCountBadge) {
-        emailCountBadge.textContent = (lead.emails && lead.emails.length > 0) ? `✓ ${lead.emails.length} Adet Doğrulanmış E-Posta` : "Kayıtlı E-Posta Yok";
+        emailCountBadge.textContent = (lead.emails && lead.emails.length > 0) ? `${lead.emails.length} Adet Doğrulanmış E-Posta` : "Kayıtlı E-Posta Yok";
       }
 
       const webLink = document.getElementById("modalWebLink");
@@ -2429,7 +2414,7 @@
 
       const sslBadge = document.getElementById("modalSslBadge");
       if (sslBadge) {
-        sslBadge.textContent = lead.has_ssl ? "🔒 Güvenli SSL (HTTPS)" : (lead.has_website ? "⚠️ Güvensiz HTTP ('Güvenli Değil')" : "Site Yok");
+        sslBadge.textContent = lead.has_ssl ? "Güvenli SSL (HTTPS)" : (lead.has_website ? "Güvensiz HTTP ('Güvenli Değil')" : "Site Yok");
         sslBadge.className = lead.has_ssl ? "px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold" : "px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 font-bold";
       }
 
@@ -2437,7 +2422,7 @@
       if (revCountEl) revCountEl.textContent = `${lead.review_count || 0} yorum`;
 
       const ratingTextEl = document.getElementById("modalRatingText");
-      if (ratingTextEl) ratingTextEl.textContent = lead.rating ? `★ ${lead.rating}` : "Yorum Yok";
+      if (ratingTextEl) ratingTextEl.textContent = lead.rating ? `${lead.rating}` : "Yorum Yok";
 
       const repBadge = document.getElementById("modalReputationBadge");
       if (repBadge) {
@@ -2517,7 +2502,7 @@
       // 4. İtibar
       const repStatusEl = document.getElementById("auditReputationStatus");
       if (lead.rating) {
-        repStatusEl.innerHTML = `★ ${lead.rating} (${lead.review_count} yorum)`;
+        repStatusEl.innerHTML = `${lead.rating} (${lead.review_count} yorum)`;
       } else {
         repStatusEl.innerHTML = `<span class="text-slate-400">Yorum Yok</span>`;
       }
@@ -2558,7 +2543,7 @@
               <span class="text-[9px] px-2 py-0.5 rounded-full uppercase font-black ${sevColor}">${g.severity}</span>
             </div>
             <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/80 text-[11px] text-slate-700 dark:text-slate-300">
-              <span class="font-bold text-brand-400 block mb-0.5">🎯 Önerilen Satış Kancası:</span>
+              <span class="font-bold text-brand-400 block mb-0.5">Önerilen Satış Kancası:</span>
               <p>${escapeHtml(g.pitch_angle)}</p>
             </div>
           `;
@@ -2694,7 +2679,7 @@
             setTimeout(openStarGateModal, 1500);
           }
         } else if (json.star_gate_required) {
-          pitchArea.value = "⭐ Bu özellik GitHub Yıldız Destekçilerine özeldir. Depomuza 1 yıldız vererek anında ve ücretsiz açabilirsiniz!";
+          pitchArea.value = "Bu özellik GitHub Yıldız Destekçilerine özeldir. Depomuza 1 yıldız vererek anında ve ücretsiz açabilirsiniz!";
           openStarGateModal();
         } else {
           pitchArea.value = json.error || "Metin oluşturulurken hata oluştu.";
@@ -2816,7 +2801,7 @@
 
       if (channel === 'whatsapp') {
         if (pType === 'hair_dye') {
-          return `Selamlar ${biz} ekibi! 👋 ${city} bölgesindeki kuaför salonunuzu inceledim. Kuaförlere özel toptan profesyonel saç boyası ve salon sarf malzemeleri tedariği sağlıyoruz. Salonunuza özel avantajlı toptan fiyat listemiz, hızlı sevkiyat ve salonunuzda bizzat denemeniz için ÜCRETSİZ NUMUNE DENEME KİTİ gönderebiliriz. Renk kartelamızı WhatsApp'tan iletmemi ister misiniz?`;
+          return `Selamlar ${biz} ekibi! ${city} bölgesindeki kuaför salonunuzu inceledim. Kuaförlere özel toptan profesyonel saç boyası ve salon sarf malzemeleri tedariği sağlıyoruz. Salonunuza özel avantajlı toptan fiyat listemiz, hızlı sevkiyat ve salonunuzda bizzat denemeniz için ÜCRETSİZ NUMUNE DENEME KİTİ gönderebiliriz. Renk kartelamızı WhatsApp'tan iletmemi ister misiniz?`;
         } else if (pType === 'steam_iron') {
           return `Merhaba ${biz} yetkilisi, ${city} bölgesindeki işletmenizi inceledim. Tekstil atölyeleri ve terziler için Silter tipi sanayi tipi buharlı ütü sistemleri, merkezi buhar kazanı tesisat kurulumu ve orijinal yedek parça temini sağlıyoruz. Atölyenizin ütüleme hızını ve buhar verimini artıracak çözümlerimizi ve güncel kampanya fiyat listemizi paylaşabilir miyim?`;
         } else if (pType === 'custom' && customProductName) {
@@ -2830,7 +2815,7 @@
         } else if (gap === 'NO_SSL_INSECURE' || !lead.has_ssl) {
           return `Merhaba ${biz} ekibi, web sitenizde Chrome 'Güvenli Değil' uyarısı çıktığını fark ettim. Bu durum ziyaretçilerin %80'ini kaçırıyor. SSL ve güvenlik kurulumunu 1 gün içinde tamamlayabiliriz. Detaylı analiz raporunu paylaşabilir miyim?`;
         } else if (lead.rating && lead.rating < 4.5) {
-          return `Merhaba ${biz} ekibi, ${city} bölgesinde Google puanınızı (${lead.rating}★) inceledik. Otomatik memnuniyet sistemiyle mutlu müşterilerinizden 5 yıldızlı yorum toplayarak puanınızı 4.8+'ya çıkarabiliriz. Örnek sonuçları ileteyim mi?`;
+          return `Merhaba ${biz} ekibi, ${city} bölgesinde Google puanınızı (${lead.rating} Puan) inceledik. Otomatik memnuniyet sistemiyle mutlu müşterilerinizden 5 yıldızlı yorum toplayarak puanınızı 4.8+'ya çıkarabiliriz. Örnek sonuçları ileteyim mi?`;
         } else {
           return `Merhaba ${biz} ekibi, ${city} bölgesindeki ${cat} profilinizi inceledim. Google Haritalar'da daha fazla müşteri çekmeniz ve dijital büyümeniz için hazırladığımız özel fırsat analizini paylaşmak isterim. İncelemek ister misiniz?`;
         }
@@ -2871,7 +2856,7 @@
       window.open(waUrl, "_blank");
 
       await markLeadContactedDirect(leadId);
-      showToast(`${lead.name} için WhatsApp açıldı ve CRM aşaması 'İletişim Kuruldu' yapıldı! 🎉`, "success");
+      showToast(`${lead.name} için WhatsApp açıldı ve CRM aşaması 'İletişim Kuruldu' yapıldı!`, "success");
     }
 
     async function quickEmailOutreach(leadId) {
@@ -2995,7 +2980,7 @@
         if (stage === "WON") {
           showConfetti();
           playAudioChime('won');
-          showToast("🎉 Tebrikler! Müşteri Satış Yapıldı (WON) aşamasına taşındı!", "success");
+          showToast("Tebrikler! Müşteri Satış Yapıldı (WON) aşamasına taşındı!", "success");
         } else {
           playAudioChime('chime');
           showToast("Aşama güncellendi", "success");
@@ -3183,30 +3168,30 @@
       updateAboutCardToCelebration();
       showConfetti();
       playAudioChime('won');
-      showToast("🎉 Harika! GitHub Yıldızınız için teşekkürler. Tüm Pro özelliklerin kilidi anında açıldı!", "success");
+      showToast("Harika! GitHub Yıldızınız için teşekkürler. Tüm Pro özelliklerin kilidi anında açıldı!", "success");
     }
 
     function updateAboutCardToCelebration() {
       const card = document.getElementById("aboutStarCtaCard");
       if (!card) return;
-      card.className = "bg-gradient-to-br from-amber-500/20 via-emerald-600/20 to-indigo-600/20 border-2 border-emerald-400/80 rounded-2xl p-5 relative overflow-hidden shadow-2xl transition-all duration-500 ring-2 ring-emerald-400/40";
+      card.className = "bg-slate-100 dark:bg-slate-900 border border-emerald-500 rounded-2xl p-5 relative overflow-hidden shadow-sm transition-all duration-300";
       const badge = document.getElementById("aboutStarCountBadge");
       if (badge) {
         badge.className = "bg-emerald-400/30 text-emerald-300 text-[10px] font-black px-2 py-0.5 rounded-full border border-emerald-400/50 animate-pulse";
-        badge.textContent = "⭐ PRO AKTİF";
+        badge.textContent = "PRO AKTİF";
       }
       const title = document.getElementById("aboutStarTitle");
-      if (title) title.textContent = "🎉 Teşekkürler! Pro Sürüm Aktif";
+      if (title) title.textContent = "Teşekkürler! Pro Sürüm Aktif";
       const desc = document.getElementById("aboutStarDesc");
       if (desc) desc.textContent = "GitHub açık kaynak desteğiniz için teşekkür ederiz! Tüm 500+ arama kotası ve AI kancaları anında kullanımınıza açıldı.";
       const btn = document.getElementById("aboutStarBtn");
       if (btn) {
-        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4 fill-slate-950 text-slate-950"></i><span>🎉 Kutlamayı Yenile</span>`;
+        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4 fill-slate-950 text-slate-950"></i><span>Kutlamayı Yenile</span>`;
         btn.onclick = (e) => {
           e.preventDefault();
           showConfetti();
           playAudioChime('won');
-          showToast("🎉 Kutlama! Pro sürüm aktif ve hazır.", "success");
+          showToast("Pro sürüm aktif ve hazır.", "success");
         };
         lucide.createIcons();
       }
@@ -3214,7 +3199,7 @@
 
     // Viral Share Helpers
     function shareOnTwitter() {
-      const text = encodeURIComponent("🎯 GeoLeads ile sıfır maliyetle Google Maps & yerel B2B müşterileri bulup WhatsApp ve e-posta avcılığı yapabilirsiniz! %100 açık kaynak harika bir araç:");
+      const text = encodeURIComponent("GeoLeads ile sıfır maliyetle Google Maps & yerel B2B müşterileri bulup WhatsApp ve e-posta avcılığı yapabilirsiniz! %100 açık kaynak harika bir araç:");
       const url = encodeURIComponent("https://github.com/DevKursat/GeoLeads");
       const hashtags = encodeURIComponent("b2b,leadgeneration,opensource,python,growthhacking");
       window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`, "_blank", "noopener,noreferrer");
@@ -3226,14 +3211,14 @@
     }
 
     function shareOnWhatsApp() {
-      const text = encodeURIComponent("🎯 GeoLeads: Sıfır Maliyetli B2B Müşteri Bulma & Google Maps Avcısı. İşletmelerin WhatsApp, e-posta ve web açıklarını bulup 1-tıkla AI teklif hazırlıyor! Açık kaynak deposu: https://github.com/DevKursat/GeoLeads");
+      const text = encodeURIComponent("GeoLeads: Sıfır Maliyetli B2B Müşteri Bulma & Google Maps Avcısı. İşletmelerin WhatsApp, e-posta ve web açıklarını bulup 1-tıkla AI teklif hazırlıyor! Açık kaynak deposu: https://github.com/DevKursat/GeoLeads");
       window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank", "noopener,noreferrer");
     }
 
     function copyRepoUrl() {
       const url = "https://github.com/DevKursat/GeoLeads";
       playAudioChime('copy');
-      safeCopy(url, "📋 GitHub depo bağlantısı panoya kopyalandı!");
+      safeCopy(url, "GitHub depo bağlantısı panoya kopyalandı!");
     }
 
     // Star-Gate Modals
@@ -3276,7 +3261,7 @@
     function setProUIState() {
       const badge = document.getElementById("badgeTier");
       if (badge) {
-        badge.textContent = "⭐ GITHUB PRO AKTİF";
+        badge.textContent = "GITHUB PRO AKTİF";
         badge.className = "text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm";
       }
       const headerBadge = document.getElementById("proActiveHeaderBadge");
@@ -3290,7 +3275,7 @@
       const countSelect = document.getElementById("leadCountSelect");
       if (countSelect) {
         const opt50 = countSelect.querySelector('option[value="50"]');
-        if (opt50) opt50.textContent = "50 Adet (⭐ Pro Sürüm)";
+        if (opt50) opt50.textContent = "50 Adet (Pro Sürüm)";
       }
       updateAboutCardToCelebration();
     }
@@ -3303,7 +3288,7 @@
       closeStarGateModal();
       showConfetti();
       playAudioChime('won');
-      showToast("🎉 Harika! GitHub Yıldızınız için teşekkürler. Tüm Pro özelliklerin kilidi anında açıldı!", "success");
+      showToast("Harika! GitHub Yıldızınız için teşekkürler. Tüm Pro özelliklerin kilidi anında açıldı!", "success");
     }
 
     function downloadCSV() {
@@ -3313,9 +3298,9 @@
       const qs = params.toString() ? `?${params.toString()}` : "";
       window.location.href = `/api/export/csv${qs}`;
       if (!isStarred && !isProActive) {
-        showToast("⭐ Topluluk sürümü (25 müşteri) indiriliyor. Sınırsız liste için lütfen GitHub'da yıldız verin!", "info");
+        showToast("Topluluk sürümü (25 müşteri) indiriliyor. Sınırsız liste için lütfen GitHub'da yıldız verin!", "info");
       } else {
-        showToast("🚀 Pro indirme: Sınırsız müşteri verisi CSV olarak hazırlanıyor!", "success");
+        showToast("Pro indirme: Sınırsız müşteri verisi CSV olarak hazırlanıyor!", "success");
       }
     }
 
@@ -3416,7 +3401,7 @@
 
       if (nameEl) nameEl.textContent = lead.name || "İşletme";
       if (catEl) catEl.textContent = lead.category || "Genel";
-      if (scoreEl) scoreEl.textContent = `⚡ Skor: ${lead.opportunity_score || 70}`;
+      if (scoreEl) scoreEl.textContent = `Skor: ${lead.opportunity_score || 70}`;
       if (gapEl) gapEl.textContent = `Açık: ${lead.primary_gap || "Genel"}`;
       if (cityEl) cityEl.innerHTML = `<i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${lead.city || "Konum Belirtilmemiş"}`;
       if (phoneEl) phoneEl.innerHTML = `<i data-lucide="phone" class="w-3.5 h-3.5"></i> ${lead.phone || "Telefon Yok"}`;
