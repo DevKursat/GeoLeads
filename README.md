@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🎯 GeoLeads Pro
+# GeoLeads Pro
 ### Sıfır Maliyetli B2B Müşteri Bulma, Google Maps Scraper, WhatsApp CRM & Derin Web Açık Denetimi
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -12,13 +12,13 @@
 
 **Google Maps harita verilerini, OpenStreetMap Overpass aynalarını ve DuckDuckGo/Bing yerel dizinlerini 100% gerçek canlı veriyle tarayın; web sitelerinden doğrulanmış e-posta ve WhatsApp hatlarını avlayın; işletmelerin web sitesi açıklarını analiz edip 1-tıkla AI soğuk satış teklifleri üretin!**
 
-[🌟 Projeyi Yıldızla (Star)](https://github.com/DevKursat/GeoLeads) • [🚀 Hızlı Başlangıç](#-hızlı-başlangıç) • [🖥️ Masaüstü Uygulaması](#%EF%B8%8F-masaüstü-uygulaması-desktop) • [🔥 Özellikler](#-temel-özellikler) • [👑 Master Key](#-star-gate--master-key) • [🛠️ Mimari](#%EF%B8%8F-mimari-yapı) • [🌐 About & GEO SEO](#-about-geoleads-seo--geo-growth)
+[Star Projeyi Yıldızla (Star)](https://github.com/DevKursat/GeoLeads) • [ Hızlı Başlangıç](#-hızlı-başlangıç) • [ Masaüstü Uygulaması](#%EF%B8%8F-masaüstü-uygulaması-desktop) • [ Özellikler](#-temel-özellikler) • [ Master Key](#-star-gate--master-key) • [ Mimari](#%EF%B8%8F-mimari-yapı) • [ About & GEO SEO](#-about-geoleads-seo--geo-growth)
 
 ---
 
 </div>
 
-## 💡 Neden GeoLeads Pro?
+## Neden GeoLeads Pro?
 
 Geleneksel Google Maps API'leri sorgu başına fahiş faturalar çıkarır veya sadece genel bir santral numarası verir. **GeoLeads**, sıfır maliyetli çoklu arama motorlarıyla (Google Maps, OpenStreetMap Overpass, DuckDuckGo, Bing) **%100 gerçek işletmeleri** bulur:
 
@@ -41,34 +41,34 @@ Geleneksel Google Maps API'leri sorgu başına fahiş faturalar çıkarır veya 
 
 ---
 
-## 🔥 Temel Özellikler
+## Temel Özellikler
 
-- 🌐 **%100 Gerçek Canlı Veri (Sıfır Mock / Sentetik Veri Yok):** OpenStreetMap Overpass (5 yedekli döner ayna), Google Maps genel arama ayrıştırıcısı, DuckDuckGo & Bing yerel işletme ayrıştırıcıları ile tamamen gerçek işletmeler.
-- 🎯 **Sektörel Satış Kampanya Motoru:**
-  - 💻 **Yazılım & Web Satışı:** KOBİ'ler, klinikler, ajanslar ve dükkanlar için web sitesi ve müşteri otomasyonu teklifleri.
-  - 💇‍♀️ **Saç Boyası & Salon Tedariği:** Kuaför salonlarına toptan saç boyası, bakım ürünleri ve ücretsiz deneme/numune kiti teklifleri.
-  - 👔 **Buharlı Ütü & Silter / Tekstil:** Tekstil atölyeleri ve konfeksiyonlar için Silter tipi sanayi buharlı ütü sistemleri, merkezi kazan tesisatı ve yedek parça teklifleri.
-  - ✨ **Özel Ürün / Hizmet:** Dilediğiniz ürün veya sektöre özel anında kanca ve çözüm üreten serbest kampanya modu.
-- ⚡ **Hızlı Satış & Ulaşım Sırası (Rapid Outreach Queue):** Taranan müşterileri kuyruğa alır; 1-tıkla WhatsApp veya e-posta açar, CRM durumunu anında 'İletişime Geçildi' yapıp sıradaki müşteriye geçer.
-- 🔄 **3 Aşamalı Satış Döngüsü (Cadence Sequence):**
+-  **%100 Gerçek Canlı Veri (Sıfır Mock / Sentetik Veri Yok):** OpenStreetMap Overpass (5 yedekli döner ayna), Google Maps genel arama ayrıştırıcısı, DuckDuckGo & Bing yerel işletme ayrıştırıcıları ile tamamen gerçek işletmeler.
+-  **Sektörel Satış Kampanya Motoru:**
+  -  **Yazılım & Web Satışı:** KOBİ'ler, klinikler, ajanslar ve dükkanlar için web sitesi ve müşteri otomasyonu teklifleri.
+  - ‍ **Saç Boyası & Salon Tedariği:** Kuaför salonlarına toptan saç boyası, bakım ürünleri ve ücretsiz deneme/numune kiti teklifleri.
+  -  **Buharlı Ütü & Silter / Tekstil:** Tekstil atölyeleri ve konfeksiyonlar için Silter tipi sanayi buharlı ütü sistemleri, merkezi kazan tesisatı ve yedek parça teklifleri.
+  -  **Özel Ürün / Hizmet:** Dilediğiniz ürün veya sektöre özel anında kanca ve çözüm üreten serbest kampanya modu.
+-  **Hızlı Satış & Ulaşım Sırası (Rapid Outreach Queue):** Taranan müşterileri kuyruğa alır; 1-tıkla WhatsApp veya e-posta açar, CRM durumunu anında 'İletişime Geçildi' yapıp sıradaki müşteriye geçer.
+-  **3 Aşamalı Satış Döngüsü (Cadence Sequence):**
   - **Adım 1:** İlk Kanca & Zafiyet Tespiti
   - **Adım 2:** Takip & Somut Vaka Çalışması Kanıtı (Gün 3)
   - **Adım 3:** Düşük Baskılı Dosya Kapatma / FOMO Ayrılış Mesajı (Gün 7)
-- 📊 **Finansal ROI & Payback Hesaplayıcı:** Müşteri/sipariş tutarı, amortisman süresi ve getiri oranıyla satış metnine finansal ikna kancası enjekte eder.
-- 🕷️ **Derin E-Posta & WhatsApp Avcısı:** Web sitelerinin ana sayfası ve `/iletisim`, `/contact`, `/about` sayfalarını tarar; resim/spam e-postalarını eler, net iletişim kanallarını çıkarır.
-- ⚡ **Satış Fırsatı Skoru (0 - 100):** Hangi işletmenin dijital hizmete daha çok ihtiyacı olduğunu otomatik puanlar.
-- 🤖 **Çoklu AI Desteği & Hazır Şablonlar:** 
+-  **Finansal ROI & Payback Hesaplayıcı:** Müşteri/sipariş tutarı, amortisman süresi ve getiri oranıyla satış metnine finansal ikna kancası enjekte eder.
+-  **Derin E-Posta & WhatsApp Avcısı:** Web sitelerinin ana sayfası ve `/iletisim`, `/contact`, `/about` sayfalarını tarar; resim/spam e-postalarını eler, net iletişim kanallarını çıkarır.
+-  **Satış Fırsatı Skoru (0 - 100):** Hangi işletmenin dijital hizmete daha çok ihtiyacı olduğunu otomatik puanlar.
+-  **Çoklu AI Desteği & Hazır Şablonlar:** 
   - Google Gemini API
   - OpenAI API
   - Yerel Ollama (Llama 3 / Mistral)
   - **API Anahtarsız Çevrimdışı Yüksek Dönüşümlü Satış Şablonları** (Kutudan çıktığı an çalışır!).
-- 📊 **UI/UX Pro Max Arayüz:** Modern Dark/Light tema, cam efekti kartlar (glassmorphism), `Cmd+K` Komut Paleti, mikro animasyonlar, filtreler ve çift mod (Tablo & Kanban Pano).
-- 🖥️ **PWA & Native Desktop Launcher:** Masaüstü kısayolu, bağımsız pencere modu ve çevrimdışı önbellek desteği.
-- 📁 **Excel & CSV Dışa Aktarma:** Türkçe karakterleri (ç, ş, ğ, ö, ü, İ) bozulmadan açan UTF-8 BOM destekli dışa aktarım.
+-  **UI/UX Pro Max Arayüz:** Modern Dark/Light tema, cam efekti kartlar (glassmorphism), `Cmd+K` Komut Paleti, mikro animasyonlar, filtreler ve çift mod (Tablo & Kanban Pano).
+-  **PWA & Native Desktop Launcher:** Masaüstü kısayolu, bağımsız pencere modu ve çevrimdışı önbellek desteği.
+-  **Excel & CSV Dışa Aktarma:** Türkçe karakterleri (ç, ş, ğ, ö, ü, İ) bozulmadan açan UTF-8 BOM destekli dışa aktarım.
 
 ---
 
-## 🖥️ Masaüstü Uygulaması (Desktop)
+## Masaüstü Uygulaması (Desktop)
 
 GeoLeads'i sadece web tarayıcısında değil, bilgisayarınızda **bağımsız bir masaüstü uygulaması** olarak çalıştırabilirsiniz:
 
@@ -87,28 +87,28 @@ python3 desktop.py
 
 ---
 
-## ⭐ Star-Gate & Organik Büyüme Modeli
+## Star Star-Gate & Organik Büyüme Modeli
 
 GeoLeads, açık kaynak topluluk büyümesini teşvik eden akıllı bir **Star-Gate** mimarisine sahiptir. Hiçbir lisans ücreti veya şifre girme zahmeti olmadan, sadece GitHub depomuza 1 yıldız vererek Pro özelliklerin tamamını açabilirsiniz:
 
-| Özellik | 🌟 Standart Topluluk | ⭐ GitHub Yıldız Destekçisi (1-Tık) |
+| Özellik | Star Standart Topluluk | Star GitHub Yıldız Destekçisi (1-Tık) |
 | :--- | :---: | :---: |
 | Arama Başına Müşteri | **25 Adet** | **Sınırsız (500+)** |
-| Canlı Harita & OSM Tarama | ✅ | ✅ |
-| Sınırsız Excel/CSV İndirme | İlk 25 | ✅ **Sınırsız** |
-| Masaüstü Uygulama Modu | ✅ | ✅ |
-| Derin E-Posta & WhatsApp Avcısı | Sınırlı | ✅ **Sınırsız Canlı** |
-| AI Kişiselleştirilmiş Satış Metni | Önizleme | ✅ **Tam & WhatsApp 1-Tık** |
-| Mini CRM Pipeline & Filtreleme | ✅ | ✅ |
+| Canlı Harita & OSM Tarama | [x] | [x] |
+| Sınırsız Excel/CSV İndirme | İlk 25 | [x] **Sınırsız** |
+| Masaüstü Uygulama Modu | [x] | [x] |
+| Derin E-Posta & WhatsApp Avcısı | Sınırlı | [x] **Sınırsız Canlı** |
+| AI Kişiselleştirilmiş Satış Metni | Önizleme | [x] **Tam & WhatsApp 1-Tık** |
+| Mini CRM Pipeline & Filtreleme | [x] | [x] |
 
-> **🌟 Nasıl Açılır?**
+> **Star Nasıl Açılır?**
 > Arayüzdeki veya Star-Gate penceresindeki **"GitHub'da Yıldız Ver & Pro Aç"** butonuna tıklayın. Depo açıldığında yıldız vermenizle birlikte tarayıcınızda tüm Pro özellikler konfeti kutlamasıyla anında aktif olur!
 >
 > *(İsteğe bağlı: Kendi sunucusunda yönetici olarak çalıştırmak isteyenler için `.env` dosyasında `GEOLEADS_MASTER_KEY` ayarlanabilir).*
 
 ---
 
-## 🚀 Hızlı Başlangıç
+## Hızlı Başlangıç
 
 ### Yöntem 1: Yerel Çalıştırma (1 Komutla, Sıfır Kurulum)
 
@@ -135,7 +135,7 @@ docker compose up --build
 
 ---
 
-## 🛠️ Mimari Yapı
+## Mimari Yapı
 
 ```
 GeoLeads/
@@ -171,25 +171,25 @@ GeoLeads/
 
 ---
 
-## 🧪 Testleri Çalıştırma
+## Testleri Çalıştırma
 
 GeoLeads, kapsamlı bir test süitine sahiptir:
 
 ```bash
-python3 -m unittest discover -s backend/tests -p "test_*.py" -v
+python3 -m unittest discover -s backend/tests -v
 ```
 
-Sonuç: **Tüm 57 test başarıyla geçmektedir (0 Hata).**
+Sonuç: **Tüm 59 test başarıyla geçmektedir (0 Hata).**
 
 ---
 
-## 🌐 About GeoLeads, SEO & GEO Growth
+## About GeoLeads, SEO & GEO Growth
 
-### 🎯 Hakkında & Sıfır Maliyetli Küresel GEO Mimarisi
+### Hakkında & Sıfır Maliyetli Küresel GEO Mimarisi
 
 **GeoLeads**, geleneksel B2B müşteri bulma servislerinin ve Google Maps API'lerinin dayattığı sorgu başına fahiş maliyetlere ve kapalı veri modellerine karşı geliştirilmiş **%100 açık kaynaklı** bir lead motorudur.
 
-#### 🌍 GEO & Küresel Yerel Arama Nasıl Çalışır?
+#### GEO & Küresel Yerel Arama Nasıl Çalışır?
 - **Çoklu Arama Motoru Fallback Hibriti:** Hedef lokasyon için önce 5 döner aynalı **OpenStreetMap Overpass** ağı taranır. Ardından **Google Maps Canlı Web Ayrıştırıcısı**, **DuckDuckGo Local** ve **Bing Yerel İşletmeler** dizinleri eşzamanlı harmanlanır.
 - **Sınırsız Coğrafi Kapsama (GEO Targeting):** Şehir veya ilçe bazında (örn. *İstanbul Kadıköy Diş Klinikleri*, *Berlin Kreuzberg Cafes*, *London Westminster Accountants*, *New York Brooklyn Law Firms*) tam coğrafi sınır koordinatları ve yerel dizinler taranır.
 - **Derin Web E-Posta & WhatsApp Avcısı:** İşletmenin web sitesine otomatik gidilerek ana sayfa ve `/iletisim`, `/contact`, `/about` alt sayfalarından kurumsal e-postalar ve doğrudan WhatsApp hatları ayıklanır.
@@ -197,7 +197,7 @@ Sonuç: **Tüm 57 test başarıyla geçmektedir (0 Hata).**
 
 ---
 
-### 📈 Star History (Yıldız Geçmişi)
+### Star History (Yıldız Geçmişi)
 
 Projeye yıldız vererek açık kaynak geliştiricilere destek olun ve büyüme grafiğimizi takip edin:
 
@@ -205,13 +205,13 @@ Projeye yıldız vererek açık kaynak geliştiricilere destek olun ve büyüme 
 
 ---
 
-### 🏷️ Önerilen GitHub Depo "About" Ayarları (SEO & Organik Sıralama)
+### Önerilen GitHub Depo "About" Ayarları (SEO & Organik Sıralama)
 
 GitHub arama motoru, explore sayfası ve Google SERP sıralamalarında zirveye yerleşmek için GitHub Depo Ayarları (`Settings -> About`) bölümüne aşağıdaki bilgileri doğrudan kopyalayıp yapıştırabilirsiniz:
 
 #### 1. Repository Description (Depo Açıklaması - 350 Karakter):
 ```text
-🎯 Sıfır maliyetli Google Maps & Yerel İşletme B2B Müşteri Bulma Motoru. Haritalardan canlı işletmeleri tara, derin web avcısıyla e-posta & WhatsApp bul, AI ile kişiselleştirilmiş soğuk satış teklifi üret! Zero-cost Google Maps Scraper, Lead Generation, Web Audit & Cold Outreach CRM.
+Sıfır maliyetli Google Maps & Yerel İşletme B2B Müşteri Bulma Motoru. Haritalardan canlı işletmeleri tara, derin web avcısıyla e-posta & WhatsApp bul, AI ile kişiselleştirilmiş soğuk satış teklifi üret! Zero-cost Google Maps Scraper, Lead Generation, Web Audit & Cold Outreach CRM.
 ```
 
 #### 2. Website / Homepage URL:
@@ -219,30 +219,28 @@ GitHub arama motoru, explore sayfası ve Google SERP sıralamalarında zirveye y
 https://github.com/DevKursat/GeoLeads
 ```
 
-#### 3. 20 Yüksek Sıralamalı Konu Etiketi (GitHub Topics / Tags):
-> *GitHub repo ayarlarındaki "Topics" alanına virgülle veya tek tek yapıştırın:*
-
+#### 3. Topics (Konu Etiketleri - virgülle ayırarak ekleyin):
 ```text
 google-maps-scraper, lead-generation, b2b-leads, cold-outreach, whatsapp-crm, email-scraper, local-seo, geo-targeting, openstreetmap, overpass-api, fastapi, python-scraper, business-intelligence, sales-automation, growth-hacking, web-scraping, marketing-tools, crm, b2b-sales, google-maps-api-alternative
 ```
 
-#### 🔍 Neden Bu Etiketler?
+#### Neden Bu Etiketler?
 1. **GitHub Explore & Trending İndeksi:** `lead-generation`, `google-maps-scraper` ve `web-scraping` etiketleri dünya genelinde haftalık on binlerce yazılımcı ve ajans tarafından taranmaktadır.
 2. **Google SEO Backlink & Arama İndeksi:** Bu anahtar kelimeler, arama motorlarında "free google maps scraper without api key" ve "python b2b lead generator" sorgularında depomuzun 1. sayfada indekslenmesini sağlar.
 3. **GEO Hedefli Dönüşüm:** `geo-targeting`, `local-seo` ve `openstreetmap` etiketleri yerel pazarlama uzmanlarını doğrudan projeye çeker.
 
 ---
 
-## 🌟 GitHub Star Desteği
+## GitHub Star Desteği
 
 GeoLeads, açık kaynak topluluk büyümesi ile B2B ajansların, serbest çalışanların (freelance) ve yazılımcıların müşteri bulma derdine son vermek için inşa edilmiştir.
 
-Projeyi faydalı bulduysanız lütfen bir **⭐ Star** vererek açık kaynak topluluğumuza destek olun!
+Projeyi faydalı bulduysanız lütfen bir **Yıldız (Star)** vererek açık kaynak topluluğumuza destek olun!
 
 [https://github.com/DevKursat/GeoLeads](https://github.com/DevKursat/GeoLeads)
 
 ---
 
-## 📄 Lisans
+## Lisans
 
 Bu proje [MIT Lisansı](LICENSE) ile lisanslanmıştır. Ticari ve kişisel kullanım için tamamen serbesttir.

@@ -5,6 +5,7 @@ to each business's specific gaps, category, city, and metrics.
 Supports Gemini, OpenAI, Ollama, and high-converting built-in offline templates.
 """
 import json
+import re
 import ssl
 import urllib.request
 import urllib.parse
@@ -306,15 +307,39 @@ class PitchGenerator:
                             f"{agency}"
                         )
 
-        # Generate direct WhatsApp click link if phone is available
+        # Resolve best WhatsApp target URL
+        wa_target = lead.whatsapp
+        if not wa_target:
+            candidate_phones = [lead.phone] + (getattr(lead, "phones", None) or [])
+            for p in candidate_phones:
+                if not p:
+                    continue
+                digits = re.sub(r'\D', '', p)
+                if digits.startswith("905") and len(digits) == 12:
+                    wa_target = f"https://wa.me/{digits}"
+                    break
+                elif digits.startswith("05") and len(digits) == 11:
+                    wa_target = f"https://wa.me/9{digits}"
+                    break
+                elif digits.startswith("5") and len(digits) == 10:
+                    wa_target = f"https://wa.me/90{digits}"
+                    break
+                elif digits.startswith("00905") and len(digits) == 14:
+                    wa_target = f"https://wa.me/{digits[2:]}"
+                    break
+                elif p.strip().startswith("+") and not any(digits.startswith(pref) for pref in ["902", "903", "904", "908"]):
+                    if 10 <= len(digits) <= 15:
+                        wa_target = f"https://wa.me/{digits}"
+                        break
+
         whatsapp_url = ""
-        if lead.whatsapp:
+        if wa_target:
             encoded_msg = urllib.parse.quote(message)
-            if "wa.me/" in lead.whatsapp:
-                phone_num = lead.whatsapp.split("wa.me/")[-1].split("?")[0]
+            if "wa.me/" in wa_target:
+                phone_num = wa_target.split("wa.me/")[-1].split("?")[0]
                 whatsapp_url = f"https://wa.me/{phone_num}?text={encoded_msg}"
             else:
-                whatsapp_url = f"{lead.whatsapp}&text={encoded_msg}"
+                whatsapp_url = f"{wa_target}&text={encoded_msg}"
 
         # Apply ROI Calculation Hook if provided
         if roi_metrics and isinstance(roi_metrics, dict):
@@ -332,13 +357,13 @@ class PitchGenerator:
                     roi_text = f"\n\n Financial ROI Analysis: An average investment of {deal_val} pays for itself {pb_str}{pct_str} through increased revenue and efficiency."
                 message = message.strip() + roi_text
                 # Recompute whatsapp_url with updated message
-                if lead.whatsapp:
+                if wa_target:
                     encoded_msg = urllib.parse.quote(message)
-                    if "wa.me/" in lead.whatsapp:
-                        phone_num = lead.whatsapp.split("wa.me/")[-1].split("?")[0]
+                    if "wa.me/" in wa_target:
+                        phone_num = wa_target.split("wa.me/")[-1].split("?")[0]
                         whatsapp_url = f"https://wa.me/{phone_num}?text={encoded_msg}"
                     else:
-                        whatsapp_url = f"{lead.whatsapp}&text={encoded_msg}"
+                        whatsapp_url = f"{wa_target}&text={encoded_msg}"
 
         return {
             "provider": "offline-pro-templates",

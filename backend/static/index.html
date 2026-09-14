@@ -1206,7 +1206,7 @@
           <span id="queueLeadEmail" class="flex items-center gap-1 font-mono"><i data-lucide="mail" class="w-3 h-3"></i> E-Posta</span>
         </div>
 
-        <!-- Sequence Step Switcher inside Queue -->
+        <!-- Sequence Step & Channel Switcher inside Queue -->
         <div class="pt-2.5 border-t border-slate-200 dark:border-slate-800/70 mt-2.5 flex items-center justify-between flex-wrap gap-2">
           <div class="flex items-center gap-1" id="queueStepSelector">
             <button type="button" onclick="setQueueSequenceStep(1, this)" id="qstep_1" class="queue-step-pill touch-target px-2 py-0.5 rounded text-[11px] font-medium bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-sm">
@@ -1219,16 +1219,27 @@
               Adım 3
             </button>
           </div>
-          <span id="queueChannelLabel" class="text-[10px] font-mono text-slate-400"></span>
+          <div class="flex items-center gap-1.5">
+            <div class="flex items-center gap-1">
+              <button type="button" onclick="setQueueChannel('whatsapp')" id="queueChannelBtnWa" class="touch-target px-2 py-0.5 rounded text-[11px] font-medium border border-transparent bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-sm transition flex items-center gap-1">
+                <i data-lucide="message-circle" class="w-3 h-3"></i> <span>WhatsApp</span>
+              </button>
+              <button type="button" onclick="setQueueChannel('email')" id="queueChannelBtnEmail" class="touch-target px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1">
+                <i data-lucide="mail" class="w-3 h-3"></i> <span>E-posta</span>
+              </button>
+            </div>
+            <span id="queueChannelLabel" class="text-[10px] font-mono text-slate-400"></span>
+          </div>
         </div>
       </div>
 
       <!-- Live Editable Pitch Box in Queue -->
       <div class="relative mb-3">
         <div class="flex items-center justify-between text-[11px] text-slate-500 mb-1">
-          <span>Gönderilecek Mesaj</span>
+          <span id="queuePitchLabel">Gönderilecek WhatsApp Mesajı</span>
           <span id="queuePitchMetrics" class="font-mono text-[10px]">0 karakter</span>
         </div>
+        <input type="text" id="queuePitchSubject" class="hidden w-full mb-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-900 dark:text-slate-100 font-medium focus:outline-none focus:border-slate-400 dark:focus:border-slate-600" placeholder="E-posta Konusu">
         <textarea id="queuePitchText" rows="5" oninput="updateQueuePitchMetrics()"
           class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-xs text-slate-900 dark:text-slate-100 font-mono leading-relaxed focus:outline-none focus:border-slate-400 dark:focus:border-slate-600 custom-scrollbar"></textarea>
       </div>
@@ -1281,7 +1292,7 @@
     let currentSequenceStep = 1;
     let currentRoiMetrics = null;
     let currentFilteredLeads = [];
-    let outreachQueueState = { leads: [], currentIdx: 0, activeStep: 1 };
+    let outreachQueueState = { leads: [], currentIdx: 0, activeStep: 1, activeChannel: 'whatsapp' };
 
     const CAMPAIGN_PRESETS = {
       software: {
@@ -2403,9 +2414,15 @@
     }
 
     function normalizePhoneForWhatsApp(phoneStr, waLink) {
-      if (waLink && waLink.includes("wa.me/")) {
-        const parts = waLink.split("wa.me/")[1].split("?")[0].replace(/\D/g, '');
-        if (parts.length >= 10) return parts;
+      if (waLink) {
+        if (waLink.includes("wa.me/")) {
+          const parts = waLink.split("wa.me/")[1].split("?")[0].replace(/\D/g, '');
+          if (parts.length >= 10) return parts;
+        }
+        if (waLink.includes("phone=")) {
+          const parts = waLink.split("phone=")[1].split("&")[0].replace(/\D/g, '');
+          if (parts.length >= 10) return parts;
+        }
       }
       if (!phoneStr) return "";
       const digits = phoneStr.replace(/\D/g, '');
@@ -2419,6 +2436,25 @@
         return digits.slice(2);
       } else if (phoneStr.trim().startsWith("+") && !digits.startsWith("902") && !digits.startsWith("903") && !digits.startsWith("904") && !digits.startsWith("908") && digits.length >= 10 && digits.length <= 15) {
         return digits;
+      }
+      return "";
+    }
+
+    function resolveLeadWhatsAppPhone(lead) {
+      if (!lead) return "";
+      if (lead.whatsapp) {
+        const waNum = normalizePhoneForWhatsApp(lead.whatsapp, lead.whatsapp);
+        if (waNum) return waNum;
+      }
+      if (lead.phone) {
+        const pNum = normalizePhoneForWhatsApp(lead.phone, "");
+        if (pNum) return pNum;
+      }
+      if (Array.isArray(lead.phones)) {
+        for (const p of lead.phones) {
+          const pNum = normalizePhoneForWhatsApp(p, "");
+          if (pNum) return pNum;
+        }
       }
       return "";
     }
@@ -2473,7 +2509,7 @@
       const lead = leadsState.find(x => x.id === leadId);
       if (!lead) return;
 
-      const targetPhone = normalizePhoneForWhatsApp(lead.phone, lead.whatsapp);
+      const targetPhone = resolveLeadWhatsAppPhone(lead);
       if (!targetPhone) {
         showToast("Bu işletmenin doğrudan WhatsApp numarası bulunmuyor.", "error");
         return;
@@ -2490,13 +2526,13 @@
 
     async function quickEmailOutreach(leadId) {
       const lead = leadsState.find(x => x.id === leadId);
-      if (!lead || !lead.emails || lead.emails.length === 0) {
+      const targetEmail = (lead && lead.emails && lead.emails.length) ? lead.emails[0] : (lead?.email || "");
+      if (!targetEmail) {
         showToast("İşletmenin kayıtlı e-postası bulunamadı.", "error");
         return;
       }
 
       const pitch = generateQuickPitch(lead, 'email');
-      const targetEmail = lead.emails[0];
       const mailtoUrl = `mailto:${targetEmail}?subject=${encodeURIComponent(pitch.subject)}&body=${encodeURIComponent(pitch.body)}`;
       playAudioChime('outreach');
       window.open(mailtoUrl, "_blank");
@@ -2530,10 +2566,10 @@
     function sendWhatsAppWithPitch() {
       if (!activeLead) return;
       let text = document.getElementById("modalPitchText").value;
-      if (!text || text.startsWith("Kişiselleştirilmiş metin hazırlanıyor")) {
+      if (!text || text.startsWith("Kişiselleştirilmiş metin hazırlanıyor") || text.startsWith("Metin oluşturulurken")) {
         text = generateQuickPitch(activeLead, 'whatsapp');
       }
-      const targetPhone = normalizePhoneForWhatsApp(activeLead.phone, activeLead.whatsapp);
+      const targetPhone = resolveLeadWhatsAppPhone(activeLead);
       if (!targetPhone) {
         showToast("Bu işletmenin telefon veya WhatsApp numarası bulunmuyor.", "error");
         return;
@@ -2546,18 +2582,17 @@
 
     function sendEmailWithPitch() {
       if (!activeLead) return;
-      if (!activeLead.emails || activeLead.emails.length === 0) {
+      const targetEmail = (activeLead.emails && activeLead.emails.length) ? activeLead.emails[0] : (activeLead.email || "");
+      if (!targetEmail) {
         showToast("Bu işletmenin kayıtlı e-postası bulunmuyor.", "error");
         return;
       }
       let text = document.getElementById("modalPitchText").value;
-      let defaultSubject = `${activeLead.name} İçin Dijital Fırsat Analizi (${activeLead.city || ''})`;
-      if (!text || text.startsWith("Kişiselleştirilmiş metin hazırlanıyor")) {
-        const qp = generateQuickPitch(activeLead, 'email');
+      const qp = generateQuickPitch(activeLead, 'email');
+      let defaultSubject = qp.subject || `${activeLead.name} İçin Dijital Fırsat Analizi (${activeLead.city || ''})`;
+      if (!text || text.startsWith("Kişiselleştirilmiş metin hazırlanıyor") || text.startsWith("Metin oluşturulurken")) {
         text = qp.body;
-        defaultSubject = qp.subject;
       }
-      const targetEmail = activeLead.emails[0];
       const subject = activeLead.generatedPitch && activeLead.generatedPitch.subject 
         ? activeLead.generatedPitch.subject 
         : defaultSubject;
@@ -2976,6 +3011,10 @@
       outreachQueueState.currentIdx = 0;
       outreachQueueState.activeStep = 1;
       
+      const lead = outreachQueueState.leads[0];
+      const waPhone = resolveLeadWhatsAppPhone(lead);
+      outreachQueueState.activeChannel = waPhone ? 'whatsapp' : (((lead?.emails && lead.emails.length) || lead?.email) ? 'email' : 'whatsapp');
+
       const modal = document.getElementById("outreachQueueModal");
       if (modal) {
         modal.classList.remove("hidden");
@@ -2987,6 +3026,11 @@
     function closeOutreachQueue() {
       const modal = document.getElementById("outreachQueueModal");
       if (modal) modal.classList.add("hidden");
+    }
+
+    function setQueueChannel(channel) {
+      outreachQueueState.activeChannel = channel;
+      renderCurrentQueueLead();
     }
 
     async function renderCurrentQueueLead() {
@@ -3010,13 +3054,16 @@
       const phoneEl = document.getElementById("queueLeadPhone");
       const emailEl = document.getElementById("queueLeadEmail");
 
+      const displayPhone = lead.phone || (lead.phones && lead.phones.length > 0 ? lead.phones[0] : "");
+      const displayEmail = (lead.emails && lead.emails.length > 0) ? lead.emails[0] : (lead.email || "");
+
       if (nameEl) nameEl.textContent = lead.name || "İşletme";
       if (catEl) catEl.textContent = lead.category || "Genel";
       if (scoreEl) scoreEl.textContent = `Skor: ${lead.opportunity_score || 70}`;
       if (gapEl) gapEl.textContent = `Açık: ${lead.primary_gap || "Genel"}`;
       if (cityEl) cityEl.innerHTML = `<i data-lucide="map-pin" class="w-3 h-3"></i> ${lead.city || "Konum Yok"}`;
-      if (phoneEl) phoneEl.innerHTML = `<i data-lucide="phone" class="w-3 h-3"></i> ${lead.phone || "Telefon Yok"}`;
-      if (emailEl) emailEl.innerHTML = `<i data-lucide="mail" class="w-3 h-3"></i> ${lead.emails && lead.emails.length > 0 ? lead.emails[0] : "E-posta Yok"}`;
+      if (phoneEl) phoneEl.innerHTML = `<i data-lucide="phone" class="w-3 h-3"></i> ${displayPhone || "Telefon Yok"}`;
+      if (emailEl) emailEl.innerHTML = `<i data-lucide="mail" class="w-3 h-3"></i> ${displayEmail || "E-posta Yok"}`;
 
       document.querySelectorAll(".queue-step-pill").forEach((btn, i) => {
         if (i + 1 === outreachQueueState.activeStep) {
@@ -3026,9 +3073,32 @@
         }
       });
 
+      const waPhone = resolveLeadWhatsAppPhone(lead);
+      const hasEmail = Boolean(displayEmail);
+
       const channelLabel = document.getElementById("queueChannelLabel");
       if (channelLabel) {
-        channelLabel.textContent = lead.whatsapp || isMobileNumber(lead.phone) ? "WhatsApp Öncelikli" : (lead.emails && lead.emails.length ? "E-posta Öncelikli" : "İletişim Eksik");
+        channelLabel.textContent = waPhone ? "WhatsApp Doğrulandı" : (hasEmail ? "E-posta Doğrulandı" : "İletişim Eksik");
+      }
+
+      const activeChannel = outreachQueueState.activeChannel || (waPhone ? "whatsapp" : "email");
+      const btnWa = document.getElementById("queueChannelBtnWa");
+      const btnEmail = document.getElementById("queueChannelBtnEmail");
+      const pitchLabel = document.getElementById("queuePitchLabel");
+      const subjectInput = document.getElementById("queuePitchSubject");
+
+      if (btnWa && btnEmail) {
+        if (activeChannel === "whatsapp") {
+          btnWa.className = "touch-target px-2 py-0.5 rounded text-[11px] font-medium border border-transparent bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-sm transition flex items-center gap-1";
+          btnEmail.className = "touch-target px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1";
+          if (subjectInput) subjectInput.classList.add("hidden");
+          if (pitchLabel) pitchLabel.textContent = "Gönderilecek WhatsApp Mesajı";
+        } else {
+          btnEmail.className = "touch-target px-2 py-0.5 rounded text-[11px] font-medium border border-transparent bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-sm transition flex items-center gap-1";
+          btnWa.className = "touch-target px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1";
+          if (subjectInput) subjectInput.classList.remove("hidden");
+          if (pitchLabel) pitchLabel.textContent = "Gönderilecek E-posta Metni";
+        }
       }
 
       const pitchArea = document.getElementById("queuePitchText");
@@ -3046,7 +3116,7 @@
           method: "POST",
           headers: headers,
           body: JSON.stringify({
-            channel: lead.whatsapp || isMobileNumber(lead.phone) ? "whatsapp" : "email",
+            channel: activeChannel,
             tone: currentStudioTone,
             lang: "tr",
             sender_name: "Kürşat",
@@ -3063,10 +3133,22 @@
         if (json.success && pitchArea) {
           pitchArea.value = json.data.content;
           lead.currentQueuePitch = json.data;
+          if (subjectInput && json.data.subject) {
+            subjectInput.value = json.data.subject;
+          }
           updateQueuePitchMetrics();
         }
       } catch (e) {
-        if (pitchArea) pitchArea.value = "Metin oluşturulurken hata oluştu.";
+        if (pitchArea) {
+          if (activeChannel === 'email') {
+            const qp = generateQuickPitch(lead, 'email');
+            pitchArea.value = qp.body;
+            if (subjectInput) subjectInput.value = qp.subject;
+          } else {
+            pitchArea.value = generateQuickPitch(lead, 'whatsapp');
+          }
+          updateQueuePitchMetrics();
+        }
       }
 
       lucide.createIcons();
@@ -3117,10 +3199,10 @@
       const lead = outreachQueueState.leads[outreachQueueState.currentIdx];
       if (!lead) return;
       let pitchText = document.getElementById("queuePitchText")?.value || "";
-      if (!pitchText || pitchText.startsWith("Satış metni hazırlanıyor")) {
+      if (!pitchText || pitchText.startsWith("Satış metni hazırlanıyor") || pitchText.startsWith("Metin oluşturulurken")) {
         pitchText = generateQuickPitch(lead, 'whatsapp');
       }
-      const phone = normalizePhoneForWhatsApp(lead.phone, lead.whatsapp);
+      const phone = resolveLeadWhatsAppPhone(lead);
 
       if (!phone) {
         showToast("Bu müşterinin telefon veya WhatsApp numarası bulunmuyor.", "error");
@@ -3142,19 +3224,20 @@
     async function queueActionEmail() {
       const lead = outreachQueueState.leads[outreachQueueState.currentIdx];
       if (!lead) return;
+      const qp = generateQuickPitch(lead, 'email');
       let pitchText = document.getElementById("queuePitchText")?.value || "";
-      if (!pitchText || pitchText.startsWith("Satış metni hazırlanıyor")) {
-        const qp = generateQuickPitch(lead, 'email');
+      if (!pitchText || pitchText.startsWith("Satış metni hazırlanıyor") || pitchText.startsWith("Metin oluşturulurken")) {
         pitchText = qp.body;
       }
-      const email = lead.emails && lead.emails.length ? lead.emails[0] : "";
+      const email = (lead.emails && lead.emails.length) ? lead.emails[0] : (lead.email || "");
 
       if (!email) {
         showToast("Bu müşterinin e-postası bulunmuyor.", "error");
         return;
       }
 
-      const subject = lead.currentQueuePitch?.subject || `${lead.name} İçin Çözüm Önerisi`;
+      const customSubject = document.getElementById("queuePitchSubject")?.value;
+      const subject = customSubject || lead.currentQueuePitch?.subject || qp.subject || `${lead.name} İçin Çözüm Önerisi`;
       const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(pitchText)}`;
       window.open(mailtoUrl, "_blank");
 

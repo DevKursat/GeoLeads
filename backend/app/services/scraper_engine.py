@@ -320,19 +320,28 @@ class ScraperEngine:
                 lead.phones.append(lead.phone)
 
             # Detect WhatsApp if not set but phone is mobile
-            if not lead.whatsapp and lead.phone:
-                digits = re.sub(r'\D', '', lead.phone)
-                if digits.startswith("905") and len(digits) == 12:
-                    lead.whatsapp = f"https://wa.me/{digits}"
-                elif digits.startswith("05") and len(digits) == 11:
-                    lead.whatsapp = f"https://wa.me/9{digits}"
-                elif digits.startswith("5") and len(digits) == 10:
-                    lead.whatsapp = f"https://wa.me/90{digits}"
-                elif digits.startswith("00905") and len(digits) == 14:
-                    lead.whatsapp = f"https://wa.me/{digits[2:]}"
-                elif lead.phone.strip().startswith("+") and not any(digits.startswith(p) for p in ["902", "903", "904", "908"]):
-                    if 10 <= len(digits) <= 15:
+            if not lead.whatsapp:
+                candidate_phones = [lead.phone] + (lead.phones or [])
+                for p in candidate_phones:
+                    if not p:
+                        continue
+                    digits = re.sub(r'\D', '', p)
+                    if digits.startswith("905") and len(digits) == 12:
                         lead.whatsapp = f"https://wa.me/{digits}"
+                        break
+                    elif digits.startswith("05") and len(digits) == 11:
+                        lead.whatsapp = f"https://wa.me/9{digits}"
+                        break
+                    elif digits.startswith("5") and len(digits) == 10:
+                        lead.whatsapp = f"https://wa.me/90{digits}"
+                        break
+                    elif digits.startswith("00905") and len(digits) == 14:
+                        lead.whatsapp = f"https://wa.me/{digits[2:]}"
+                        break
+                    elif p.strip().startswith("+") and not any(digits.startswith(pref) for pref in ["902", "903", "904", "908"]):
+                        if 10 <= len(digits) <= 15:
+                            lead.whatsapp = f"https://wa.me/{digits}"
+                            break
 
             # Analyze Sales Gaps & calculate opportunity score
             opp_score, gaps, primary_gap = gap_detector.analyze(lead)

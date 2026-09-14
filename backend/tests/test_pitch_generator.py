@@ -266,6 +266,23 @@ class TestPitchGenerator(unittest.TestCase):
         self.assertIn("180% ROI", res_en["content"])
 
 
+    def test_whatsapp_direct_url_fallback_from_phones_list(self):
+        lead = Lead(
+            name="Salon Prestij",
+            city="İzmir",
+            category="Kuaför",
+            phone="+90 232 463 80 90",
+            phones=["+90 232 463 80 90", "+90 544 108 76 91"]
+        )
+        res = self.generator.generate_pitch(
+            lead=lead,
+            channel="whatsapp",
+            product_pitch_type="hair_dye"
+        )
+        self.assertIn("wa.me/905441087691", res["whatsapp_direct_url"])
+
+
 if __name__ == "__main__":
     unittest.main()
+
 

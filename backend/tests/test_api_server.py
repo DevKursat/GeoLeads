@@ -333,10 +333,15 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertIn('id="outreachQueueModal"', html)
         self.assertIn('id="btnTopOutreachQueue"', html)
         self.assertIn('id="btnTableOutreachQueue"', html)
+        self.assertIn('id="queueChannelBtnWa"', html)
+        self.assertIn('id="queueChannelBtnEmail"', html)
+        self.assertIn('id="queuePitchSubject"', html)
         self.assertIn("openOutreachQueue", html)
         self.assertIn("closeOutreachQueue", html)
+        self.assertIn("setQueueChannel", html)
         self.assertIn("queueActionWhatsApp", html)
         self.assertIn("queueActionEmail", html)
+        self.assertIn("resolveLeadWhatsAppPhone", html)
         self.assertIn("nextQueueLead", html)
 
         # Sequence Step Buttons in Tab 3 Studio
@@ -352,6 +357,35 @@ class TestAPIEndpoints(unittest.TestCase):
         self.assertIn('id="roiPercent"', html)
         self.assertIn("applyRoiToPitch", html)
         self.assertIn("clearRoiFromPitch", html)
+
+    def test_strict_zero_emojis_in_codebase(self):
+        """Strictly enforces 0 emojis across the codebase and templates."""
+        import re
+        emoji_pattern = re.compile(
+            "["
+            "\U0001F000-\U0010FFFF"
+            "\u2600-\u27BF"
+            "\u2300-\u23FF"
+            "\u2B50\u2B55\u2934\u2935\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE"
+            "\u3030\u303D\u3297\u3299\uFE0E\uFE0F"
+            "]"
+        )
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        violations = []
+
+        for root, dirs, files in os.walk(base_dir):
+            if any(p in root for p in [".git", "node_modules", ".pytest_cache", "__pycache__", ".venv"]):
+                continue
+            for f in files:
+                if f.endswith((".html", ".py", ".js", ".css", ".json", ".md", ".sh")):
+                    p = os.path.join(root, f)
+                    with open(p, "r", encoding="utf-8", errors="ignore") as fl:
+                        for line_no, line in enumerate(fl, 1):
+                            m = emoji_pattern.findall(line)
+                            if m:
+                                violations.append(f"{p}:{line_no} -> {m}")
+
+        self.assertEqual(len(violations), 0, f"Emoji violations detected: {violations}")
 
     def test_pitch_endpoint_with_sequence_and_roi(self):
         lead = Lead(name="ROI Test Klinik", city="Kadıköy", category="Diş")

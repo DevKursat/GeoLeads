@@ -21,7 +21,7 @@ echo "[*] Veritabanı ve servisler hazırlanıyor..."
 
 cd "$(dirname "$0")/backend"
 
-echo "[✓] GeoLeads hazır!"
+echo "[OK] GeoLeads hazır!"
 echo "[*] Web arayüzü başlatılıyor: http://localhost:$PORT"
 echo "========================================================"
 echo " GitHub Repo: https://github.com/DevKursat/GeoLeads"

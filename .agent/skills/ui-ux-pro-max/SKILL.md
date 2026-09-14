@@ -11,13 +11,13 @@ It enforces strict aesthetic standards, functional precision, and micro-interact
 
 ---
 
-## 🚫 1. Anti-AI-Slop Directives (Strict Rules)
+##  1. Anti-AI-Slop Directives (Strict Rules)
 
 AI-generated interfaces often look cheap, cookie-cutter, or chaotic ("AI Slop"). This skill strictly forbids the following anti-patterns:
 
 | Priority | Anti-Pattern (AI Slop) | Required Standard (Linear / Pro Max Craft) |
 | :--- | :--- | :--- |
-| **P0** | **Emoji as UI Icons in Buttons/Tabs** (e.g. `[🚀 Başlat]`, `[💬 Sohbet]`) | **Pure SVG Icons (Lucide):** Emojis are strictly banned in UI buttons, tabs, chips, and badges. Use `<i data-lucide="..."></i>` with consistent stroke width (`1.5px` or `2px`). Emojis are only allowed in customer-facing message body text (WhatsApp pitches). |
+| **P0** | **Emoji as UI Icons in Buttons/Tabs** (e.g. `[ Başlat]`, `[ Sohbet]`) | **Pure SVG Icons (Lucide):** Emojis are strictly banned in UI buttons, tabs, chips, and badges. Use `<i data-lucide="..."></i>` with consistent stroke width (`1.5px` or `2px`). Emojis are only allowed in customer-facing message body text (WhatsApp pitches). |
 | **P0** | **Purple/Violet Gradient Soup** | **Monochromatic Slate Base + Intentional Accents:** Backgrounds must be deep `slate-950` / `slate-900` in dark mode, and clean `slate-50` / `slate-100` in light mode. Accents must have clear semantic meaning (Emerald for money/WhatsApp, Indigo for software, Amber for stars/opportunity, Rose for security bugs). |
 | **P0** | **Low Contrast & Illegible Text** | **WCAG 4.5:1 Strict Contrast:** Text must never be light grey on white or dark grey on black. Subtitles use `text-slate-600 dark:text-slate-400`. High-importance text uses `text-slate-900 dark:text-white`. |
 | **P1** | **Floaty Bubble Corners (`rounded-3xl` everywhere)** | **Hierarchical Radius System:** Outer containers: `rounded-2xl` or `rounded-3xl`. Inner cards: `rounded-xl`. Buttons and inputs: `rounded-xl`. Tags and badges: `rounded-lg` or `rounded-full`. |
@@ -27,7 +27,7 @@ AI-generated interfaces often look cheap, cookie-cutter, or chaotic ("AI Slop").
 
 ---
 
-## 🎨 2. Color Palette & Semantic Tokens
+##  2. Color Palette & Semantic Tokens
 
 ### Neutral Foundation (Zero Dark-Mode Collision)
 ```css
@@ -60,7 +60,7 @@ AI-generated interfaces often look cheap, cookie-cutter, or chaotic ("AI Slop").
 
 ---
 
-## 📐 3. Industry-Specific B2B Design Profiles
+##  3. Industry-Specific B2B Design Profiles
 
 ### A. Software & Tech Sales (KOBİ, Clinics, Agencies)
 - **Vibe:** Sleek, engineered, modern B2B SaaS.
@@ -83,7 +83,7 @@ AI-generated interfaces often look cheap, cookie-cutter, or chaotic ("AI Slop").
 
 ---
 
-## ⚡ 4. Keyboard-First Interaction & Micro-UX
+##  4. Keyboard-First Interaction & Micro-UX
 
 1. **Command Palette (`Cmd+K` / `Ctrl+K`):** Instant search across all campaigns, filters, tools, and actions without touching the mouse.
 2. **Sequential Flow Hotkeys:** In rapid outreach and queue review, support `[` (Previous), `]` (Next), and `Esc` (Close/Cancel).
@@ -92,7 +92,7 @@ AI-generated interfaces often look cheap, cookie-cutter, or chaotic ("AI Slop").
 
 ---
 
-## 🏗️ 5. Component Checklist (Before Shipping Any UI)
+##  5. Component Checklist (Before Shipping Any UI)
 
 - [ ] Does every button use a Lucide SVG icon instead of an emoji?
 - [ ] Are all touch targets at least 44×44px?
